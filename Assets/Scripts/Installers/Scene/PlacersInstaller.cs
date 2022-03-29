@@ -10,6 +10,7 @@ namespace Roguelike.Installers.Scene
         public override void InstallBindings()
         {
             BindRoomsPlacer();
+            BindDungeonPlacer();
         }
 
         void BindRoomsPlacer()
@@ -17,6 +18,13 @@ namespace Roguelike.Installers.Scene
             Container
                 .Bind<IRoomsPlacer>()
                 .To<RoomsPlacer>()
+                .AsSingle();
+        }
+        void BindDungeonPlacer()
+        {
+            Container
+                .Bind<IDungeonPlacer>()
+                .To<DungeonPlacer>()
                 .AsSingle();
         }
         #endregion
