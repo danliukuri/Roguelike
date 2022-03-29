@@ -43,6 +43,41 @@ namespace Roguelike.Core.Entities
                 passagesToTheEast
             };
         }
+
+        public bool TryToCreatePassageTo(Room room)
+        {
+            bool isPassageCreated = false;
+
+            for (int i = 0; i < allPassages.Length; i++)
+            {
+                int oppositeDirectionIndex = (i + 2) % allPassages.Length;
+
+                if (room.transform.position == transform.position + Directions[i] * size &&
+                        allPassages[i].Count != 0 && room.allPassages[oppositeDirectionIndex].Count != 0)
+                {
+                    OpenRandomPassage(new List<Transform>[]
+                    {
+                        allPassages[i],
+                        room.allPassages[oppositeDirectionIndex]
+                    });
+
+                    isPassageCreated = true;
+                }
+            }
+
+            return isPassageCreated;
+        }
+        void OpenRandomPassage(List<Transform>[] passagesMarkers)
+        {
+            int wallNumber = Random.Range(0, passagesMarkers[0].Count);
+            List<Transform> wallsToOpen = new List<Transform>();
+
+            for (int i = 0; i < passagesMarkers.Length; i++)
+                wallsToOpen.Add(passagesMarkers[i][wallNumber]);
+
+            foreach (Transform wallMarker in wallsToOpen)
+                wallMarker.gameObject.SetActive(false);
+        }
         #endregion
     }
 }

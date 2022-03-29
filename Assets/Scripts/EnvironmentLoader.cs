@@ -1,4 +1,6 @@
+using Roguelike.Core.Entities;
 using Roguelike.Core.Placers;
+using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
@@ -22,7 +24,15 @@ namespace Roguelike
 
         void Start()
         {
-            roomsPlacer.Place(firstRoomPosition, startRoomsCount, transform);
+            List<Room> rooms = roomsPlacer.Place(firstRoomPosition, startRoomsCount, transform);
+            CreatePassageBetweenRooms(rooms);
+        }
+
+        void CreatePassageBetweenRooms(List<Room> rooms)
+        {
+            for (int i = 0; i < rooms?.Count; i++)
+                for (int j = i; j < rooms.Count; j++)
+                    rooms[i].TryToCreatePassageTo(rooms[j]);
         }
         #endregion
     }
