@@ -5,6 +5,17 @@ namespace Roguelike.Core.Entities
 {
     public class Room : MonoBehaviour
     {
+        #region Properties
+        public static Vector3[] Directions => new Vector3[]
+        {
+            Vector3.up,
+            Vector3.left,
+            Vector3.down,
+            Vector3.right
+        };
+        public int Size => size;
+        #endregion
+
         #region Fields
         [SerializeField] int size;
         [Header("Markers:")]
