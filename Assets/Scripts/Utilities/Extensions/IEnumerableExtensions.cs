@@ -7,18 +7,27 @@ namespace Roguelike.Utilities.Extensions
     {
         #region Methods
         /// <summary>
-        /// Gives a random item from the sequence.
+        /// Return a random item from the sequence.
         /// </summary>
-        public static T Random<T>(this IEnumerable<T> sourse)
-        {
-            sourse.CheckForNullException(nameof(sourse)).CheckForNoElementsException(sourse.Count());
+        public static T Random<T>(this IEnumerable<T> sourse) => sourse
+            .CheckForNullException(nameof(sourse))
+            .CheckForNoElementsException(sourse.Count())
+            .ElementAt(sourse.RandomIndex(true));
 
-            int randomIndex = UnityEngine.Random.Range(0, sourse.Count());
-            return sourse.ElementAt(randomIndex);
+        /// <summary>
+        /// Return an index of random item from the sequence.
+        /// </summary>
+        public static int RandomIndex<T>(this IEnumerable<T> sourse) => sourse.RandomIndex(false);
+        static int RandomIndex<T>(this IEnumerable<T> sourse, bool isSourseChecked = false)
+        {
+            if (!isSourseChecked)
+                sourse.CheckForNullException(nameof(sourse)).CheckForNoElementsException(sourse.Count());
+
+            return UnityEngine.Random.Range(0, sourse.Count());
         }
 
         /// <summary>
-        /// Gives a random item based on weights from the sequence.
+        /// Return a random item based on weights from the sequence.
         /// </summary>
         /// <remarks>
         /// The greater the weight of the item among others, the more likely it is to be selected.
@@ -27,10 +36,11 @@ namespace Roguelike.Utilities.Extensions
         {
             sourse.CheckForNullException(nameof(sourse)).CheckForNoElementsException(sourse.Count());
 
-            int totalWeight = sourse.Sum(item => item.Weight);
-            int currentWeight = UnityEngine.Random.Range(0, totalWeight);
+            const int MinWeight = 0;
+            int MaxWeight = sourse.Sum(item => item.Weight);
+            int currentWeight = UnityEngine.Random.Range(MinWeight, MaxWeight);
 
-            return sourse.First(item => (currentWeight += item.Weight) >= totalWeight);
+            return sourse.First(item => (currentWeight -= item.Weight) < MinWeight);
         }
         #endregion
     }
