@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Roguelike
+namespace Roguelike.Utilities
 {
     public class ObjectsPool : MonoBehaviour
     {
