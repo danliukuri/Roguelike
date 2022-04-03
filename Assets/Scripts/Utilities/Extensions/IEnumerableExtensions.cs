@@ -11,6 +11,8 @@ namespace Roguelike.Utilities.Extensions
         /// </summary>
         public static T Random<T>(this IEnumerable<T> sourse)
         {
+            sourse.CheckForNullException(nameof(sourse)).CheckForNoElementsException(sourse.Count());
+
             int randomIndex = UnityEngine.Random.Range(0, sourse.Count());
             return sourse.ElementAt(randomIndex);
         }
@@ -23,6 +25,8 @@ namespace Roguelike.Utilities.Extensions
         /// </remarks>
         public static WeightAndValue<T> RandomBasedOnWeights<T>(this IEnumerable<WeightAndValue<T>> sourse)
         {
+            sourse.CheckForNullException(nameof(sourse)).CheckForNoElementsException(sourse.Count());
+
             int totalWeight = sourse.Sum(item => item.Weight);
             int currentWeight = UnityEngine.Random.Range(0, totalWeight);
 
