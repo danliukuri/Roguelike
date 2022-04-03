@@ -1,3 +1,4 @@
+using Roguelike.Utilities.Extensions;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -50,7 +51,8 @@ namespace Roguelike.Core.Entities
 
             for (int i = 0; i < allPassages.Length; i++)
             {
-                int oppositeDirectionIndex = (i + 2) % allPassages.Length;
+                const int NumberOfIterationsToOppositeDirection = 2;
+                int oppositeDirectionIndex = (i + NumberOfIterationsToOppositeDirection) % allPassages.Length;
 
                 if (room.transform.position == transform.position + Directions[i] * size &&
                         allPassages[i].Count != 0 && room.allPassages[oppositeDirectionIndex].Count != 0)
@@ -69,7 +71,7 @@ namespace Roguelike.Core.Entities
         }
         void OpenRandomPassage(List<Transform>[] passagesMarkers)
         {
-            int wallNumber = Random.Range(0, passagesMarkers[0].Count);
+            int wallNumber = passagesMarkers[0].RandomIndex();
             List<Transform> wallsToOpen = new List<Transform>();
 
             for (int i = 0; i < passagesMarkers.Length; i++)

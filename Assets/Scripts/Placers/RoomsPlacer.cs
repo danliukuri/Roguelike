@@ -1,6 +1,7 @@
 using Roguelike.Core.Entities;
 using Roguelike.Core.Factories;
 using Roguelike.Core.Placers;
+using Roguelike.Utilities.Extensions;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,13 +22,12 @@ namespace Roguelike.Placers
             List<Vector3> freePositions = new List<Vector3>() { firstRoomPosition };
             for (int i = 0; i < count; i++)
             {
-                GameObject roomGameObject = roomsFactories[Random.Range(0, roomsFactories.Count)].GetRoom();
+                GameObject roomGameObject = roomsFactories.Random().GetRoom();
                 Transform roomTransform = roomGameObject.transform;
                 roomTransform.SetParent(parent);
 
-                Vector3 randomFreePosition = freePositions[Random.Range(0, freePositions.Count)];
-                freePositions.Remove(randomFreePosition);
-                Vector3 roomPosition = roomTransform.position = randomFreePosition;
+                Vector3 roomPosition = roomTransform.position = freePositions.Random();
+                freePositions.Remove(roomPosition);
                 roomPositions.Add(roomPosition);
 
                 Room room = roomGameObject.GetComponent<Room>();
