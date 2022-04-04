@@ -45,6 +45,14 @@ namespace Roguelike.Core.Entities
             };
         }
 
+        public List<Transform> GetAllPossibleWallsMarkers()
+        {
+            List<Transform> allPossibleWallsMarkers = new List<Transform>(walls);
+            for (int i = 0; i < allPassages.Length; i++)
+                allPossibleWallsMarkers.AddRange(allPassages[i]);
+            return allPossibleWallsMarkers;
+        }
+
         public bool TryToCreatePassageTo(Room room)
         {
             bool isPassageCreated = false;
