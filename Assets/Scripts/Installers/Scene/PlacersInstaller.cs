@@ -9,10 +9,18 @@ namespace Roguelike.Installers.Scene
         #region Methods
         public override void InstallBindings()
         {
+            BindWallPlacer();
             BindRoomsPlacer();
             BindDungeonPlacer();
         }
 
+        void BindWallPlacer()
+        {
+            Container
+                .Bind<IWallsPlacer>()
+                .To<WallsPlacer>()
+                .AsSingle();
+        }
         void BindRoomsPlacer()
         {
             Container
