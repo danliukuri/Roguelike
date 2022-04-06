@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9045221281702068707}
   - component: {fileID: 9045221281702068706}
   m_Layer: 0
-  m_Name: RoomFactory
+  m_Name: EmptyRoomFactory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
