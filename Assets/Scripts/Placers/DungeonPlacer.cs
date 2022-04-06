@@ -36,7 +36,7 @@ namespace Roguelike.Placers
         }
         void PlaceWalls()
         {
-            rooms?.ForEach(room => wallsPlacer.Place(room.GetAllPossibleWallsMarkers()));
+            rooms?.ForEach(room => wallsPlacer.Place(room.AllPossibleWallsMarkers));
         }
         #endregion
     }

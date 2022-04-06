@@ -1,3 +1,4 @@
+using Roguelike.Utilities;
 using Roguelike.Utilities.Extensions;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,42 +16,43 @@ namespace Roguelike.Core.Entities
             Vector3.right
         };
         public int Size => size;
+
+        public List<Transform> AllPossibleWallsMarkers => allPossibleWalls;
         #endregion
 
         #region Fields
         [SerializeField] int size;
-        [Header("Markers:")]
-        [SerializeField] List<Transform> doors;
-        [SerializeField] List<Transform> items;
-        [SerializeField] List<Transform> enemies;
-        [SerializeField] List<Transform> walls;
+        [Header("Markers:")] 
+        [SerializeField] Transform[] players;
+        [SerializeField] Transform[] enemies;
+        [SerializeField] Transform[] items;
+        [SerializeField] Transform[] doors;
+        [SerializeField] Transform[] exits;
         [Space]
-        [SerializeField] List<Transform> passagesToTheNorth;
-        [SerializeField] List<Transform> passagesToTheWest;
-        [SerializeField] List<Transform> passagesToTheSouth;
-        [SerializeField] List<Transform> passagesToTheEast;
+        [SerializeField] Transform[] walls;
+        [SerializeField] Transform[] passagesToTheNorth;
+        [SerializeField] Transform[] passagesToTheWest;
+        [SerializeField] Transform[] passagesToTheSouth;
+        [SerializeField] Transform[] passagesToTheEast;
 
-        List<Transform>[] allPassages;
+        Transform[][] allPassages;
+        List<Transform> allPossibleWalls;
         #endregion
 
         #region Methods
         void Awake()
         {
-            allPassages = new List<Transform>[]
+            allPassages = new Transform[][]
             {
                 passagesToTheNorth,
                 passagesToTheWest,
                 passagesToTheSouth,
                 passagesToTheEast
             };
-        }
 
-        public List<Transform> GetAllPossibleWallsMarkers()
-        {
-            List<Transform> allPossibleWallsMarkers = new List<Transform>(walls);
+            allPossibleWalls = new List<Transform>(walls);
             for (int i = 0; i < allPassages.Length; i++)
-                allPossibleWallsMarkers.AddRange(allPassages[i]);
-            return allPossibleWallsMarkers;
+                allPossibleWalls.AddRange(allPassages[i]);
         }
 
         public bool TryToCreatePassageTo(Room room)
@@ -63,9 +65,9 @@ namespace Roguelike.Core.Entities
                 int oppositeDirectionIndex = (i + NumberOfIterationsToOppositeDirection) % allPassages.Length;
 
                 if (room.transform.position == transform.position + Directions[i] * size &&
-                        allPassages[i].Count != 0 && room.allPassages[oppositeDirectionIndex].Count != 0)
+                        allPassages[i].Length != 0 && room.allPassages[oppositeDirectionIndex].Length != 0)
                 {
-                    OpenRandomPassage(new List<Transform>[]
+                    OpenRandomPassage(new Transform[][]
                     {
                         allPassages[i],
                         room.allPassages[oppositeDirectionIndex]
@@ -77,7 +79,7 @@ namespace Roguelike.Core.Entities
 
             return isPassageCreated;
         }
-        void OpenRandomPassage(List<Transform>[] passagesMarkers)
+        void OpenRandomPassage(Transform[][] passagesMarkers)
         {
             int wallNumber = passagesMarkers[0].RandomIndex();
             List<Transform> wallsToOpen = new List<Transform>();
