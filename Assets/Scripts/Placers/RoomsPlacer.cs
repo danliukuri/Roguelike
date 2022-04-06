@@ -17,12 +17,25 @@ namespace Roguelike.Placers
         public RoomsPlacer(List<IRoomFactory> roomsFactories) => this.roomsFactories = roomsFactories;
         public List<Room> Place(Vector3 firstRoomPosition, int count, Transform parent)
         {
+            int firstRoomFactoryIndex = 0;
+            int lastRoomFactoryIndex = roomsFactories.Count - 1;
+
             List<Room> rooms = new List<Room>();
             List<Vector3> roomPositions = new List<Vector3>();
             List<Vector3> freePositions = new List<Vector3>() { firstRoomPosition };
+
             for (int i = 0; i < count; i++)
             {
-                GameObject roomGameObject = roomsFactories.Random().GetRoom();
+                int randomRoomFactoryIndexExceptFirstAndLast =
+                    Random.Range(firstRoomFactoryIndex + 1, lastRoomFactoryIndex);
+                
+                int roomFactoryIndex =
+                    i == firstRoomFactoryIndex ? firstRoomFactoryIndex :
+                    i == lastRoomFactoryIndex ? lastRoomFactoryIndex :
+                    randomRoomFactoryIndexExceptFirstAndLast;
+
+                GameObject roomGameObject = roomsFactories[roomFactoryIndex].GetRoom();
+
                 Transform roomTransform = roomGameObject.transform;
                 roomTransform.SetParent(parent);
 
