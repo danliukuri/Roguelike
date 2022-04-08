@@ -1,5 +1,7 @@
+using Roguelike.Core.Entities;
 using Roguelike.Core.Factories;
 using Roguelike.Utilities;
+using Roguelike.Utilities.Extensions;
 using UnityEngine;
 
 namespace Roguelike.Factories
@@ -14,7 +16,13 @@ namespace Roguelike.Factories
         public GameObject GetRoom()
         {
             GameObject roomGameObject = roomsPool.GetFreeObject();
-            // Make random rotation
+            Room room = roomGameObject.GetComponent<Room>();
+            Transform roomTransform = roomGameObject.transform;
+
+            roomTransform.RotateRandomNumberOfTimesByRightAngle(roomTransform.forward,
+                room.SavePassagesDirectionsOnRotationToRight);
+            room.Initialize();
+
             return roomGameObject;
         }
         #endregion

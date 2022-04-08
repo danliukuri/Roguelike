@@ -1,6 +1,6 @@
-using Roguelike.Utilities;
 using Roguelike.Utilities.Extensions;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Roguelike.Core.Entities
@@ -40,7 +40,7 @@ namespace Roguelike.Core.Entities
         #endregion
 
         #region Methods
-        void Awake()
+        public void Initialize()
         {
             allPassages = new Transform[][]
             {
@@ -53,6 +53,18 @@ namespace Roguelike.Core.Entities
             allPossibleWalls = new List<Transform>(walls);
             for (int i = 0; i < allPassages.Length; i++)
                 allPossibleWalls.AddRange(allPassages[i]);
+        }
+
+        public void SavePassagesDirectionsOnRotationToRight()
+        {
+            Transform[] tempPassagesToTheNorth = passagesToTheNorth;
+            passagesToTheNorth = passagesToTheEast;
+            passagesToTheEast = passagesToTheSouth;
+            passagesToTheSouth = passagesToTheWest;
+            passagesToTheWest = tempPassagesToTheNorth;
+
+            passagesToTheWest = passagesToTheWest.Reverse().ToArray();
+            passagesToTheEast = passagesToTheEast.Reverse().ToArray();
         }
 
         public bool TryToCreatePassageTo(Room room)
