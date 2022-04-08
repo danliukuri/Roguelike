@@ -9,16 +9,17 @@ namespace Roguelike.Installers.Scene
         #region Methods
         public override void InstallBindings()
         {
-            BindWallPlacer();
-            BindRoomsPlacer();
             BindDungeonPlacer();
+            BindRoomsPlacer();
+            BindWallsPlacer();
+            BindDoorsPlacer();
+            BindExitsPlacer();
         }
-
-        void BindWallPlacer()
+        void BindDungeonPlacer()
         {
             Container
-                .Bind<IWallsPlacer>()
-                .To<WallsPlacer>()
+                .Bind<IDungeonPlacer>()
+                .To<DungeonPlacer>()
                 .AsSingle();
         }
         void BindRoomsPlacer()
@@ -28,11 +29,25 @@ namespace Roguelike.Installers.Scene
                 .To<RoomsPlacer>()
                 .AsSingle();
         }
-        void BindDungeonPlacer()
+        void BindWallsPlacer()
         {
             Container
-                .Bind<IDungeonPlacer>()
-                .To<DungeonPlacer>()
+                .Bind<IWallsPlacer>()
+                .To<WallsPlacer>()
+                .AsSingle();
+        }
+        void BindDoorsPlacer()
+        {
+            Container
+                .Bind<IDoorsPlacer>()
+                .To<DoorsPlacer>()
+                .AsSingle();
+        }
+        void BindExitsPlacer()
+        {
+            Container
+                .Bind<IExitsPlacer>()
+                .To<ExitsPlacer>()
                 .AsSingle();
         }
         #endregion
