@@ -7,18 +7,30 @@ namespace Roguelike.Installers.Scene
     public class FactoriesInstaller : MonoInstaller
     {
         #region Fields 
-        [SerializeField] GameObject wallFactory;
         [SerializeField] GameObject[] roomsFactories;
+        [SerializeField] GameObject wallFactory;
+        [SerializeField] GameObject doorFactory;
+        [SerializeField] GameObject exitFactory;
         #endregion
 
         #region Methods
         public override void InstallBindings()
         {
-            BindWallFactory();
             foreach (GameObject roomFactory in roomsFactories)
                 BindRoomFactory(roomFactory);
+            BindWallFactory();
+            BindDoorFactory();
+            BindExitFactory();
         }
-
+        void BindRoomFactory(GameObject roomFactory)
+        {
+            Container
+                .Bind<IRoomFactory>()
+                .FromComponentInNewPrefab(roomFactory)
+                .UnderTransform(transform)
+                .AsCached()
+                .NonLazy();
+        }
         void BindWallFactory()
         {
             Container
@@ -28,13 +40,22 @@ namespace Roguelike.Installers.Scene
                 .AsSingle()
                 .NonLazy();
         }
-        void BindRoomFactory(GameObject roomFactory)
+        void BindDoorFactory()
         {
             Container
-                .Bind<IRoomFactory>()
-                .FromComponentInNewPrefab(roomFactory)
+                .Bind<IDoorFactory>()
+                .FromComponentInNewPrefab(doorFactory)
                 .UnderTransform(transform)
-                .AsCached()
+                .AsSingle()
+                .NonLazy();
+        }
+        void BindExitFactory()
+        {
+            Container
+                .Bind<IExitFactory>()
+                .FromComponentInNewPrefab(exitFactory)
+                .UnderTransform(transform)
+                .AsSingle()
                 .NonLazy();
         }
         #endregion
