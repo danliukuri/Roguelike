@@ -17,7 +17,9 @@ namespace Roguelike.Core.Entities
         };
         public int Size => size;
 
-        public List<Transform> AllPossibleWallsMarkers => allPossibleWalls;
+        public List<Transform> AllWallsMarkers => allWalls;
+        public Transform[] AllDoorsMarkers => doors;
+        public Transform[] AllExitsMarkers => exits;
         #endregion
 
         #region Fields
@@ -36,7 +38,7 @@ namespace Roguelike.Core.Entities
         [SerializeField] Transform[] passagesToTheEast;
 
         Transform[][] allPassages;
-        List<Transform> allPossibleWalls;
+        List<Transform> allWalls;
         #endregion
 
         #region Methods
@@ -50,9 +52,9 @@ namespace Roguelike.Core.Entities
                 passagesToTheEast
             };
 
-            allPossibleWalls = new List<Transform>(walls);
+            allWalls = new List<Transform>(walls);
             for (int i = 0; i < allPassages.Length; i++)
-                allPossibleWalls.AddRange(allPassages[i]);
+                allWalls.AddRange(allPassages[i]);
         }
 
         public void SavePassagesDirectionsOnRotationToRight()
