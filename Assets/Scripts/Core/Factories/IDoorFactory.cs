@@ -2,8 +2,8 @@
 
 namespace Roguelike.Core.Factories
 {
-    public interface IWallFactory
+    public interface IDoorFactory
     {
-        GameObject GetWall();
+        GameObject GetDoor();
     }
 }
