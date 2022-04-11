@@ -17,7 +17,7 @@ namespace Roguelike.Placers
         public ExitsPlacer(IExitFactory exitFactory) => this.exitFactory = exitFactory;
         public void Place(List<Transform> exitsMarkers)
         {
-            Transform exitMarker = exitsMarkers.Where(m => m.gameObject.activeSelf).Random();
+            Transform exitMarker = exitsMarkers.Where(m => m.gameObject.activeSelf).ToArray().Random();
 
             GameObject exitGameObject = exitFactory.GetExit();
             Transform exitTransform = exitGameObject.transform;
