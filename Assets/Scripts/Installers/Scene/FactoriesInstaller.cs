@@ -11,6 +11,7 @@ namespace Roguelike.Installers.Scene
         [SerializeField] GameObject wallFactory;
         [SerializeField] GameObject doorFactory;
         [SerializeField] GameObject exitFactory;
+        [SerializeField] GameObject playerFactory;
         #endregion
 
         #region Methods
@@ -21,6 +22,7 @@ namespace Roguelike.Installers.Scene
             BindWallFactory();
             BindDoorFactory();
             BindExitFactory();
+            BindPlayerFactory();
         }
         void BindRoomFactory(GameObject roomFactory)
         {
@@ -54,6 +56,15 @@ namespace Roguelike.Installers.Scene
             Container
                 .Bind<IExitFactory>()
                 .FromComponentInNewPrefab(exitFactory)
+                .UnderTransform(transform)
+                .AsSingle()
+                .NonLazy();
+        }
+        void BindPlayerFactory()
+        {
+            Container
+                .Bind<IPlayerFactory>()
+                .FromComponentInNewPrefab(playerFactory)
                 .UnderTransform(transform)
                 .AsSingle()
                 .NonLazy();

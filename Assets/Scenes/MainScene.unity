@@ -256,6 +256,7 @@ MonoBehaviour:
   wallFactory: {fileID: 7511223073496482629, guid: c99246cd6e5cb694b98e3d5e238a11b0, type: 3}
   doorFactory: {fileID: 5957519045766193991, guid: 8f84016d5c033de468801f61ad6695ee, type: 3}
   exitFactory: {fileID: 5634837662990372829, guid: 81fc1fa165840e747bf4d51ae8dc78b9, type: 3}
+  playerFactory: {fileID: 2394766789636395569, guid: 386041e80252b1d47b3535c77aa4ec2c, type: 3}
 --- !u!1 &950892026
 GameObject:
   m_ObjectHideFlags: 0
