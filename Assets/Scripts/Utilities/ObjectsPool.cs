@@ -10,16 +10,16 @@ namespace Roguelike.Utilities
         #endregion
 
         #region Fields
-        [SerializeField] GameObject gameObjectPrefab;
-        [SerializeField] Transform objectsParent;
+        [SerializeField] protected GameObject gameObjectPrefab;
+        [SerializeField] protected Transform objectsParent;
 
         [SerializeField] int initialNumberOfObjects;
 
-        List<GameObject> objects;
+        protected List<GameObject> objects;
         #endregion
 
         #region Methods
-        void Awake()
+        protected void Awake()
         {
             Initialize();
         }
@@ -34,7 +34,7 @@ namespace Roguelike.Utilities
         /// Creates a new free inactive object
         /// </summary>
         /// <returns> Newly created inactive object </returns>
-        public GameObject CreateInactiveGameObject()
+        public virtual GameObject CreateInactiveGameObject()
         {
             GameObject gameObject = Instantiate(gameObjectPrefab, objectsParent);
             gameObject.SetActive(false);
