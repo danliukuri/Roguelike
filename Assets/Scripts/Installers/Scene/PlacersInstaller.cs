@@ -14,6 +14,7 @@ namespace Roguelike.Installers.Scene
             BindWallsPlacer();
             BindDoorsPlacer();
             BindExitsPlacer();
+            BindPlayersPlacer();
         }
         void BindDungeonPlacer()
         {
@@ -48,6 +49,13 @@ namespace Roguelike.Installers.Scene
             Container
                 .Bind<IExitsPlacer>()
                 .To<ExitsPlacer>()
+                .AsSingle();
+        }
+        void BindPlayersPlacer()
+        {
+            Container
+                .Bind<IPlayersPlacer>()
+                .To<PlayersPlacer>()
                 .AsSingle();
         }
         #endregion
