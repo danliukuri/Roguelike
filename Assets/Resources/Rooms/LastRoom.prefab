@@ -966,7 +966,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4930347004118562442, guid: 857b2e3cb0930e94da54a742ab93b9dc, type: 3}
       propertyPath: walls.Array.size
-      value: 19
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4930347004118562442, guid: 857b2e3cb0930e94da54a742ab93b9dc, type: 3}
       propertyPath: doors.Array.data[0]
@@ -985,49 +985,65 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7779644102468728397}
     - target: {fileID: 4930347004118562442, guid: 857b2e3cb0930e94da54a742ab93b9dc, type: 3}
-      propertyPath: walls.Array.data[4]
+      propertyPath: walls.Array.data[0]
       value: 
       objectReference: {fileID: 4059791270091757351}
     - target: {fileID: 4930347004118562442, guid: 857b2e3cb0930e94da54a742ab93b9dc, type: 3}
-      propertyPath: walls.Array.data[5]
+      propertyPath: walls.Array.data[1]
       value: 
       objectReference: {fileID: 6512342163107507752}
     - target: {fileID: 4930347004118562442, guid: 857b2e3cb0930e94da54a742ab93b9dc, type: 3}
-      propertyPath: walls.Array.data[6]
+      propertyPath: walls.Array.data[2]
       value: 
       objectReference: {fileID: 6512342163788393258}
     - target: {fileID: 4930347004118562442, guid: 857b2e3cb0930e94da54a742ab93b9dc, type: 3}
-      propertyPath: walls.Array.data[7]
+      propertyPath: walls.Array.data[3]
       value: 
       objectReference: {fileID: 6512342163137029308}
     - target: {fileID: 4930347004118562442, guid: 857b2e3cb0930e94da54a742ab93b9dc, type: 3}
-      propertyPath: walls.Array.data[8]
+      propertyPath: walls.Array.data[4]
       value: 
       objectReference: {fileID: 263100593882559526}
     - target: {fileID: 4930347004118562442, guid: 857b2e3cb0930e94da54a742ab93b9dc, type: 3}
-      propertyPath: walls.Array.data[9]
+      propertyPath: walls.Array.data[5]
       value: 
       objectReference: {fileID: 6596587997873500640}
     - target: {fileID: 4930347004118562442, guid: 857b2e3cb0930e94da54a742ab93b9dc, type: 3}
-      propertyPath: walls.Array.data[10]
+      propertyPath: walls.Array.data[6]
       value: 
       objectReference: {fileID: 2851183003990801978}
     - target: {fileID: 4930347004118562442, guid: 857b2e3cb0930e94da54a742ab93b9dc, type: 3}
-      propertyPath: walls.Array.data[11]
+      propertyPath: walls.Array.data[7]
       value: 
       objectReference: {fileID: 2044510333797046453}
     - target: {fileID: 4930347004118562442, guid: 857b2e3cb0930e94da54a742ab93b9dc, type: 3}
-      propertyPath: walls.Array.data[12]
+      propertyPath: walls.Array.data[8]
       value: 
       objectReference: {fileID: 3623750200205348089}
     - target: {fileID: 4930347004118562442, guid: 857b2e3cb0930e94da54a742ab93b9dc, type: 3}
-      propertyPath: walls.Array.data[13]
+      propertyPath: walls.Array.data[9]
       value: 
       objectReference: {fileID: 731620635662679977}
     - target: {fileID: 4930347004118562442, guid: 857b2e3cb0930e94da54a742ab93b9dc, type: 3}
-      propertyPath: walls.Array.data[14]
+      propertyPath: walls.Array.data[10]
       value: 
       objectReference: {fileID: 513127375594623104}
+    - target: {fileID: 4930347004118562442, guid: 857b2e3cb0930e94da54a742ab93b9dc, type: 3}
+      propertyPath: walls.Array.data[11]
+      value: 
+      objectReference: {fileID: 8555524583570777329}
+    - target: {fileID: 4930347004118562442, guid: 857b2e3cb0930e94da54a742ab93b9dc, type: 3}
+      propertyPath: walls.Array.data[12]
+      value: 
+      objectReference: {fileID: 134863292242349351}
+    - target: {fileID: 4930347004118562442, guid: 857b2e3cb0930e94da54a742ab93b9dc, type: 3}
+      propertyPath: walls.Array.data[13]
+      value: 
+      objectReference: {fileID: 7562307288132279253}
+    - target: {fileID: 4930347004118562442, guid: 857b2e3cb0930e94da54a742ab93b9dc, type: 3}
+      propertyPath: walls.Array.data[14]
+      value: 
+      objectReference: {fileID: 8704104573866269642}
     - target: {fileID: 4930347004118562442, guid: 857b2e3cb0930e94da54a742ab93b9dc, type: 3}
       propertyPath: walls.Array.data[15]
       value: 
