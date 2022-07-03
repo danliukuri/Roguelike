@@ -1,3 +1,4 @@
+using System;
 using Roguelike.Core.Entities;
 using Roguelike.Core.Placers;
 using System.Collections.Generic;
@@ -12,29 +13,32 @@ namespace Roguelike.Placers
         readonly IWallsPlacer wallsPlacer;
         readonly IDoorsPlacer doorsPlacer;
         readonly IExitsPlacer exitsPlacer;
-
+        readonly IPlayersPlacer playersPlacer;
+        
         List<Room> rooms;
         #endregion
 
         #region Methods
         public DungeonPlacer(IRoomsPlacer roomsPlacer, IWallsPlacer wallsPlacer,
-            IDoorsPlacer doorsPlacer, IExitsPlacer exitsPlacer)
+            IDoorsPlacer doorsPlacer, IExitsPlacer exitsPlacer, IPlayersPlacer playersPlacer)
         {
             this.roomsPlacer = roomsPlacer;
             this.wallsPlacer = wallsPlacer;
             this.doorsPlacer = doorsPlacer;
             this.exitsPlacer = exitsPlacer;
+            this.playersPlacer = playersPlacer;
         }
 
         public void Place(Vector3 firstRoomPosition, int roomsCount, Transform parent)
         {
             rooms = roomsPlacer.Place(firstRoomPosition, roomsCount, parent);
             CreatePassagesBetweenRooms();
-            PlaceWalls();
-            PlaceDoors();
-            PlaceExits();
+            wallsPlacer.Place(GetAllObjectsMarkers(room => room.AllWallsMarkers));
+            doorsPlacer.Place(GetAllObjectsMarkers(room => room.AllDoorsMarkers));
+            exitsPlacer.Place(GetAllObjectsMarkers(room => room.AllExitsMarkers));
+            playersPlacer.Place(GetAllObjectsMarkers(room => room.AllPlayersMarkers));
         }
-
+        
         void CreatePassagesBetweenRooms()
         {
             for (int i = 0; i < rooms?.Count; i++)
@@ -42,23 +46,11 @@ namespace Roguelike.Placers
                     rooms[i].TryToCreatePassageTo(rooms[j]);
         }
 
-        void PlaceWalls()
+        List<Transform> GetAllObjectsMarkers(Func<Room, IEnumerable<Transform>> getObjectsMarkersFromRoom)
         {
-            List<Transform> allWallsMarkers = new List<Transform>();
-            rooms.ForEach(room => allWallsMarkers.AddRange(room.AllWallsMarkers));
-            wallsPlacer.Place(allWallsMarkers);
-        }
-        void PlaceExits()
-        {
-            List<Transform> allExitsMarkers = new List<Transform>();
-            rooms.ForEach(room => allExitsMarkers.AddRange(room.AllExitsMarkers));
-            exitsPlacer.Place(allExitsMarkers);
-        }
-        void PlaceDoors()
-        {
-            List<Transform> allDoorsMarkers = new List<Transform>();
-            rooms.ForEach(room => allDoorsMarkers.AddRange(room.AllDoorsMarkers));
-            doorsPlacer.Place(allDoorsMarkers);
+            List<Transform> allObjectsMarkers = new List<Transform>();
+            rooms.ForEach(room => allObjectsMarkers.AddRange(getObjectsMarkersFromRoom.Invoke(room)));
+            return allObjectsMarkers;
         }
         #endregion
     }

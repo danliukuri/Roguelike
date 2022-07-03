@@ -18,8 +18,9 @@ namespace Roguelike.Core.Entities
         public int Size => size;
 
         public List<Transform> AllWallsMarkers => allWalls;
-        public Transform[] AllDoorsMarkers => doors;
+        public Transform[] AllPlayersMarkers => players;
         public Transform[] AllExitsMarkers => exits;
+        public Transform[] AllDoorsMarkers => doors;
         #endregion
 
         #region Fields
