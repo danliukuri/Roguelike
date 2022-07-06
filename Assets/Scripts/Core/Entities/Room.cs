@@ -8,24 +8,21 @@ namespace Roguelike.Core.Entities
     public class Room : MonoBehaviour
     {
         #region Properties
-        public static Vector3[] Directions => new Vector3[]
-        {
-            Vector3.up,
-            Vector3.left,
-            Vector3.down,
-            Vector3.right
-        };
+        public static Vector3[] Directions => new [] { Vector3.up, Vector3.left, Vector3.down, Vector3.right };
+
         public int Size => size;
 
         public List<Transform> AllWallsMarkers => allWalls;
-        public Transform[] AllPlayersMarkers => players;
-        public Transform[] AllExitsMarkers => exits;
-        public Transform[] AllDoorsMarkers => doors;
+        public Transform[] AllPlayerMarkers => players;
+        public Transform[] AllEnemyMarkers => enemies;
+        public Transform[] AllItemMarkers => items;
+        public Transform[] AllExitMarkers => exits;
+        public Transform[] AllDoorMarkers => doors;
         #endregion
 
         #region Fields
         [SerializeField] int size;
-        [Header("Markers:")] 
+        [Header("Markers:")]
         [SerializeField] Transform[] players;
         [SerializeField] Transform[] enemies;
         [SerializeField] Transform[] items;
@@ -40,22 +37,26 @@ namespace Roguelike.Core.Entities
 
         Transform[][] allPassages;
         List<Transform> allWalls;
+
+        Vector2 upperSizeBounds;
+        Vector2 lowerSizeBounds;
         #endregion
 
         #region Methods
         public void Initialize()
         {
-            allPassages = new Transform[][]
-            {
-                passagesToTheNorth,
-                passagesToTheWest,
-                passagesToTheSouth,
-                passagesToTheEast
-            };
-
+            allPassages = new[] { passagesToTheNorth, passagesToTheWest, passagesToTheSouth, passagesToTheEast };
+            
             allWalls = new List<Transform>(walls);
             for (int i = 0; i < allPassages.Length; i++)
                 allWalls.AddRange(allPassages[i]);
+        }
+        public void SetNewPositionAndSizeBounds(Vector3 newPosition)
+        {
+            Vector3 roomPosition = transform.position = newPosition;
+            int halfSize = size / 2;
+            upperSizeBounds = new Vector2(roomPosition.x + halfSize, roomPosition.y + halfSize);
+            lowerSizeBounds = new Vector2(roomPosition.x - halfSize, roomPosition.y - halfSize);
         }
 
         public void SavePassagesDirectionsOnRotationToRight()
@@ -69,7 +70,12 @@ namespace Roguelike.Core.Entities
             passagesToTheWest = passagesToTheWest.Reverse().ToArray();
             passagesToTheEast = passagesToTheEast.Reverse().ToArray();
         }
-
+        public bool IsInsideSizeBounds(Vector3 position)
+        {
+            return position.x < upperSizeBounds.x && position.x > lowerSizeBounds.x &&
+                   position.y < upperSizeBounds.y && position.y > lowerSizeBounds.y;
+        }
+        
         public bool TryToCreatePassageTo(Room room)
         {
             bool isPassageCreated = false;
@@ -82,12 +88,7 @@ namespace Roguelike.Core.Entities
                 if (room.transform.position == transform.position + Directions[i] * size &&
                         allPassages[i].Length != 0 && room.allPassages[oppositeDirectionIndex].Length != 0)
                 {
-                    OpenRandomPassage(new Transform[][]
-                    {
-                        allPassages[i],
-                        room.allPassages[oppositeDirectionIndex]
-                    });
-
+                    OpenRandomPassage(new [] { allPassages[i], room.allPassages[oppositeDirectionIndex] });
                     isPassageCreated = true;
                 }
             }

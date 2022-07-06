@@ -17,45 +17,57 @@ namespace Roguelike.Placers
         public RoomsPlacer(List<IRoomFactory> roomsFactories) => this.roomsFactories = roomsFactories;
         public List<Room> Place(Vector3 firstRoomPosition, int count, Transform parent)
         {
-            int firstRoomFactoryIndex = 0;
-            int lastRoomFactoryIndex = roomsFactories.Count - 1;
-
             List<Room> rooms = new List<Room>();
             List<Vector3> roomPositions = new List<Vector3>();
-            List<Vector3> freePositions = new List<Vector3>() { firstRoomPosition };
+            List<Vector3> freePositions = new List<Vector3> { firstRoomPosition };
 
             for (int i = 0; i < count; i++)
             {
-                int randomRoomFactoryIndexExceptFirstAndLast =
-                    Random.Range(firstRoomFactoryIndex + 1, lastRoomFactoryIndex);
-                
-                int roomFactoryIndex =
-                    i == firstRoomFactoryIndex ? firstRoomFactoryIndex :
-                    i == lastRoomFactoryIndex ? lastRoomFactoryIndex :
-                    randomRoomFactoryIndexExceptFirstAndLast;
-
-                GameObject roomGameObject = roomsFactories[roomFactoryIndex].GetRoom();
+                GameObject roomGameObject = GetRoom(i);
 
                 Transform roomTransform = roomGameObject.transform;
-                roomTransform.SetParent(parent);
+                roomTransform.SetParent(parent, false);
 
-                Vector3 roomPosition = roomTransform.position = freePositions.Random();
+                Vector3 roomPosition = freePositions.Random();
                 freePositions.Remove(roomPosition);
                 roomPositions.Add(roomPosition);
 
                 Room room = roomGameObject.GetComponent<Room>();
+                room.SetNewPositionAndSizeBounds(roomPosition);
                 rooms.Add(room);
 
                 roomGameObject.SetActive(true);
 
-                for (int j = 0; j < Room.Directions.Length; j++)
-                {
-                    Vector3 newFreePosition = roomPosition + Room.Directions[j] * room.Size;
-                    if (!freePositions.Contains(newFreePosition) && !roomPositions.Contains(newFreePosition))
-                        freePositions.Add(newFreePosition);
-                }
+                AddNewFreePositions(roomPositions, freePositions, roomPosition, room.Size);
             }
+            
             return rooms;
+        }
+
+        GameObject GetRoom(int roomIndex)
+        {  
+            const int firstRoomFactoryIndex = 0;
+            int lastRoomFactoryIndex = roomsFactories.Count - 1;
+            
+            int randomRoomFactoryIndexExceptFirstAndLast =
+                Random.Range(firstRoomFactoryIndex + 1, lastRoomFactoryIndex);
+                
+            int roomFactoryIndex =
+                roomIndex == firstRoomFactoryIndex ? firstRoomFactoryIndex :
+                roomIndex == lastRoomFactoryIndex ? lastRoomFactoryIndex :
+                randomRoomFactoryIndexExceptFirstAndLast;
+
+            return roomsFactories[roomFactoryIndex].GetRoom();
+        }
+        static void AddNewFreePositions(ICollection<Vector3> roomPositions, ICollection<Vector3> freePositions,
+            Vector3 currentRoomPosition, int roomSize)
+        {
+            foreach (var direction in Room.Directions)
+            {
+                Vector3 newFreePosition = currentRoomPosition + direction * roomSize;
+                if (!freePositions.Contains(newFreePosition) && !roomPositions.Contains(newFreePosition))
+                    freePositions.Add(newFreePosition);
+            }
         }
         #endregion
     }
