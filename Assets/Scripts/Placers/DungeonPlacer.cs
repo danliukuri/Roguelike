@@ -1,7 +1,5 @@
-using System;
 using Roguelike.Core.Entities;
 using Roguelike.Core.Placers;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Roguelike.Placers
@@ -15,42 +13,31 @@ namespace Roguelike.Placers
         readonly IExitsPlacer exitsPlacer;
         readonly IPlayersPlacer playersPlacer;
         
-        List<Room> rooms;
+        readonly DungeonInfo dungeonInfo;
         #endregion
 
         #region Methods
-        public DungeonPlacer(IRoomsPlacer roomsPlacer, IWallsPlacer wallsPlacer,
-            IDoorsPlacer doorsPlacer, IExitsPlacer exitsPlacer, IPlayersPlacer playersPlacer)
+        public DungeonPlacer(IRoomsPlacer roomsPlacer, IWallsPlacer wallsPlacer, IDoorsPlacer doorsPlacer,
+            IExitsPlacer exitsPlacer, IPlayersPlacer playersPlacer, DungeonInfo dungeonInfo)
         {
             this.roomsPlacer = roomsPlacer;
             this.wallsPlacer = wallsPlacer;
             this.doorsPlacer = doorsPlacer;
             this.exitsPlacer = exitsPlacer;
             this.playersPlacer = playersPlacer;
-        }
-
-        public void Place(Vector3 firstRoomPosition, int roomsCount, Transform parent)
-        {
-            rooms = roomsPlacer.Place(firstRoomPosition, roomsCount, parent);
-            CreatePassagesBetweenRooms();
-            wallsPlacer.Place(GetAllObjectsMarkers(room => room.AllWallsMarkers));
-            doorsPlacer.Place(GetAllObjectsMarkers(room => room.AllDoorsMarkers));
-            exitsPlacer.Place(GetAllObjectsMarkers(room => room.AllExitsMarkers));
-            playersPlacer.Place(GetAllObjectsMarkers(room => room.AllPlayersMarkers));
+            this.dungeonInfo = dungeonInfo;
         }
         
-        void CreatePassagesBetweenRooms()
+        public void Place(Vector3 firstRoomPosition ,int roomsCount, Transform parent)
         {
-            for (int i = 0; i < rooms?.Count; i++)
-                for (int j = i; j < rooms.Count; j++)
-                    rooms[i].TryToCreatePassageTo(rooms[j]);
-        }
-
-        List<Transform> GetAllObjectsMarkers(Func<Room, IEnumerable<Transform>> getObjectsMarkersFromRoom)
-        {
-            List<Transform> allObjectsMarkers = new List<Transform>();
-            rooms.ForEach(room => allObjectsMarkers.AddRange(getObjectsMarkersFromRoom.Invoke(room)));
-            return allObjectsMarkers;
+            dungeonInfo.Rooms = roomsPlacer.Place(firstRoomPosition, roomsCount, parent);
+            
+            dungeonInfo.WallsByRoom = wallsPlacer.Place(dungeonInfo.GetAllMarkersByRoom(room => room.AllWallsMarkers));
+            dungeonInfo.DoorsByRoom = doorsPlacer.Place(dungeonInfo.GetAllMarkersByRoom(room => room.AllDoorMarkers));
+            dungeonInfo.ExitsByRoom = exitsPlacer.Place(dungeonInfo.GetAllMarkersByRoom(room => room.AllExitMarkers));
+            
+            dungeonInfo.PlayersByRoom =
+                playersPlacer.Place(dungeonInfo.GetAllMarkersByRoom(room => room.AllPlayerMarkers));
         }
         #endregion
     }

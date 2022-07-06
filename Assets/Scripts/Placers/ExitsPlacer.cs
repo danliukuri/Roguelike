@@ -15,17 +15,33 @@ namespace Roguelike.Placers
 
         #region Methods
         public ExitsPlacer(IExitFactory exitFactory) => this.exitFactory = exitFactory;
-        public void Place(List<Transform> exitsMarkers)
+        public List<Transform>[] Place(List<Transform>[] exitMarkersByRoom)
         {
-            Transform exitMarker = exitsMarkers.Where(m => m.gameObject.activeSelf).ToArray().Random();
-
+            List<Transform>[] exitsByRoom = new List<Transform>[exitMarkersByRoom.Length];
+            for (int i = 0; i < exitMarkersByRoom.Length; i++)
+                exitsByRoom[i] = new List<Transform>();
+            
+            (Transform exitMarker, int roomIndex) = GetRandomMarker(exitMarkersByRoom); 
+            
             GameObject exitGameObject = exitFactory.GetExit();
             Transform exitTransform = exitGameObject.transform;
-
+            exitsByRoom[roomIndex].Add(exitTransform);
+            
             exitTransform.position = exitMarker.position;
             exitTransform.SetParent(exitMarker);
 
             exitGameObject.SetActive(true);
+
+            return exitsByRoom;
+        }
+        static (Transform marker, int roomIndex) GetRandomMarker(IEnumerable<List<Transform>> markersByRoom)
+        {
+            (IEnumerable<Transform> pickedMarkers, int pickedRoomIndex) = markersByRoom
+                .Select((markers, roomIndex) => 
+                    (markers: markers.Where(marker => marker.gameObject.activeSelf), roomIndex))
+                .Where(activeMarkersByRoom => activeMarkersByRoom.markers.Any())
+                .ToArray().Random();
+            return (pickedMarkers.ToArray().Random(), pickedRoomIndex);
         }
         #endregion
     }

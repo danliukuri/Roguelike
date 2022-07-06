@@ -41,6 +41,7 @@ namespace Roguelike.Placers
                 AddNewFreePositions(roomPositions, freePositions, roomPosition, room.Size);
             }
             
+            CreatePassagesBetweenRooms(rooms);
             return rooms;
         }
 
@@ -68,6 +69,13 @@ namespace Roguelike.Placers
                 if (!freePositions.Contains(newFreePosition) && !roomPositions.Contains(newFreePosition))
                     freePositions.Add(newFreePosition);
             }
+        }
+        
+        static void CreatePassagesBetweenRooms(IReadOnlyList<Room> rooms)
+        {
+            for (int i = 0; i < rooms?.Count; i++)
+                for (int j = i; j < rooms.Count; j++)
+                    rooms[i].TryToCreatePassageTo(rooms[j]);
         }
         #endregion
     }

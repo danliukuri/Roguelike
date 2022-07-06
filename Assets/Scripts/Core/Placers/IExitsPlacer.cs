@@ -5,6 +5,6 @@ namespace Roguelike.Core.Placers
 {
     public interface IExitsPlacer
     {
-        void Place(List<Transform> exitsMarkers);
+        List<Transform>[] Place(List<Transform>[] exitMarkersByRoom);
     }
 }

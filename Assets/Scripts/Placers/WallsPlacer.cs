@@ -1,6 +1,7 @@
 ﻿using Roguelike.Core.Factories;
 using Roguelike.Core.Placers;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Roguelike.Placers
@@ -13,19 +14,26 @@ namespace Roguelike.Placers
 
         #region Methods
         public WallsPlacer(IWallFactory wallFactory) => this.wallFactory = wallFactory;
-        public void Place(List<Transform> wallsMarkers)
+        public List<Transform>[] Place(List<Transform>[] wallMarkersByRoom)
         {
-            foreach (Transform wallMarker in wallsMarkers)
-                if(wallMarker.gameObject.activeSelf)
-                {
-                    GameObject wallGameObject = wallFactory.GetWall();
-                    Transform wallTransform = wallGameObject.transform;
-                    
-                    wallTransform.position = wallMarker.position;
-                    wallTransform.SetParent(wallMarker);
+            List<Transform>[] wallsByRoom = new List<Transform>[wallMarkersByRoom.Length];
+            for (int i = 0; i < wallMarkersByRoom.Length; i++)
+            {
+                wallsByRoom[i] = new List<Transform>();
+                foreach (Transform wallMarker in wallMarkersByRoom[i])
+                    if(wallMarker.gameObject.activeSelf)
+                    {
+                        GameObject wallGameObject = wallFactory.GetWall();
+                        Transform wallTransform = wallGameObject.transform;
+                        wallsByRoom[i].Add(wallTransform);
+                            
+                        wallTransform.position = wallMarker.position;
+                        wallTransform.SetParent(wallMarker);
 
-                    wallGameObject.SetActive(true);
-                }
+                        wallGameObject.SetActive(true);
+                    }
+            }
+            return wallsByRoom;
         }
         #endregion
     }

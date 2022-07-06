@@ -13,19 +13,26 @@ namespace Roguelike.Placers
 
         #region Methods
         public DoorsPlacer(IDoorFactory doorFactory) => this.doorFactory = doorFactory;
-        public void Place(List<Transform> doorsMarkers)
+        public List<Transform>[] Place(List<Transform>[] doorMarkersByRoom)
         {
-            foreach (Transform doorMarker in doorsMarkers)
-                if (doorMarker.gameObject.activeSelf)
-                {
-                    GameObject doorGameObject = doorFactory.GetDoor();
-                    Transform doorTransform = doorGameObject.transform;
+            List<Transform>[] doorsByRoom = new List<Transform>[doorMarkersByRoom.Length];
+            for (int i = 0; i < doorMarkersByRoom.Length; i++)
+            {
+                doorsByRoom[i] = new List<Transform>();
+                foreach (Transform doorMarker in doorMarkersByRoom[i])
+                    if (doorMarker.gameObject.activeSelf)
+                    {
+                        GameObject doorGameObject = doorFactory.GetDoor();
+                        Transform doorTransform = doorGameObject.transform;
+                        doorsByRoom[i].Add(doorTransform);
+                        
+                        doorTransform.position = doorMarker.position;
+                        doorTransform.SetParent(doorMarker);
 
-                    doorTransform.position = doorMarker.position;
-                    doorTransform.SetParent(doorMarker);
-
-                    doorGameObject.SetActive(true);
-                }
+                        doorGameObject.SetActive(true);
+                    }
+            }
+            return doorsByRoom;
         }
         #endregion
     }

@@ -5,6 +5,6 @@ namespace Roguelike.Core.Placers
 {
     public interface IPlayersPlacer
     {
-        void Place(List<Transform> playersMarkers);
+        List<Transform>[] Place(List<Transform>[] playerMarkersByRoom);
     }
 }

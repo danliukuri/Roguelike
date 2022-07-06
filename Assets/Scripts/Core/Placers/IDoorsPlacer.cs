@@ -5,6 +5,6 @@ namespace Roguelike.Core.Placers
 {
     public interface IDoorsPlacer
     {
-        void Place(List<Transform> doorsMarkers);
+        List<Transform>[] Place(List<Transform>[] doorMarkersByRoom);
     }
 }

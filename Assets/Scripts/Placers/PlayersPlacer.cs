@@ -15,17 +15,33 @@ namespace Roguelike.Placers
 
         #region Methods
         public PlayersPlacer(IPlayerFactory playerFactory) => this.playerFactory = playerFactory;
-        public void Place(List<Transform> playerMarkers)
+        public List<Transform>[] Place(List<Transform>[] playerMarkersByRoom)
         {
-            Transform playerMarker = playerMarkers.Where(m => m.gameObject.activeSelf).ToArray().Random();
+            List<Transform>[] playersByRoom = new List<Transform>[playerMarkersByRoom.Length];
+            for (int i = 0; i < playerMarkersByRoom.Length; i++)
+                playersByRoom[i] = new List<Transform>();
 
+            (Transform playerMarker, int roomIndex) = GetRandomMarker(playerMarkersByRoom); 
+            
             GameObject playerGameObject = playerFactory.GetPlayer();
             Transform playerTransform = playerGameObject.transform;
-
+            playersByRoom[roomIndex].Add(playerTransform);
+            
             playerTransform.position = playerMarker.position;
             playerTransform.SetParent(playerMarker);
-
+            
             playerGameObject.SetActive(true);
+            
+            return playersByRoom;
+        }
+        static (Transform marker, int roomIndex) GetRandomMarker(IEnumerable<List<Transform>> markersByRoom)
+        {
+            (IEnumerable<Transform> pickedMarkers, int pickedRoomIndex) = markersByRoom
+                .Select((markers, roomIndex) => 
+                    (markers: markers.Where(marker => marker.gameObject.activeSelf), roomIndex))
+                .Where(activeMarkersByRoom => activeMarkersByRoom.markers.Any())
+                .ToArray().Random();
+            return (pickedMarkers.ToArray().Random(), pickedRoomIndex);
         }
         #endregion
     }
