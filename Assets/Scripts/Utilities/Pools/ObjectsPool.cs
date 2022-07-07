@@ -1,7 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-namespace Roguelike.Utilities
+namespace Roguelike.Utilities.Pools
 {
     public class ObjectsPool : MonoBehaviour
     {
@@ -14,16 +15,16 @@ namespace Roguelike.Utilities
         [SerializeField] protected Transform objectsParent;
 
         [SerializeField] int initialNumberOfObjects;
-
+        
         protected List<GameObject> objects;
         #endregion
 
         #region Methods
-        protected void Awake()
+        void Awake()
         {
             Initialize();
         }
-        void Initialize()
+        protected void Initialize()
         {
             objects = new List<GameObject>(initialNumberOfObjects);
             for (int i = 0; i < initialNumberOfObjects; i++)
@@ -34,14 +35,14 @@ namespace Roguelike.Utilities
         /// Creates a new free inactive object
         /// </summary>
         /// <returns> Newly created inactive object </returns>
-        public virtual GameObject CreateInactiveGameObject()
+        protected virtual GameObject CreateInactiveGameObject()
         {
-            GameObject gameObject = Instantiate(gameObjectPrefab, objectsParent);
-            gameObject.SetActive(false);
-            objects.Add(gameObject);
-            return gameObject;
+            GameObject inactiveGameObject = Instantiate(gameObjectPrefab, objectsParent);
+            inactiveGameObject.SetActive(false);
+            objects.Add(inactiveGameObject);
+            return inactiveGameObject;
         }
-        void OnValidate()
+        protected void OnValidate()
         {
             if (objectsParent == null)
                 objectsParent = transform;
@@ -53,25 +54,10 @@ namespace Roguelike.Utilities
         /// <returns> Found or newly created inactive object </returns>
         public GameObject GetFreeObject()
         {
-            GameObject gameObject = TryToGetFreeObject();
-            if (gameObject == null)
-                gameObject = CreateInactiveGameObject();
-            return gameObject;
-        }
-        /// <summary>
-        /// Finds an inactive object
-        /// </summary>
-        /// <returns> Found inactive object </returns>
-        GameObject TryToGetFreeObject()
-        {
-            GameObject gameObject = null;
-            for (int i = 0; i < objects?.Count; i++)
-                if (!objects[i].activeSelf)
-                {
-                    gameObject = objects[i];
-                    break;
-                }
-            return gameObject;
+            GameObject freeGameObject = objects.FirstOrDefault(obj => !obj.activeSelf);
+            if (freeGameObject == default)
+                freeGameObject = CreateInactiveGameObject();
+            return freeGameObject;
         }
         #endregion
     }

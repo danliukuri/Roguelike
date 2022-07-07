@@ -1,9 +1,8 @@
 using Roguelike.Core.Factories;
-using Roguelike.Movers;
 using Roguelike.Utilities;
 using Roguelike.Utilities.Extensions;
+using Roguelike.Utilities.Pools;
 using UnityEngine;
-using Zenject;
 
 namespace Roguelike.Factories
 {

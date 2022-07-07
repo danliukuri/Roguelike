@@ -1,7 +1,7 @@
 using UnityEngine;
 using Zenject;
 
-namespace Roguelike.Utilities.Extensions
+namespace Roguelike.Utilities.Pools
 {
     public class DependentObjectsPool : ObjectsPool
     {
@@ -17,12 +17,12 @@ namespace Roguelike.Utilities.Extensions
         /// Creates a new free inactive object
         /// </summary>
         /// <returns> Newly created inactive object </returns>
-        public override GameObject CreateInactiveGameObject()
+        protected override GameObject CreateInactiveGameObject()
         {
-            GameObject gameObject = container.InstantiatePrefab(gameObjectPrefab, objectsParent);
-            gameObject.SetActive(false);
-            objects.Add(gameObject);
-            return gameObject;
+            GameObject inactiveGameObject = container.InstantiatePrefab(gameObjectPrefab, objectsParent);
+            inactiveGameObject.SetActive(false);
+            objects.Add(inactiveGameObject);
+            return inactiveGameObject;
         }   
         #endregion
     }

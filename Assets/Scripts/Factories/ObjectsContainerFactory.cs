@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Roguelike.Core.Factories;
 using Roguelike.Utilities;
+using Roguelike.Utilities.Pools;
 using UnityEngine;
 
 namespace Roguelike.Factories

@@ -2,6 +2,7 @@ using Roguelike.Core.Entities;
 using Roguelike.Core.Factories;
 using Roguelike.Utilities;
 using Roguelike.Utilities.Extensions;
+using Roguelike.Utilities.Pools;
 using UnityEngine;
 
 namespace Roguelike.Factories
