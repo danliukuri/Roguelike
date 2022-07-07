@@ -257,6 +257,7 @@ MonoBehaviour:
   doorFactory: {fileID: 5957519045766193991, guid: 8f84016d5c033de468801f61ad6695ee, type: 3}
   exitFactory: {fileID: 5634837662990372829, guid: 81fc1fa165840e747bf4d51ae8dc78b9, type: 3}
   playerFactory: {fileID: 2394766789636395569, guid: 386041e80252b1d47b3535c77aa4ec2c, type: 3}
+  objectsContainerFactory: {fileID: 9064558377770843465, guid: 7cdaa586b08aef240bd2fee3f38c04f3, type: 3}
 --- !u!1 &950892026
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,6 +269,7 @@ GameObject:
   - component: {fileID: 950892028}
   - component: {fileID: 950892027}
   - component: {fileID: 950892029}
+  - component: {fileID: 950892030}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -291,6 +293,7 @@ MonoBehaviour:
   _monoInstallers:
   - {fileID: 912140874}
   - {fileID: 950892029}
+  - {fileID: 950892030}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -333,6 +336,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1714a81e8b512c546b88c895ea8779d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &950892030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950892026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6c4eb75b27a4938b99bc2d32900dc19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1764354344
