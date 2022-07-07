@@ -10,25 +10,32 @@ namespace Roguelike.Placers
     public class PlayersPlacer : IPlayersPlacer
     {
         #region Fields
+        const string playerParentName = "Players";
+        
         readonly IPlayerFactory playerFactory;
+        readonly IObjectsContainerFactory containerFactory;
         #endregion
 
         #region Methods
-        public PlayersPlacer(IPlayerFactory playerFactory) => this.playerFactory = playerFactory;
+        public PlayersPlacer(IPlayerFactory playerFactory, IObjectsContainerFactory containerFactory)
+        {
+            this.playerFactory = playerFactory;
+            this.containerFactory = containerFactory;
+        }
         public List<Transform>[] Place(List<Transform>[] playerMarkersByRoom)
         {
             List<Transform>[] playersByRoom = new List<Transform>[playerMarkersByRoom.Length];
             for (int i = 0; i < playerMarkersByRoom.Length; i++)
                 playersByRoom[i] = new List<Transform>();
 
-            (Transform playerMarker, int roomIndex) = GetRandomMarker(playerMarkersByRoom); 
+            (Transform playerMarker, int roomIndex) = GetRandomMarker(playerMarkersByRoom);
             
             GameObject playerGameObject = playerFactory.GetPlayer();
             Transform playerTransform = playerGameObject.transform;
             playersByRoom[roomIndex].Add(playerTransform);
             
             playerTransform.position = playerMarker.position;
-            playerTransform.SetParent(playerMarker);
+            SetPlayerParent(playerTransform);
             
             playerGameObject.SetActive(true);
             
@@ -42,6 +49,12 @@ namespace Roguelike.Placers
                 .Where(activeMarkersByRoom => activeMarkersByRoom.markers.Any())
                 .ToArray().Random();
             return (pickedMarkers.ToArray().Random(), pickedRoomIndex);
+        }
+        void SetPlayerParent(Transform playerTransform)
+        {
+            GameObject playersContainer = containerFactory.GetContainer(playerParentName);
+            playerTransform.SetParent(playersContainer.transform, false);
+            playersContainer.SetActive(true);
         }
         #endregion
     }
