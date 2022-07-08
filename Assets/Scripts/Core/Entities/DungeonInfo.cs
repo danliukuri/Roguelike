@@ -17,6 +17,12 @@ namespace Roguelike.Core.Entities
         public List<Transform>[] ExitsByRoom { get; set; }
         #endregion
 
+        #region Fields
+        public event Action<int> PlayerRoomIndexChanged;
+        
+        int playerRoomIndex;
+        #endregion
+
         #region Methods
         public List<Transform>[] GetAllMarkersByRoom(Func<Room, IEnumerable<Transform>> getMarkersFromRoom)
         {
@@ -36,6 +42,12 @@ namespace Roguelike.Core.Entities
         public bool IsPlayerMovePossible(Vector3 destination)
         {
             int roomIndex = GetRoomIndex(destination);
+            if (playerRoomIndex != roomIndex)
+            {
+                playerRoomIndex = roomIndex;
+                PlayerRoomIndexChanged?.Invoke(roomIndex);
+            }
+            
             bool isMovePossible = WallsByRoom[roomIndex].All(wall => wall.position != destination);
             return isMovePossible;
         }
