@@ -1,19 +1,20 @@
-﻿using Roguelike.Core.Factories;
+﻿using System.Collections.Generic;
+using Roguelike.Core.Factories;
 using Roguelike.Core.Placers;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using Zenject;
 
 namespace Roguelike.Placers
 {
-    public class WallsPlacer : IWallsPlacer
+    public class WallsPlacer : IRoomElementsPlacer
     {
         #region Fields
         readonly IGameObjectFactory wallFactory;
         #endregion
 
         #region Methods
-        public WallsPlacer(IGameObjectFactory wallFactory) => this.wallFactory = wallFactory;
+        public WallsPlacer([Inject(Id = RoomElementType.Wall)] IGameObjectFactory wallFactory) =>
+            this.wallFactory = wallFactory;
         public List<Transform>[] Place(List<Transform>[] wallMarkersByRoom)
         {
             List<Transform>[] wallsByRoom = new List<Transform>[wallMarkersByRoom.Length];

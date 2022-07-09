@@ -1,20 +1,22 @@
-﻿using Roguelike.Core.Factories;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Roguelike.Core.Factories;
 using Roguelike.Core.Placers;
 using Roguelike.Utilities.Extensions;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using Zenject;
 
 namespace Roguelike.Placers
 {
-    public class ExitsPlacer : IExitsPlacer
+    public class ExitsPlacer : IRoomElementsPlacer
     {
         #region Fields
         readonly IGameObjectFactory exitFactory;
         #endregion
 
         #region Methods
-        public ExitsPlacer(IGameObjectFactory exitFactory) => this.exitFactory = exitFactory;
+        public ExitsPlacer([Inject(Id = RoomElementType.Exit)] IGameObjectFactory exitFactory) =>
+            this.exitFactory = exitFactory;
         public List<Transform>[] Place(List<Transform>[] exitMarkersByRoom)
         {
             List<Transform>[] exitsByRoom = new List<Transform>[exitMarkersByRoom.Length];

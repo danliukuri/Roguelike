@@ -1,4 +1,5 @@
-﻿using Roguelike.Core.Placers;
+﻿using System;
+using Roguelike.Core.Placers;
 using Roguelike.Placers;
 using Zenject;
 
@@ -11,10 +12,7 @@ namespace Roguelike.Installers.Scene
         {
             BindDungeonPlacer();
             BindRoomsPlacer();
-            BindWallsPlacer();
-            BindDoorsPlacer();
-            BindExitsPlacer();
-            BindPlayersPlacer();
+            BindRoomElementsPlacers();
         }
         void BindDungeonPlacer()
         {
@@ -30,33 +28,22 @@ namespace Roguelike.Installers.Scene
                 .To<RoomsPlacer>()
                 .AsSingle();
         }
-        void BindWallsPlacer()
+        void BindRoomElementsPlacers()
         {
-            Container
-                .Bind<IWallsPlacer>()
-                .To<WallsPlacer>()
-                .AsSingle();
-        }
-        void BindDoorsPlacer()
-        {
-            Container
-                .Bind<IDoorsPlacer>()
-                .To<DoorsPlacer>()
-                .AsSingle();
-        }
-        void BindExitsPlacer()
-        {
-            Container
-                .Bind<IExitsPlacer>()
-                .To<ExitsPlacer>()
-                .AsSingle();
-        }
-        void BindPlayersPlacer()
-        {
-            Container
-                .Bind<IPlayersPlacer>()
-                .To<PlayersPlacer>()
-                .AsSingle();
+            (object Id, Type TypeToBind)[] roomElementsPlacers =
+            {
+                (RoomElementType.Player, typeof(PlayersPlacer)),
+                (RoomElementType.Wall, typeof(WallsPlacer)),
+                (RoomElementType.Door, typeof(DoorsPlacer)),
+                (RoomElementType.Exit, typeof(ExitsPlacer))
+            };
+            
+            foreach ((object Id, Type TypeToBind) placer in roomElementsPlacers) 
+                Container
+                    .Bind<IRoomElementsPlacer>()
+                    .WithId(placer.Id)
+                    .To(placer.TypeToBind)
+                    .AsCached();
         }
         #endregion
     }

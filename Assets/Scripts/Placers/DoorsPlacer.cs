@@ -1,18 +1,20 @@
-﻿using Roguelike.Core.Factories;
+﻿using System.Collections.Generic;
+using Roguelike.Core.Factories;
 using Roguelike.Core.Placers;
-using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace Roguelike.Placers
 {
-    public class DoorsPlacer : IDoorsPlacer
+    public class DoorsPlacer : IRoomElementsPlacer
     {
         #region Fields
         readonly IGameObjectFactory doorFactory;
         #endregion
 
         #region Methods
-        public DoorsPlacer(IGameObjectFactory doorFactory) => this.doorFactory = doorFactory;
+        public DoorsPlacer([Inject(Id = RoomElementType.Door)] IGameObjectFactory doorFactory) =>
+            this.doorFactory = doorFactory;
         public List<Transform>[] Place(List<Transform>[] doorMarkersByRoom)
         {
             List<Transform>[] doorsByRoom = new List<Transform>[doorMarkersByRoom.Length];

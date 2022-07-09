@@ -1,9 +1,7 @@
-using System;
 using Roguelike.Core.Factories;
 using Roguelike.Core.Placers;
 using UnityEngine;
 using Zenject;
-using Object = UnityEngine.Object;
 
 namespace Roguelike.Installers.Scene
 {
@@ -42,21 +40,21 @@ namespace Roguelike.Installers.Scene
         }
         void BindRoomElementFactories()
         {
-            (Object factoryPrefab, Type typeWhenInjectInto)[] roomElementFactories =
+            (object Id, Object Prefab)[] roomElementFactories =
             {
-                (playerFactory, typeof(IPlayersPlacer)),
-                (wallFactory, typeof(IWallsPlacer)),
-                (doorFactory, typeof(IDoorsPlacer)),
-                (exitFactory, typeof(IExitsPlacer))
+                (RoomElementType.Player, playerFactory),
+                (RoomElementType.Wall, wallFactory),
+                (RoomElementType.Door, doorFactory),
+                (RoomElementType.Exit, exitFactory)
             };
             
-            foreach ((Object factoryPrefab, Type target) in roomElementFactories) 
+            foreach ((object Id, Object Prefab) factory in roomElementFactories) 
                 Container
                     .Bind<IGameObjectFactory>()
-                    .FromComponentInNewPrefab(factoryPrefab)
+                    .WithId(factory.Id)
+                    .FromComponentInNewPrefab(factory.Prefab)
                     .UnderTransform(transform)
                     .AsCached()
-                    .WhenInjectedInto(target)
                     .NonLazy();
         }
         void BindObjectsContainerFactory()

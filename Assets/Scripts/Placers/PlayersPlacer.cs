@@ -4,10 +4,11 @@ using Roguelike.Core.Factories;
 using Roguelike.Core.Placers;
 using Roguelike.Utilities.Extensions;
 using UnityEngine;
+using Zenject;
 
 namespace Roguelike.Placers
 {
-    public class PlayersPlacer : IPlayersPlacer
+    public class PlayersPlacer : IRoomElementsPlacer
     {
         #region Fields
         const string playerParentName = "Players";
@@ -17,7 +18,8 @@ namespace Roguelike.Placers
         #endregion
 
         #region Methods
-        public PlayersPlacer(IGameObjectFactory playerFactory, IObjectsContainerFactory containerFactory)
+        public PlayersPlacer([Inject(Id = RoomElementType.Player)] IGameObjectFactory playerFactory,
+            IObjectsContainerFactory containerFactory)
         {
             this.playerFactory = playerFactory;
             this.containerFactory = containerFactory;
