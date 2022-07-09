@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2394766789636395598}
-  - component: {fileID: 8831162684786411599}
+  - component: {fileID: 7666088815727384409}
   - component: {fileID: 6994807020270277523}
   m_Layer: 0
   m_Name: PlayerFactory
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8831162684786411599
+--- !u!114 &7666088815727384409
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,11 +41,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2394766789636395569}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0af61ddb55274458a2c73a9f13761b41, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a397c452e804916af07e316b9c4648a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playersPool: {fileID: 6994807020270277523}
-  playersSprites:
+  roomElementsPool: {fileID: 6994807020270277523}
+  roomElementSprites:
   - value: {fileID: -2311659948842064771, guid: 868c623171112d0498f5474a27cc6689, type: 3}
     weight: 1
 --- !u!114 &6994807020270277523

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5957519045766193990}
-  - component: {fileID: 5957519045766193984}
+  - component: {fileID: 6922957647954081528}
   - component: {fileID: 5957519045766193989}
   m_Layer: 0
   m_Name: DoorFactory
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5957519045766193984
+--- !u!114 &6922957647954081528
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,11 +41,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5957519045766193991}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64659c052196dc248b124dff855c3d1d, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a397c452e804916af07e316b9c4648a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  doorsPool: {fileID: 5957519045766193989}
-  doorSprites:
+  roomElementsPool: {fileID: 5957519045766193989}
+  roomElementSprites:
   - value: {fileID: -2869115396899081085, guid: 91360baca434fd34585ffcccf3821017, type: 3}
     weight: 1
 --- !u!114 &5957519045766193989

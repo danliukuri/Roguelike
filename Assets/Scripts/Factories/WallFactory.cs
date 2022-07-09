@@ -1,29 +1,18 @@
-﻿using Roguelike.Core.Factories;
-using Roguelike.Utilities;
-using Roguelike.Utilities.Extensions;
-using Roguelike.Utilities.Pools;
+﻿using Roguelike.Utilities.Extensions;
 using UnityEngine;
 
 namespace Roguelike.Factories
 {
-    public class WallFactory : MonoBehaviour, IGameObjectFactory
+    public class WallFactory : RoomElementFactory
     {
-        #region Fields
-        [SerializeField] ObjectsPool wallsPool;
-        [SerializeField] WeightAndValue<Sprite>[] wallSprites;
-        #endregion
-
         #region Methods
-        public GameObject GetGameObject()
+        public override GameObject GetGameObject()
         {
-            GameObject wallGameObject = wallsPool.GetFreeObject();
+            GameObject wallGameObject = base.GetGameObject();
             
-            SpriteRenderer wallSpriteRenderer = wallGameObject.GetComponent<SpriteRenderer>();
-            wallSpriteRenderer.sprite = wallSprites.RandomBasedOnWeights().Value;
-
             Transform wallTransform = wallGameObject.transform;
             wallTransform.RotateRandomNumberOfTimesByRightAngle(wallTransform.forward);
-
+            
             return wallGameObject;
         }
         #endregion
