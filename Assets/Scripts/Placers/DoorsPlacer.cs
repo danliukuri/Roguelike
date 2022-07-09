@@ -8,11 +8,11 @@ namespace Roguelike.Placers
     public class DoorsPlacer : IDoorsPlacer
     {
         #region Fields
-        readonly IDoorFactory doorFactory;
+        readonly IGameObjectFactory doorFactory;
         #endregion
 
         #region Methods
-        public DoorsPlacer(IDoorFactory doorFactory) => this.doorFactory = doorFactory;
+        public DoorsPlacer(IGameObjectFactory doorFactory) => this.doorFactory = doorFactory;
         public List<Transform>[] Place(List<Transform>[] doorMarkersByRoom)
         {
             List<Transform>[] doorsByRoom = new List<Transform>[doorMarkersByRoom.Length];
@@ -22,7 +22,7 @@ namespace Roguelike.Placers
                 foreach (Transform doorMarker in doorMarkersByRoom[i])
                     if (doorMarker.gameObject.activeSelf)
                     {
-                        GameObject doorGameObject = doorFactory.GetDoor();
+                        GameObject doorGameObject = doorFactory.GetGameObject();
                         Transform doorTransform = doorGameObject.transform;
                         doorsByRoom[i].Add(doorTransform);
                         

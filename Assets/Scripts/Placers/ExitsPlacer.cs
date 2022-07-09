@@ -10,11 +10,11 @@ namespace Roguelike.Placers
     public class ExitsPlacer : IExitsPlacer
     {
         #region Fields
-        readonly IExitFactory exitFactory;
+        readonly IGameObjectFactory exitFactory;
         #endregion
 
         #region Methods
-        public ExitsPlacer(IExitFactory exitFactory) => this.exitFactory = exitFactory;
+        public ExitsPlacer(IGameObjectFactory exitFactory) => this.exitFactory = exitFactory;
         public List<Transform>[] Place(List<Transform>[] exitMarkersByRoom)
         {
             List<Transform>[] exitsByRoom = new List<Transform>[exitMarkersByRoom.Length];
@@ -23,7 +23,7 @@ namespace Roguelike.Placers
             
             (Transform exitMarker, int roomIndex) = GetRandomMarker(exitMarkersByRoom); 
             
-            GameObject exitGameObject = exitFactory.GetExit();
+            GameObject exitGameObject = exitFactory.GetGameObject();
             Transform exitTransform = exitGameObject.transform;
             exitsByRoom[roomIndex].Add(exitTransform);
             

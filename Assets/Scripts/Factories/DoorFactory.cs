@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Roguelike.Factories
 {
-    public class DoorFactory : MonoBehaviour, IDoorFactory
+    public class DoorFactory : MonoBehaviour, IGameObjectFactory
     {
         #region Fields
         [SerializeField] ObjectsPool doorsPool;
@@ -14,7 +14,7 @@ namespace Roguelike.Factories
         #endregion
 
         #region Methods
-        public GameObject GetDoor()
+        public GameObject GetGameObject()
         {
             GameObject doorGameObject = doorsPool.GetFreeObject();
 

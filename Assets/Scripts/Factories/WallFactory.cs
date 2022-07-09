@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Roguelike.Factories
 {
-    public class WallFactory : MonoBehaviour, IWallFactory
+    public class WallFactory : MonoBehaviour, IGameObjectFactory
     {
         #region Fields
         [SerializeField] ObjectsPool wallsPool;
@@ -14,7 +14,7 @@ namespace Roguelike.Factories
         #endregion
 
         #region Methods
-        public GameObject GetWall()
+        public GameObject GetGameObject()
         {
             GameObject wallGameObject = wallsPool.GetFreeObject();
             

@@ -9,11 +9,11 @@ namespace Roguelike.Placers
     public class WallsPlacer : IWallsPlacer
     {
         #region Fields
-        readonly IWallFactory wallFactory;
+        readonly IGameObjectFactory wallFactory;
         #endregion
 
         #region Methods
-        public WallsPlacer(IWallFactory wallFactory) => this.wallFactory = wallFactory;
+        public WallsPlacer(IGameObjectFactory wallFactory) => this.wallFactory = wallFactory;
         public List<Transform>[] Place(List<Transform>[] wallMarkersByRoom)
         {
             List<Transform>[] wallsByRoom = new List<Transform>[wallMarkersByRoom.Length];
@@ -23,7 +23,7 @@ namespace Roguelike.Placers
                 foreach (Transform wallMarker in wallMarkersByRoom[i])
                     if(wallMarker.gameObject.activeSelf)
                     {
-                        GameObject wallGameObject = wallFactory.GetWall();
+                        GameObject wallGameObject = wallFactory.GetGameObject();
                         Transform wallTransform = wallGameObject.transform;
                         wallsByRoom[i].Add(wallTransform);
                             

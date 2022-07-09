@@ -12,12 +12,12 @@ namespace Roguelike.Placers
         #region Fields
         const string playerParentName = "Players";
         
-        readonly IPlayerFactory playerFactory;
+        readonly IGameObjectFactory playerFactory;
         readonly IObjectsContainerFactory containerFactory;
         #endregion
 
         #region Methods
-        public PlayersPlacer(IPlayerFactory playerFactory, IObjectsContainerFactory containerFactory)
+        public PlayersPlacer(IGameObjectFactory playerFactory, IObjectsContainerFactory containerFactory)
         {
             this.playerFactory = playerFactory;
             this.containerFactory = containerFactory;
@@ -30,7 +30,7 @@ namespace Roguelike.Placers
 
             (Transform playerMarker, int roomIndex) = GetRandomMarker(playerMarkersByRoom);
             
-            GameObject playerGameObject = playerFactory.GetPlayer();
+            GameObject playerGameObject = playerFactory.GetGameObject();
             Transform playerTransform = playerGameObject.transform;
             playersByRoom[roomIndex].Add(playerTransform);
             

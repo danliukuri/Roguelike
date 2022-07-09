@@ -1,75 +1,63 @@
+using System;
 using Roguelike.Core.Factories;
+using Roguelike.Core.Placers;
 using UnityEngine;
 using Zenject;
+using Object = UnityEngine.Object;
 
 namespace Roguelike.Installers.Scene
 {
     public class FactoriesInstaller : MonoInstaller
     {
         #region Fields 
-        [SerializeField] GameObject[] roomsFactories;
+        [SerializeField] Object[] roomsFactories;
+        
+        [SerializeField] GameObject playerFactory;
         [SerializeField] GameObject wallFactory;
         [SerializeField] GameObject doorFactory;
         [SerializeField] GameObject exitFactory;
-        [SerializeField] GameObject playerFactory;
+        
         [SerializeField] GameObject objectsContainerFactory;
         #endregion
 
         #region Methods
         public override void InstallBindings()
         {
-            foreach (GameObject roomFactory in roomsFactories)
+            foreach (Object roomFactory in roomsFactories)
                 BindRoomFactory(roomFactory);
-            BindWallFactory();
-            BindDoorFactory();
-            BindExitFactory();
-            BindPlayerFactory();
+            
+            BindRoomElementFactories();
             BindObjectsContainerFactory();
         }
-        void BindRoomFactory(GameObject roomFactory)
+
+        void BindRoomFactory(Object roomFactory)
         {
             Container
-                .Bind<IRoomFactory>()
+                .Bind<IGameObjectFactory>()
                 .FromComponentInNewPrefab(roomFactory)
                 .UnderTransform(transform)
                 .AsCached()
+                .WhenInjectedInto<IRoomsPlacer>()
                 .NonLazy();
         }
-        void BindWallFactory()
+        void BindRoomElementFactories()
         {
-            Container
-                .Bind<IWallFactory>()
-                .FromComponentInNewPrefab(wallFactory)
-                .UnderTransform(transform)
-                .AsSingle()
-                .NonLazy();
-        }
-        void BindDoorFactory()
-        {
-            Container
-                .Bind<IDoorFactory>()
-                .FromComponentInNewPrefab(doorFactory)
-                .UnderTransform(transform)
-                .AsSingle()
-                .NonLazy();
-        }
-        void BindExitFactory()
-        {
-            Container
-                .Bind<IExitFactory>()
-                .FromComponentInNewPrefab(exitFactory)
-                .UnderTransform(transform)
-                .AsSingle()
-                .NonLazy();
-        }
-        void BindPlayerFactory()
-        {
-            Container
-                .Bind<IPlayerFactory>()
-                .FromComponentInNewPrefab(playerFactory)
-                .UnderTransform(transform)
-                .AsSingle()
-                .NonLazy();
+            (Object factoryPrefab, Type typeWhenInjectInto)[] roomElementFactories =
+            {
+                (playerFactory, typeof(IPlayersPlacer)),
+                (wallFactory, typeof(IWallsPlacer)),
+                (doorFactory, typeof(IDoorsPlacer)),
+                (exitFactory, typeof(IExitsPlacer))
+            };
+            
+            foreach ((Object factoryPrefab, Type target) in roomElementFactories) 
+                Container
+                    .Bind<IGameObjectFactory>()
+                    .FromComponentInNewPrefab(factoryPrefab)
+                    .UnderTransform(transform)
+                    .AsCached()
+                    .WhenInjectedInto(target)
+                    .NonLazy();
         }
         void BindObjectsContainerFactory()
         {

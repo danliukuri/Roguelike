@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Roguelike.Factories
 {
-    public class ExitFactory : MonoBehaviour, IExitFactory
+    public class ExitFactory : MonoBehaviour, IGameObjectFactory
     {
         #region Fields
         [SerializeField] ObjectsPool exitsPool;
@@ -14,7 +14,7 @@ namespace Roguelike.Factories
         #endregion
 
         #region Methods
-        public GameObject GetExit()
+        public GameObject GetGameObject()
         {
             GameObject exitGameObject = exitsPool.GetFreeObject();
 

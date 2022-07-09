@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Roguelike.Factories
 {
-    public class PlayerFactory: MonoBehaviour, IPlayerFactory
+    public class PlayerFactory: MonoBehaviour, IGameObjectFactory
     {
         #region Fields
         [SerializeField] ObjectsPool playersPool;
@@ -14,7 +14,7 @@ namespace Roguelike.Factories
         #endregion
 
         #region Methods
-        public GameObject GetPlayer()
+        public GameObject GetGameObject()
         {
             GameObject playerGameObject = playersPool.GetFreeObject();
 

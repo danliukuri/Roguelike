@@ -10,11 +10,11 @@ namespace Roguelike.Placers
     public class RoomsPlacer : IRoomsPlacer
     {
         #region Fields
-        readonly List<IRoomFactory> roomsFactories;
+        readonly List<IGameObjectFactory> roomsFactories;
         #endregion
 
         #region Methods
-        public RoomsPlacer(List<IRoomFactory> roomsFactories) => this.roomsFactories = roomsFactories;
+        public RoomsPlacer(List<IGameObjectFactory> roomsFactories) => this.roomsFactories = roomsFactories;
         public List<Room> Place(Vector3 firstRoomPosition, int count, Transform parent)
         {
             List<Room> rooms = new List<Room>();
@@ -58,7 +58,7 @@ namespace Roguelike.Placers
                 roomIndex == lastRoomFactoryIndex ? lastRoomFactoryIndex :
                 randomRoomFactoryIndexExceptFirstAndLast;
 
-            return roomsFactories[roomFactoryIndex].GetRoom();
+            return roomsFactories[roomFactoryIndex].GetGameObject();
         }
         static void AddNewFreePositions(ICollection<Vector3> roomPositions, ICollection<Vector3> freePositions,
             Vector3 currentRoomPosition, int roomSize)
