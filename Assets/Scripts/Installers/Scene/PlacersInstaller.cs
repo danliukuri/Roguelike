@@ -33,9 +33,9 @@ namespace Roguelike.Installers.Scene
             (object Id, Type TypeToBind)[] roomElementsPlacers =
             {
                 (RoomElementType.Player, typeof(PlayersPlacer)),
-                (RoomElementType.Wall, typeof(WallsPlacer)),
-                (RoomElementType.Door, typeof(DoorsPlacer)),
-                (RoomElementType.Exit, typeof(ExitsPlacer))
+                (RoomElementType.Wall, typeof(RoomElementsPlacer)),
+                (RoomElementType.Door, typeof(RoomElementsPlacer)),
+                (RoomElementType.Exit, typeof(RoomElementsPlacer))
             };
             
             foreach ((object Id, Type TypeToBind) placer in roomElementsPlacers) 

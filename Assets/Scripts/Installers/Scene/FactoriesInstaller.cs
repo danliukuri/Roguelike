@@ -1,5 +1,4 @@
 using Roguelike.Core.Factories;
-using Roguelike.Core.Placers;
 using UnityEngine;
 using Zenject;
 
@@ -35,27 +34,34 @@ namespace Roguelike.Installers.Scene
                 .FromComponentInNewPrefab(roomFactory)
                 .UnderTransform(transform)
                 .AsCached()
-                .WhenInjectedInto<IRoomsPlacer>()
                 .NonLazy();
         }
         void BindRoomElementFactories()
         {
-            (object Id, Object Prefab)[] roomElementFactories =
+            (Object Prefab, RoomElementType ParentId)[] roomElementFactories =
             {
-                (RoomElementType.Player, playerFactory),
-                (RoomElementType.Wall, wallFactory),
-                (RoomElementType.Door, doorFactory),
-                (RoomElementType.Exit, exitFactory)
+                (playerFactory, RoomElementType.Player),
+                (wallFactory, RoomElementType.Wall),
+                (doorFactory, RoomElementType.Door),
+                (exitFactory, RoomElementType.Exit)
             };
             
-            foreach ((object Id, Object Prefab) factory in roomElementFactories) 
+            foreach ((Object Prefab, RoomElementType ParentId) factory in roomElementFactories)
+            {
+                static bool IsParentContextIdEqual<T>(InjectContext context, T id)
+                {
+                    object parentId = context.ParentContext?.Identifier;
+                    return parentId != default && Equals(parentId, id);
+                }
+
                 Container
                     .Bind<IGameObjectFactory>()
-                    .WithId(factory.Id)
                     .FromComponentInNewPrefab(factory.Prefab)
                     .UnderTransform(transform)
                     .AsCached()
+                    .When(context => IsParentContextIdEqual(context, factory.ParentId))
                     .NonLazy();
+            }
         }
         void BindObjectsContainerFactory()
         {

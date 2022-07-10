@@ -5,6 +5,7 @@ namespace Roguelike.Core.Placers
 {
     public interface IRoomElementsPlacer
     {
-        List<Transform>[] Place(List<Transform>[] elementMarkersByRoom);
+        List<Transform>[] PlaceAll(List<Transform>[] elementMarkersByRoom);
+        List<Transform>[] PlaceOneRandom(List<Transform>[] elementMarkersByRoom);
     }
 }

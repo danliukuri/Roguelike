@@ -40,11 +40,14 @@ namespace Roguelike.Placers
         {
             dungeonInfo.Rooms = roomsPlacer.Place(firstRoomPosition, roomsCount, parent);
 
-            dungeonInfo.WallsByRoom = wallsPlacer.Place(dungeonInfo.GetAllMarkersByRoom(room => room.AllWallsMarkers));
+            dungeonInfo.WallsByRoom =
+                wallsPlacer.PlaceAll(dungeonInfo.GetAllMarkersByRoom(room => room.AllWallsMarkers));
             dungeonInfo.PlayersByRoom =
-                playersPlacer.Place(dungeonInfo.GetAllMarkersByRoom(room => room.AllPlayerMarkers));
-            dungeonInfo.DoorsByRoom = doorsPlacer.Place(dungeonInfo.GetAllMarkersByRoom(room => room.AllDoorMarkers));
-            dungeonInfo.ExitsByRoom = exitsPlacer.Place(dungeonInfo.GetAllMarkersByRoom(room => room.AllExitMarkers));
+                playersPlacer.PlaceOneRandom(dungeonInfo.GetAllMarkersByRoom(room => room.AllPlayerMarkers));
+            dungeonInfo.DoorsByRoom =
+                doorsPlacer.PlaceAll(dungeonInfo.GetAllMarkersByRoom(room => room.AllDoorMarkers));
+            dungeonInfo.ExitsByRoom =
+                exitsPlacer.PlaceOneRandom(dungeonInfo.GetAllMarkersByRoom(room => room.AllExitMarkers));
         }
         #endregion
     }
