@@ -8,13 +8,13 @@ namespace Roguelike.Installers.Scene
     {
         #region Fields 
         [SerializeField] Object[] roomsFactories;
-        
-        [SerializeField] GameObject playerFactory;
+        [SerializeField] GameObject objectsContainerFactory;
+        [Header("Room elements:")]
         [SerializeField] GameObject wallFactory;
+        [SerializeField] GameObject playerFactory;
+        [SerializeField] GameObject keyFactory;
         [SerializeField] GameObject doorFactory;
         [SerializeField] GameObject exitFactory;
-        
-        [SerializeField] GameObject objectsContainerFactory;
         #endregion
 
         #region Methods
@@ -40,8 +40,9 @@ namespace Roguelike.Installers.Scene
         {
             (Object Prefab, RoomElementType ParentId)[] roomElementFactories =
             {
-                (playerFactory, RoomElementType.Player),
                 (wallFactory, RoomElementType.Wall),
+                (playerFactory, RoomElementType.Player),
+                (keyFactory, RoomElementType.Key),
                 (doorFactory, RoomElementType.Door),
                 (exitFactory, RoomElementType.Exit)
             };

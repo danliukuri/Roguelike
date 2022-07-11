@@ -5,7 +5,7 @@ namespace Roguelike
         Wall,
         Player,
         Enemy,
-        Item,
+        Key,
         Door,
         Exit
     }
