@@ -32,8 +32,9 @@ namespace Roguelike.Installers.Scene
         {
             (object Id, Type TypeToBind)[] roomElementsPlacers =
             {
-                (RoomElementType.Player, typeof(PlayersPlacer)),
                 (RoomElementType.Wall, typeof(RoomElementsPlacer)),
+                (RoomElementType.Player, typeof(PlayersPlacer)),
+                (RoomElementType.Key, typeof(RoomElementsPlacer)),
                 (RoomElementType.Door, typeof(RoomElementsPlacer)),
                 (RoomElementType.Exit, typeof(RoomElementsPlacer))
             };
