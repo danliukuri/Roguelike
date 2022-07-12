@@ -26,17 +26,27 @@ namespace Roguelike.Placers
                 .ToArray();
             return elementsByRoom;
         }
-        public List<Transform>[] PlaceOneRandom(List<Transform>[] elementMarkersByRoom)
+        public List<Transform>[] PlaceRandom(List<Transform>[] elementMarkersByRoom, int numberOfElements = 1)
         {
-            List<Transform>[] elementsByRoom = new List<Transform>[elementMarkersByRoom.Length];
-            for (int i = 0; i < elementMarkersByRoom.Length; i++)
-                elementsByRoom[i] = new List<Transform>();
-
-            (Transform elementMarker, int roomIndex) = GetRandomMarker(elementMarkersByRoom);
-            elementsByRoom[roomIndex].Add(PlaceElement(elementMarker));
+            List<(Transform Marker, int RoomIndex)> activeElementMarkersByRoom = elementMarkersByRoom
+                .SelectMany((markers, roomIndex) => markers
+                    .Where(marker => marker.gameObject.activeSelf)
+                    .Select(marker => (marker, roomIndex)))
+                .ToList();
             
+            List<Transform>[] elementsByRoom = new List<Transform>[elementMarkersByRoom.Length];
+            for (int i = 0; i < numberOfElements; i++)
+            {
+                int elementMarkerIndex = activeElementMarkersByRoom.RandomIndex();
+                
+                (Transform elementMarker, int roomIndex) = activeElementMarkersByRoom.ElementAt(elementMarkerIndex);
+                (elementsByRoom[roomIndex] ??= new List<Transform>()).Add(PlaceElement(elementMarker));
+                
+                activeElementMarkersByRoom.RemoveAt(elementMarkerIndex);
+            }
             return elementsByRoom;
         }
+        
         Transform PlaceElement(Transform elementMarker)
         {
             GameObject elementGameObject = gameObjectFactory.GetGameObject();
@@ -46,16 +56,6 @@ namespace Roguelike.Placers
             elementTransform.position = elementMarker.position;
             SetParent(elementTransform, elementMarker);
             return elementTransform;
-        }
-        
-        static (Transform Marker, int RoomIndex) GetRandomMarker(IEnumerable<IEnumerable<Transform>> markersByRoom)
-        {
-            (IEnumerable<Transform> pickedMarkers, int pickedRoomIndex) = markersByRoom
-                .Select((markers, roomIndex) => 
-                    (Markers: markers.Where(marker => marker.gameObject.activeSelf), roomIndex))
-                .Where(activeMarkersByRoom => activeMarkersByRoom.Markers.Any())
-                .ToArray().Random();
-            return (pickedMarkers.ToArray().Random(), pickedRoomIndex);
         }
         protected virtual void SetParent(Transform elementTransform, Transform parent) => 
             elementTransform.SetParent(parent);
