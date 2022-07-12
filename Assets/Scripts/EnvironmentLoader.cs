@@ -8,7 +8,8 @@ namespace Roguelike
     {
         #region Fields
         [SerializeField] Vector3 firstRoomPosition;
-        [SerializeField] int startRoomsCount;
+        [SerializeField] int initialNumberOfRooms;
+        [SerializeField] int initialNumberOfKeys;
 
         IDungeonPlacer dungeonPlacer;
         #endregion
@@ -19,7 +20,7 @@ namespace Roguelike
 
         void Start()
         {
-            dungeonPlacer.Place(firstRoomPosition, startRoomsCount, transform);
+            dungeonPlacer.Place(firstRoomPosition, initialNumberOfRooms, transform, initialNumberOfKeys);
         }
         #endregion
     }

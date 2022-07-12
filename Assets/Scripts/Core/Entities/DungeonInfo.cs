@@ -12,7 +12,7 @@ namespace Roguelike.Core.Entities
         public List<Transform>[] WallsByRoom { get; set; }
         public List<Transform>[] PlayersByRoom { get; set; }
         public List<Transform>[] EnemiesByRoom { get; set; }
-        public List<Transform>[] ItemsByRoom { get; set; }
+        public List<Transform>[] KeysByRoom { get; set; }
         public List<Transform>[] DoorsByRoom { get; set; }
         public List<Transform>[] ExitsByRoom { get; set; }
         #endregion

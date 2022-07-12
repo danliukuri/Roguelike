@@ -411,4 +411,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstRoomPosition: {x: 0, y: 0, z: 0}
-  startRoomsCount: 5
+  initialNumberOfRooms: 5
+  initialNumberOfKeys: 3
