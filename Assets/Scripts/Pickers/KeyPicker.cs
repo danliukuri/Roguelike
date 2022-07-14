@@ -1,11 +1,12 @@
 using Roguelike.Core.Information;
 using Roguelike.Core.Movers;
+using Roguelike.Core.Pickers;
 using UnityEngine;
 using Zenject;
 
-namespace Roguelike.Core.Pickers
+namespace Roguelike.Pickers
 {
-    public class ItemsPicker
+    public class KeyPicker : IPicker
     {
         #region Fields
         DungeonInfo dungeonInfo;
@@ -22,7 +23,7 @@ namespace Roguelike.Core.Pickers
             this.inventory = inventory; 
         }
         
-        public bool TryToPickUpKey(Transform key)
+        public bool TryToPickUp(Transform key)
         {
             bool isKeyPickedUp = dungeonInfo.KeysByRoom[entityMover.RoomIndex].Remove(key);
             if (isKeyPickedUp)

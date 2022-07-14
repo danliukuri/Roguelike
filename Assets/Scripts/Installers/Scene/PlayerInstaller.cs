@@ -2,6 +2,7 @@ using Roguelike.Core.EventSubscribers;
 using Roguelike.Core.Information;
 using Roguelike.Core.Movers;
 using Roguelike.Core.Pickers;
+using Roguelike.Pickers;
 using Zenject;
 
 namespace Roguelike.Installers.Scene
@@ -13,7 +14,7 @@ namespace Roguelike.Installers.Scene
         {
             BindMover();
             BindInventory();
-            BindItemsPicker();
+            BindKeyPicker();
         }
         void BindMover()
         {
@@ -29,10 +30,11 @@ namespace Roguelike.Installers.Scene
                 .AsCached()
                 .When(context => context.ParentContext.ObjectType == typeof(PlayerEventSubscriber));
         }
-        void BindItemsPicker()
+        void BindKeyPicker()
         {
             Container
-                .Bind<ItemsPicker>()
+                .Bind<IPicker>()
+                .To<KeyPicker>()
                 .AsCached()
                 .WhenInjectedInto<PlayerEventSubscriber>();
         }
