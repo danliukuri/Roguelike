@@ -1,7 +1,9 @@
 using Roguelike.Core.EventSubscribers;
 using Roguelike.Core.Information;
 using Roguelike.Core.Movers;
+using Roguelike.Core.Openers;
 using Roguelike.Core.Pickers;
+using Roguelike.Openers;
 using Roguelike.Pickers;
 using Zenject;
 
@@ -15,6 +17,7 @@ namespace Roguelike.Installers.Scene
             BindMover();
             BindInventory();
             BindKeyPicker();
+            BindDoorOpener();
         }
         void BindMover()
         {
@@ -35,6 +38,14 @@ namespace Roguelike.Installers.Scene
             Container
                 .Bind<IPicker>()
                 .To<KeyPicker>()
+                .AsCached()
+                .WhenInjectedInto<PlayerEventSubscriber>();
+        }        
+        void BindDoorOpener()
+        {
+            Container
+                .Bind<IOpener>()
+                .To<DoorOpener>()
                 .AsCached()
                 .WhenInjectedInto<PlayerEventSubscriber>();
         }

@@ -1,7 +1,7 @@
 using Roguelike.Core.Movers;
+using Roguelike.Core.Openers;
 using Roguelike.Core.Pickers;
 using Roguelike.Core.Services.Input;
-using Roguelike.Pickers;
 using UnityEngine;
 using Zenject;
 
@@ -12,17 +12,20 @@ namespace Roguelike.Core.EventSubscribers
         #region Fields
         EntityMover mover;
         IPicker keyPicker;
+        IOpener doorOpener;
         
         IMovementInputService movementInputService;
         #endregion
 
         #region Methods
         [Inject]
-        void Construct(IMovementInputService movementInputService, EntityMover mover, IPicker keyPicker)
+        void Construct(IMovementInputService movementInputService, EntityMover mover, IPicker keyPicker,
+            IOpener doorOpener)
         {
             this.movementInputService = movementInputService;
             this.mover = mover;
             this.keyPicker = keyPicker;
+            this.doorOpener = doorOpener;
         }
 
         void OnEnable()
@@ -30,12 +33,14 @@ namespace Roguelike.Core.EventSubscribers
             movementInputService.Moving += mover.TryToMove;
             mover.MovingToWall += mover.TryToMoveToWall;
             mover.MovingToKey += keyPicker.TryToPickUp;
+            mover.MovingToDoor += doorOpener.TryToOpen;
         }
         void OnDisable()
         {
             movementInputService.Moving -= mover.TryToMove;
             mover.MovingToWall -= mover.TryToMoveToWall;
             mover.MovingToKey -= keyPicker.TryToPickUp;
+            mover.MovingToDoor -= doorOpener.TryToOpen;
         }
         #endregion
     }

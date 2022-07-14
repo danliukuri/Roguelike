@@ -20,6 +20,7 @@ namespace Roguelike.Core.Movers
         public delegate bool MovingToElementEventHandler(Transform element);
         public event MovingToElementEventHandler MovingToWall;
         public event MovingToElementEventHandler MovingToKey;
+        public event MovingToElementEventHandler MovingToDoor;
         public event Action<int> RoomIndexChanged;
         
         DungeonInfo dungeonInfo;
@@ -50,6 +51,7 @@ namespace Roguelike.Core.Movers
                 MovingToElementEventHandler MovingToElement)[] 
                 { 
                     (dungeonInfo.KeysByRoom, MovingToKey),
+                    (dungeonInfo.DoorsByRoom, MovingToDoor),
                     (dungeonInfo.WallsByRoom, MovingToWall),
                 };
             
