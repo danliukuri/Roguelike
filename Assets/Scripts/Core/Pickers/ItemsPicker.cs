@@ -20,11 +20,15 @@ namespace Roguelike.Core.Pickers
             this.inventory = inventory; 
         }
         
-        public void PickUpKey(Transform key)
+        public bool TryToPickUpKey(Transform key)
         {
-            key.gameObject.SetActive(false);
-            dungeonInfo.KeysByRoom[dungeonInfo.PlayerRoomIndex].Remove(key);
-            inventory.NumberOfKeys++;
+            bool isKeyPickedUp = dungeonInfo.KeysByRoom[dungeonInfo.PlayerRoomIndex].Remove(key);
+            if (isKeyPickedUp)
+            {
+                key.gameObject.SetActive(false);
+                inventory.NumberOfKeys++;
+            }
+            return isKeyPickedUp;
         }
         #endregion
     }

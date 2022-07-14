@@ -8,6 +8,7 @@ namespace Roguelike.Core.Movers
     {
         #region Fields
         [SerializeField] float movementStep = 1f;
+        [SerializeField] bool canMoveToWall;
         
         DungeonInfo dungeonInfo;
         #endregion
@@ -15,7 +16,8 @@ namespace Roguelike.Core.Movers
         #region Methods
         [Inject]
         public void Construct(DungeonInfo dungeonInfo) => this.dungeonInfo = dungeonInfo;
-        
+
+        public bool TryToMoveToWall(Transform wall) => canMoveToWall;
         public void TryToMove(Vector3 translation)
         {
             if (dungeonInfo.IsPlayerMovePossible(transform.position + translation))

@@ -21,7 +21,9 @@ namespace Roguelike.Core.Information
         #endregion
 
         #region Fields
-        public event Action<Transform> PlayerToKeyMoving;
+        public delegate bool PlayerToElementMovingEventHandler(Transform element);
+        public event PlayerToElementMovingEventHandler PlayerToWallMoving;
+        public event PlayerToElementMovingEventHandler PlayerToKeyMoving;
         public event Action<int> PlayerRoomIndexChanged;
         #endregion
 
@@ -49,32 +51,28 @@ namespace Roguelike.Core.Information
                 PlayerRoomIndex = roomIndex;
                 PlayerRoomIndexChanged?.Invoke(roomIndex);
             }
-
-            var roomElementsInfo = new (List<Transform>[] ElementsByRoom, Action<Transform> PlayerToElementMoving, 
-                bool IsElementBlockingMovement)[]
+            
+            var roomElementsInfo = new (List<Transform>[] ElementsByRoom,
+                PlayerToElementMovingEventHandler PlayerToElementMoving)[]
                 { 
-                    (KeysByRoom, PlayerToKeyMoving, false),
-                    (WallsByRoom, default, true),
+                    (KeysByRoom, PlayerToKeyMoving),
+                    (WallsByRoom, PlayerToWallMoving),
                 };
             
-            var elementWhichPlayerMoveTo = roomElementsInfo
-                .FirstOrDefault(elementInfo => IsRoomElementOnPosition(destination,
-                    elementInfo.ElementsByRoom[roomIndex], elementInfo.PlayerToElementMoving));
+            bool isMovePossible = true;
+            foreach (var (elementsByRoom, playerToElementMoving) in roomElementsInfo)
+            {
+                Transform elementWhichPlayerMoveTo = elementsByRoom[roomIndex]?
+                    .FirstOrDefault(element => element.position == destination);
+                bool isElementOnPosition = elementWhichPlayerMoveTo != default;
             
-            bool isMovePossible = !elementWhichPlayerMoveTo.IsElementBlockingMovement;
+                if (playerToElementMoving != default && isElementOnPosition) 
+                    isMovePossible = playerToElementMoving.Invoke(elementWhichPlayerMoveTo);
+                
+                if(isElementOnPosition)
+                    break;
+            }
             return isMovePossible;
-        }
-
-        static bool IsRoomElementOnPosition(Vector3 position, IEnumerable<Transform> elements, 
-            Action<Transform> playerToElementMoving = default)
-        {
-            Transform element = elements?.FirstOrDefault(element => element.position == position);
-            bool isElementOnPosition = element != default;
-            
-            if (playerToElementMoving != default && isElementOnPosition)
-                playerToElementMoving.Invoke(element);
-            
-            return isElementOnPosition;
         }
         #endregion
     }

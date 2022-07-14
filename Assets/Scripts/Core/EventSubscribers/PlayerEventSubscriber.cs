@@ -33,12 +33,14 @@ namespace Roguelike.Core.EventSubscribers
         void OnEnable()
         {
             movementInputService.Moving += mover.TryToMove;
-            dungeonInfo.PlayerToKeyMoving += itemsPicker.PickUpKey;
+            dungeonInfo.PlayerToWallMoving += mover.TryToMoveToWall;
+            dungeonInfo.PlayerToKeyMoving += itemsPicker.TryToPickUpKey;
         }
         void OnDisable()
         {
             movementInputService.Moving -= mover.TryToMove;
-            dungeonInfo.PlayerToKeyMoving -= itemsPicker.PickUpKey;
+            dungeonInfo.PlayerToWallMoving -= mover.TryToMoveToWall;
+            dungeonInfo.PlayerToKeyMoving -= itemsPicker.TryToPickUpKey;
         }
         #endregion
     }
