@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Roguelike.Core.Entities;
 using UnityEngine;
 
-namespace Roguelike.Core.Entities
+namespace Roguelike.Core.Information
 {
     public class DungeonInfo
     {

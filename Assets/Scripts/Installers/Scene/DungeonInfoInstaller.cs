@@ -1,4 +1,4 @@
-using Roguelike.Core.Entities;
+using Roguelike.Core.Information;
 using Zenject;
 
 namespace Roguelike.Installers.Scene

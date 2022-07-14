@@ -1,5 +1,5 @@
 using System.Collections;
-using Roguelike.Core.Entities;
+using Roguelike.Core.Information;
 using UnityEngine;
 using Zenject;
 

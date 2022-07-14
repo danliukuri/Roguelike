@@ -1,4 +1,4 @@
-﻿using Roguelike.Core.Entities;
+﻿using Roguelike.Core.Information;
 using Roguelike.Core.Services.Input;
 using UnityEngine;
 using Zenject;
