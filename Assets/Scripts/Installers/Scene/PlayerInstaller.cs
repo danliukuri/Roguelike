@@ -1,5 +1,6 @@
 using Roguelike.Core.EventSubscribers;
 using Roguelike.Core.Information;
+using Roguelike.Core.Movers;
 using Roguelike.Core.Pickers;
 using Zenject;
 
@@ -10,8 +11,16 @@ namespace Roguelike.Installers.Scene
         #region Methods
         public override void InstallBindings()
         {
+            BindMover();
             BindInventory();
             BindItemsPicker();
+        }
+        void BindMover()
+        {
+            Container
+                .Bind<EntityMover>()
+                .FromComponentSibling()
+                .AsCached();
         }
         void BindInventory()
         {

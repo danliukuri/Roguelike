@@ -1,4 +1,3 @@
-using Roguelike.Core.Information;
 using Roguelike.Core.Movers;
 using Roguelike.Core.Pickers;
 using Roguelike.Core.Services.Input;
@@ -10,37 +9,32 @@ namespace Roguelike.Core.EventSubscribers
     public class PlayerEventSubscriber : MonoBehaviour
     {
         #region Fields
-        PlayerMover mover;
+        EntityMover mover;
         ItemsPicker itemsPicker;
-
-        DungeonInfo dungeonInfo;
+        
         IMovementInputService movementInputService;
         #endregion
 
         #region Methods
         [Inject]
-        void Construct(IMovementInputService movementInputService, DungeonInfo dungeonInfo, ItemsPicker itemsPicker)
+        void Construct(IMovementInputService movementInputService, EntityMover mover, ItemsPicker itemsPicker)
         {
             this.movementInputService = movementInputService;
-            this.dungeonInfo = dungeonInfo;
+            this.mover = mover;
             this.itemsPicker = itemsPicker;
-        }
-        void Awake()
-        {
-            mover = GetComponent<PlayerMover>();
         }
 
         void OnEnable()
         {
             movementInputService.Moving += mover.TryToMove;
-            dungeonInfo.PlayerToWallMoving += mover.TryToMoveToWall;
-            dungeonInfo.PlayerToKeyMoving += itemsPicker.TryToPickUpKey;
+            mover.MovingToWall += mover.TryToMoveToWall;
+            mover.MovingToKey += itemsPicker.TryToPickUpKey;
         }
         void OnDisable()
         {
             movementInputService.Moving -= mover.TryToMove;
-            dungeonInfo.PlayerToWallMoving -= mover.TryToMoveToWall;
-            dungeonInfo.PlayerToKeyMoving -= itemsPicker.TryToPickUpKey;
+            mover.MovingToWall -= mover.TryToMoveToWall;
+            mover.MovingToKey -= itemsPicker.TryToPickUpKey;
         }
         #endregion
     }

@@ -13,14 +13,20 @@ namespace Roguelike.Core.Movers
         
         Coroutine smoothMoving;
         DungeonInfo dungeonInfo;
+        EntityMover playerMover;
         #endregion
 
         #region Methods
+
         [Inject]
-        void Construct(DungeonInfo dungeonInfo) => this.dungeonInfo = dungeonInfo;
+        void Construct(DungeonInfo dungeonInfo, EntityMover playerMover)
+        {
+            this.dungeonInfo = dungeonInfo;
+            this.playerMover = playerMover;
+        }
         
-        void OnEnable() => dungeonInfo.PlayerRoomIndexChanged += MoveToRoom;
-        void OnDisable() => dungeonInfo.PlayerRoomIndexChanged -= MoveToRoom;
+        void OnEnable() => playerMover.RoomIndexChanged += MoveToRoom;
+        void OnDisable() => playerMover.RoomIndexChanged -= MoveToRoom;
         
         void MoveToRoom(int roomIndex)
         {
