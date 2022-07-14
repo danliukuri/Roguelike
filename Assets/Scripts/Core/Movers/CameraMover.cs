@@ -3,7 +3,7 @@ using Roguelike.Core.Entities;
 using UnityEngine;
 using Zenject;
 
-namespace Roguelike.Movers
+namespace Roguelike.Core.Movers
 {
     public class CameraMover : MonoBehaviour
     {

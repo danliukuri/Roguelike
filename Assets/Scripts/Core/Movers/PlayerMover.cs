@@ -3,7 +3,7 @@ using Roguelike.Core.Services.Input;
 using UnityEngine;
 using Zenject;
 
-namespace Roguelike.Movers
+namespace Roguelike.Core.Movers
 {
     public class PlayerMover : MonoBehaviour
     {
