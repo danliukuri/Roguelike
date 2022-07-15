@@ -15,12 +15,10 @@ namespace Roguelike.Core.Movers
         
         #region Fields
         [SerializeField] float movementStep = 1f;
-        [SerializeField] bool canMoveToWall;
         
-        public delegate bool MovingToElementEventHandler(Transform element);
-        public event MovingToElementEventHandler MovingToWall;
-        public event MovingToElementEventHandler MovingToKey;
-        public event MovingToElementEventHandler MovingToDoor;
+        public event EventHandler<MovingEventArgs> MovingToWall;
+        public event EventHandler<MovingEventArgs> MovingToKey;
+        public event EventHandler<MovingEventArgs> MovingToDoor;
         public event Action<int> RoomIndexChanged;
         
         DungeonInfo dungeonInfo;
@@ -35,38 +33,48 @@ namespace Roguelike.Core.Movers
             if (IsMovePossible(transform.position + translation))
                 Move(translation);
         }
-        public bool TryToMoveToWall(Transform wall) => canMoveToWall;
         void Move(Vector3 translation) => transform.Translate(translation * movementStep);
         
         bool IsMovePossible(Vector3 destination)
         {
-            int roomIndex = dungeonInfo.GetRoomIndex(destination);
-            if (RoomIndex != roomIndex)
-            {
-                RoomIndex = roomIndex;
-                RoomIndexChanged?.Invoke(roomIndex);
-            }
+            int destinationRoomIndex = dungeonInfo.GetRoomIndex(destination);
             
             var roomElementsInfo = new (List<Transform>[] ElementsByRoom, 
-                MovingToElementEventHandler MovingToElement)[] 
+                EventHandler<MovingEventArgs> MovingToElement)[] 
                 { 
                     (dungeonInfo.KeysByRoom, MovingToKey),
                     (dungeonInfo.DoorsByRoom, MovingToDoor),
                     (dungeonInfo.WallsByRoom, MovingToWall),
                 };
+            var (elementWhichEntityIsMovingTo, movingToElement) = roomElementsInfo
+                .Select(elementsInfo => (ElementAtDestination: elementsInfo.ElementsByRoom[destinationRoomIndex]?
+                        .FirstOrDefault(element => element.position == destination), elementsInfo.MovingToElement))
+                .FirstOrDefault(elementInfo => elementInfo.ElementAtDestination != default);
             
-            bool isMovePossible = true;
-            foreach (var (elementsByRoom, movingToElement) in roomElementsInfo)
+            bool isElementAtDestination = elementWhichEntityIsMovingTo != default;
+            const bool canMoveToElements = false;
+            const bool canMoveToEmptyCells = true;
+            bool isMovePossible = canMoveToEmptyCells;
+            
+            if (isElementAtDestination)
+                if (movingToElement != default)
+                {
+                    MovingEventArgs movingEventArgs = new MovingEventArgs
+                    {
+                        ElementWhichEntityIsMovingTo = elementWhichEntityIsMovingTo,
+                        IsMovePossible = canMoveToElements,
+                        Destination = destination
+                    };
+                    movingToElement.Invoke(this, movingEventArgs);
+                    isMovePossible = movingEventArgs.IsMovePossible;
+                }
+                else
+                    isMovePossible = canMoveToElements;
+
+            if (isMovePossible && RoomIndex != destinationRoomIndex)
             {
-                Transform elementWhichEntityIsMovingTo = elementsByRoom[roomIndex]?
-                    .FirstOrDefault(element => element.position == destination);
-                bool isElementAtDestination = elementWhichEntityIsMovingTo != default;
-            
-                if (movingToElement != default && isElementAtDestination) 
-                    isMovePossible = movingToElement.Invoke(elementWhichEntityIsMovingTo);
-                
-                if(isElementAtDestination)
-                    break;
+                RoomIndex = destinationRoomIndex;
+                RoomIndexChanged?.Invoke(destinationRoomIndex);
             }
             return isMovePossible;
         }

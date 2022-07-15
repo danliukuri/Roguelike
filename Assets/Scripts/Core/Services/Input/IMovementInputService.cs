@@ -1,10 +1,10 @@
 ﻿using System;
-using UnityEngine;
+using Roguelike.Core.Information;
 
 namespace Roguelike.Core.Services.Input
 {
     public interface IMovementInputService
     {
-        event Action<Vector3> Moving;
+        event EventHandler<MovingEventArgs> Moving;
     }
 }

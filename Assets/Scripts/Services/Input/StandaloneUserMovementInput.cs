@@ -1,5 +1,6 @@
-﻿using Roguelike.Core.Services.Input;
-using System;
+﻿using System;
+using Roguelike.Core.Information;
+using Roguelike.Core.Services.Input;
 using UnityEngine;
 using Zenject;
 
@@ -8,7 +9,7 @@ namespace Roguelike.Services.Input
     public class StandaloneUserMovementInput : IMovementInputService, ITickable
     {
         #region Fields
-        public event Action<Vector3> Moving;
+        public event EventHandler<MovingEventArgs> Moving;
 
         const string horizontalAxisName = "Horizontal";
         const string verticalAxisName = "Vertical";
@@ -53,9 +54,9 @@ namespace Roguelike.Services.Input
         void InvokeMovementEvent(float axisValue, Vector3 positiveDirection, Vector3 negativeDirection)
         {
             if (axisValue > defaultAxisValue)
-                Moving?.Invoke(positiveDirection);
+                Moving?.Invoke(this, new MovingEventArgs { Destination = positiveDirection });
             else if (axisValue < defaultAxisValue)
-                Moving?.Invoke(negativeDirection);
+                Moving?.Invoke(this, new MovingEventArgs { Destination = negativeDirection });
         }
         #endregion
     }

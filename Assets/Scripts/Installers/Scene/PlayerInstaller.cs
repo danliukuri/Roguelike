@@ -1,3 +1,4 @@
+using Roguelike.Core.EventHandlers;
 using Roguelike.Core.EventSubscribers;
 using Roguelike.Core.Information;
 using Roguelike.Core.Movers;
@@ -18,6 +19,7 @@ namespace Roguelike.Installers.Scene
             BindInventory();
             BindKeyPicker();
             BindDoorOpener();
+            BindEventHandler();
         }
         void BindMover()
         {
@@ -31,7 +33,7 @@ namespace Roguelike.Installers.Scene
             Container
                 .Bind<Inventory>()
                 .AsCached()
-                .When(context => context.ParentContext.ObjectType == typeof(PlayerEventSubscriber));
+                .When(context => context.ParentContext.ObjectType == typeof(PlayerEventHandler));
         }
         void BindKeyPicker()
         {
@@ -39,7 +41,7 @@ namespace Roguelike.Installers.Scene
                 .Bind<IPicker>()
                 .To<KeyPicker>()
                 .AsCached()
-                .WhenInjectedInto<PlayerEventSubscriber>();
+                .WhenInjectedInto<PlayerEventHandler>();
         }        
         void BindDoorOpener()
         {
@@ -47,6 +49,13 @@ namespace Roguelike.Installers.Scene
                 .Bind<IOpener>()
                 .To<DoorOpener>()
                 .AsCached()
+                .WhenInjectedInto<PlayerEventHandler>();
+        }
+        void BindEventHandler()
+        {
+            Container
+                .Bind<PlayerEventHandler>()
+                .AsSingle()
                 .WhenInjectedInto<PlayerEventSubscriber>();
         }
         #endregion
