@@ -2,7 +2,7 @@ using Roguelike.Core.Factories;
 using UnityEngine;
 using Zenject;
 
-namespace Roguelike.Installers.Scene
+namespace Roguelike.Installers.Bootstrap
 {
     public class FactoriesInstaller : MonoInstaller
     {

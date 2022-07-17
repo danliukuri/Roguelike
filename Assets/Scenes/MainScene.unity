@@ -221,60 +221,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &912140872
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 912140873}
-  - component: {fileID: 912140874}
-  m_Layer: 0
-  m_Name: Factories
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &912140873
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 912140872}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 950892028}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &912140874
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 912140872}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c662011b333382842a3f6030f8c47889, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  roomsFactories:
-  - {fileID: 8794798945090367266, guid: 3610028f228d6124c988c966b25ab82e, type: 3}
-  - {fileID: 9045221281702068705, guid: 54b2119f34f75cd49b5d19d399ebedea, type: 3}
-  - {fileID: 8164864650688719557, guid: 35e6a6221600f2e448396f599fea66ea, type: 3}
-  - {fileID: 5272290228360097534, guid: 09abf784446c2dc49812163f3f8e19bf, type: 3}
-  objectsContainerFactory: {fileID: 9064558377770843465, guid: 7cdaa586b08aef240bd2fee3f38c04f3, type: 3}
-  wallFactory: {fileID: 7511223073496482629, guid: c99246cd6e5cb694b98e3d5e238a11b0, type: 3}
-  playerFactory: {fileID: 2394766789636395569, guid: 386041e80252b1d47b3535c77aa4ec2c, type: 3}
-  keyFactory: {fileID: 4813649219192336993, guid: d3c9d422764b7a84da1994f98f336515, type: 3}
-  doorFactory: {fileID: 5957519045766193991, guid: 8f84016d5c033de468801f61ad6695ee, type: 3}
-  exitFactory: {fileID: 5634837662990372829, guid: 81fc1fa165840e747bf4d51ae8dc78b9, type: 3}
 --- !u!1 &950892026
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,8 +232,6 @@ GameObject:
   - component: {fileID: 950892028}
   - component: {fileID: 950892027}
   - component: {fileID: 950892029}
-  - component: {fileID: 950892030}
-  - component: {fileID: 950892031}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -309,10 +253,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scriptableObjectInstallers: []
   _monoInstallers:
-  - {fileID: 912140874}
   - {fileID: 950892029}
-  - {fileID: 950892030}
-  - {fileID: 950892031}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -340,8 +281,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 912140873}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -355,30 +295,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1714a81e8b512c546b88c895ea8779d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &950892030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 950892026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6c4eb75b27a4938b99bc2d32900dc19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &950892031
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 950892026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad9ce349d3b346df98b5acaa525f0876, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1764354344

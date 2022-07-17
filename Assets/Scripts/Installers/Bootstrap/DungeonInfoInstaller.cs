@@ -1,7 +1,7 @@
 using Roguelike.Core.Information;
 using Zenject;
 
-namespace Roguelike.Installers.Scene
+namespace Roguelike.Installers.Bootstrap
 {
     public class DungeonInfoInstaller : MonoInstaller
     {

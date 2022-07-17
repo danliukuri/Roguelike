@@ -8,7 +8,7 @@ using Roguelike.Openers;
 using Roguelike.Pickers;
 using Zenject;
 
-namespace Roguelike.Installers.Scene
+namespace Roguelike.Installers.Bootstrap
 {
     public class PlayerInstaller : MonoInstaller
     {
