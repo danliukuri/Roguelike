@@ -1,3 +1,4 @@
+using System;
 using Roguelike.Utilities.Extensions;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,7 +6,7 @@ using UnityEngine;
 
 namespace Roguelike.Core.Entities
 {
-    public class Room : MonoBehaviour
+    public class Room : MonoBehaviour, IResettable
     {
         #region Properties
         public static Vector3[] Directions => new [] { Vector3.up, Vector3.left, Vector3.down, Vector3.right };
@@ -58,6 +59,15 @@ namespace Roguelike.Core.Entities
             upperSizeBounds = new Vector2(roomPosition.x + halfSize, roomPosition.y + halfSize);
             lowerSizeBounds = new Vector2(roomPosition.x - halfSize, roomPosition.y - halfSize);
         }
+        public void Reset()
+        {
+            IEnumerable<GameObject> inactiveWallMarkers = allWalls
+                .Select(wall => wall.gameObject)
+                .Where(wallGameObject => !wallGameObject.activeSelf);
+            
+            foreach (GameObject inactiveWallMarker in inactiveWallMarkers)
+                inactiveWallMarker.SetActive(true);
+        }
 
         public void SavePassagesDirectionsOnRotationToRight()
         {
@@ -107,5 +117,7 @@ namespace Roguelike.Core.Entities
                 wallMarker.gameObject.SetActive(false);
         }
         #endregion
+
+
     }
 }

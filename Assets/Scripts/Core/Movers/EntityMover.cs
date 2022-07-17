@@ -7,7 +7,7 @@ using Zenject;
 
 namespace Roguelike.Core.Movers
 {
-    public class EntityMover : MonoBehaviour
+    public class EntityMover : MonoBehaviour, IResettable
     {
         #region Properties
         public int RoomIndex { get; private set; }
@@ -27,7 +27,11 @@ namespace Roguelike.Core.Movers
         #region Methods
         [Inject]
         public void Construct(DungeonInfo dungeonInfo) => this.dungeonInfo = dungeonInfo;
-        
+        public void Reset()
+        {
+            RoomIndex = default;
+        }
+
         public void TryToMove(Vector3 translation)
         {
             if (IsMovePossible(transform.position + translation))
