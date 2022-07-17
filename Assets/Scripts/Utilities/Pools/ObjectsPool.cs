@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Roguelike.Core;
 using UnityEngine;
 
 namespace Roguelike.Utilities.Pools
@@ -16,7 +17,7 @@ namespace Roguelike.Utilities.Pools
 
         [SerializeField] int initialNumberOfObjects;
         
-        protected List<GameObject> objects;
+        List<GameObject> objects;
         #endregion
 
         #region Methods
@@ -24,7 +25,7 @@ namespace Roguelike.Utilities.Pools
         {
             Initialize();
         }
-        protected void Initialize()
+        void Initialize()
         {
             objects = new List<GameObject>(initialNumberOfObjects);
             for (int i = 0; i < initialNumberOfObjects; i++)
@@ -35,18 +36,14 @@ namespace Roguelike.Utilities.Pools
         /// Creates a new free inactive object
         /// </summary>
         /// <returns> Newly created inactive object </returns>
-        protected virtual GameObject CreateInactiveGameObject()
+        GameObject CreateInactiveGameObject()
         {
-            GameObject inactiveGameObject = Instantiate(gameObjectPrefab, objectsParent);
+            GameObject inactiveGameObject = InstantiatePrefab();
             inactiveGameObject.SetActive(false);
             objects.Add(inactiveGameObject);
             return inactiveGameObject;
         }
-        protected void OnValidate()
-        {
-            if (objectsParent == null)
-                objectsParent = transform;
-        }
+        protected virtual GameObject InstantiatePrefab() => Instantiate(gameObjectPrefab, objectsParent);
 
         /// <summary>
         /// Finds an inactive object or creates a new one
@@ -59,6 +56,31 @@ namespace Roguelike.Utilities.Pools
                 freeGameObject = CreateInactiveGameObject();
             return freeGameObject;
         }
+
+        public void ReturnToPoolAllObjects()
+        {
+            foreach (GameObject obj in objects)
+                ReturnToPool(obj);
+        }
+        void ReturnToPool(GameObject obj)
+        {
+            Transform objectTransform = obj.transform;
+            if(objectTransform.parent != objectsParent)
+                objectTransform.SetParent(objectsParent);
+            
+            if (obj.activeSelf)
+                obj.SetActive(false);
+        }
         #endregion
+        
+#if UNITY_EDITOR
+        #region Methods
+        void OnValidate()
+        {
+            if (objectsParent == null)
+                objectsParent = transform;
+        }
+        #endregion
+#endif
     }
 }

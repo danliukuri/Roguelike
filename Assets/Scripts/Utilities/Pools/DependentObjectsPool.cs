@@ -13,17 +13,8 @@ namespace Roguelike.Utilities.Pools
         [Inject]
         public void Construct(DiContainer container) => this.container = container;
         
-        /// <summary>
-        /// Creates a new free inactive object
-        /// </summary>
-        /// <returns> Newly created inactive object </returns>
-        protected override GameObject CreateInactiveGameObject()
-        {
-            GameObject inactiveGameObject = container.InstantiatePrefab(gameObjectPrefab, objectsParent);
-            inactiveGameObject.SetActive(false);
-            objects.Add(inactiveGameObject);
-            return inactiveGameObject;
-        }   
+        protected override GameObject InstantiatePrefab() =>
+            container.InstantiatePrefab(gameObjectPrefab, objectsParent);
         #endregion
     }
 }
