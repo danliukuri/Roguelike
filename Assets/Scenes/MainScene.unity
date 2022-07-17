@@ -232,6 +232,7 @@ GameObject:
   - component: {fileID: 950892028}
   - component: {fileID: 950892027}
   - component: {fileID: 950892029}
+  - component: {fileID: 950892031}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -254,6 +255,7 @@ MonoBehaviour:
   _scriptableObjectInstallers: []
   _monoInstallers:
   - {fileID: 950892029}
+  - {fileID: 950892031}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -297,6 +299,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1714a81e8b512c546b88c895ea8779d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &950892031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 950892026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f929767e282742bdb338c675266fed79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  resettableComponents:
+  - {fileID: 519420030}
 --- !u!1 &1764354344
 GameObject:
   m_ObjectHideFlags: 0
@@ -306,7 +322,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1764354345}
-  - component: {fileID: 1764354346}
   m_Layer: 0
   m_Name: Environment
   m_TagString: Untagged
@@ -328,18 +343,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1764354346
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1764354344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fa5f16e91290664f9d4b881c0fa9f1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firstRoomPosition: {x: 0, y: 0, z: 0}
-  initialNumberOfRooms: 5
-  initialNumberOfKeys: 3

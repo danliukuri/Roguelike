@@ -5,7 +5,7 @@ using Zenject;
 
 namespace Roguelike.Core.Movers
 {
-    public class CameraMover : MonoBehaviour
+    public class CameraMover : MonoBehaviour, IResettable
     {
         #region Fields
         [SerializeField] Vector3 positionOffset;
@@ -23,6 +23,10 @@ namespace Roguelike.Core.Movers
         {
             this.dungeonInfo = dungeonInfo;
             this.playerMover = playerMover;
+        }
+        public void Reset()
+        {
+            transform.position = (Vector3)default + positionOffset;
         }
         
         void OnEnable() => playerMover.RoomIndexChanged += MoveToRoom;
