@@ -18,6 +18,7 @@ namespace Roguelike.Utilities.Pools
         [SerializeField] int initialNumberOfObjects;
         
         List<GameObject> objects;
+        Dictionary<GameObject, IResettable[]> objectsResettableComponents;
         #endregion
 
         #region Methods
@@ -28,6 +29,7 @@ namespace Roguelike.Utilities.Pools
         void Initialize()
         {
             objects = new List<GameObject>(initialNumberOfObjects);
+            objectsResettableComponents = new Dictionary<GameObject, IResettable[]>(initialNumberOfObjects);
             for (int i = 0; i < initialNumberOfObjects; i++)
                 CreateInactiveGameObject();
         }
@@ -41,6 +43,7 @@ namespace Roguelike.Utilities.Pools
             GameObject inactiveGameObject = InstantiatePrefab();
             inactiveGameObject.SetActive(false);
             objects.Add(inactiveGameObject);
+            objectsResettableComponents.Add(inactiveGameObject, inactiveGameObject.GetComponents<IResettable>());
             return inactiveGameObject;
         }
         protected virtual GameObject InstantiatePrefab() => Instantiate(gameObjectPrefab, objectsParent);
@@ -69,7 +72,13 @@ namespace Roguelike.Utilities.Pools
                 objectTransform.SetParent(objectsParent);
             
             if (obj.activeSelf)
+            {
                 obj.SetActive(false);
+                
+                IResettable[] objectResettableComponents = objectsResettableComponents[obj];
+                for (int i = 0; i < objectResettableComponents.Length; i++)
+                    objectResettableComponents[i].Reset();
+            }
         }
         #endregion
         
