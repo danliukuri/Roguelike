@@ -13,11 +13,20 @@ namespace Roguelike.Placers
         #region Methods
         public PlayersPlacer(IGameObjectFactory gameObjectFactory, IObjectsContainerFactory containerFactory) :
             base(gameObjectFactory) => this.containerFactory = containerFactory;
-        protected override void SetParent(Transform playerTransform, Transform parent)
+        protected override void SetParent(Transform playerTransform, Transform defaultParent)
         {
             GameObject playersContainer = containerFactory.GetContainer(playerParentName);
-            playerTransform.SetParent(playersContainer.transform, false);
             playersContainer.SetActive(true);
+            
+            Transform containerTransform = playersContainer.transform;
+            playerTransform.SetParent(containerTransform, false);
+            
+            MoveContainerToTopLevelOfObjectScene(defaultParent);
+            void MoveContainerToTopLevelOfObjectScene(Transform objectTransform)
+            {
+                containerTransform.SetParent(objectTransform);
+                containerTransform.SetParent(default);
+            }
         }
         #endregion
     }

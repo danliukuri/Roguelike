@@ -23,7 +23,6 @@ namespace Roguelike.Factories
             {
                 container = objectsContainersPool.GetFreeObject();
                 container.name = containerName;
-                container.transform.SetParent(default);
                 containers.Add(containerName, container);
             }
             return container;
