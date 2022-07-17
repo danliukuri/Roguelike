@@ -19,6 +19,7 @@ namespace Roguelike.Core.Movers
         public event EventHandler<MovingEventArgs> MovingToWall;
         public event EventHandler<MovingEventArgs> MovingToKey;
         public event EventHandler<MovingEventArgs> MovingToDoor;
+        public event EventHandler<MovingEventArgs> MovingToExit;
         public event Action<int> RoomIndexChanged;
         
         DungeonInfo dungeonInfo;
@@ -48,6 +49,7 @@ namespace Roguelike.Core.Movers
                 { 
                     (dungeonInfo.KeysByRoom, MovingToKey),
                     (dungeonInfo.DoorsByRoom, MovingToDoor),
+                    (dungeonInfo.ExitsByRoom, MovingToExit),
                     (dungeonInfo.WallsByRoom, MovingToWall),
                 };
             var (elementWhichEntityIsMovingTo, movingToElement) = roomElementsInfo
