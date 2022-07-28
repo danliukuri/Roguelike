@@ -10,6 +10,7 @@ namespace Roguelike.Installers.Scene
     {
         #region Fields
         [SerializeField] string playersContainerName;
+        [SerializeField] string enemiesContainerName;
         #endregion
 
         #region Methods
@@ -39,6 +40,7 @@ namespace Roguelike.Installers.Scene
             {
                 (RoomElementType.Wall, typeof(RoomElementsPlacer), default),
                 (RoomElementType.Player, typeof(RoomElementsUnderContainerPlacer), playersContainerName),
+                (RoomElementType.Enemy, typeof(RoomElementsUnderContainerPlacer), enemiesContainerName),
                 (RoomElementType.Key, typeof(RoomElementsPlacer), default),
                 (RoomElementType.Door, typeof(RoomElementsPlacer), default),
                 (RoomElementType.Exit, typeof(RoomElementsPlacer), default)

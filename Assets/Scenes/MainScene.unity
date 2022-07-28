@@ -302,6 +302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playersContainerName: Players
+  enemiesContainerName: Enemies
 --- !u!114 &950892030
 MonoBehaviour:
   m_ObjectHideFlags: 0
