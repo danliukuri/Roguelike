@@ -1,12 +1,17 @@
 ﻿using System;
 using Roguelike.Core.Placers;
 using Roguelike.Placers;
+using UnityEngine;
 using Zenject;
 
 namespace Roguelike.Installers.Scene
 {
     public class PlacersInstaller : MonoInstaller
     {
+        #region Fields
+        [SerializeField] string playersContainerName;
+        #endregion
+
         #region Methods
         public override void InstallBindings()
         {
@@ -30,21 +35,26 @@ namespace Roguelike.Installers.Scene
         }
         void BindRoomElementsPlacers()
         {
-            (object Id, Type TypeToBind)[] roomElementsPlacers =
+            (object Id, Type TypeToBind, string ContainerName)[] roomElementsPlacers =
             {
-                (RoomElementType.Wall, typeof(RoomElementsPlacer)),
-                (RoomElementType.Player, typeof(PlayersPlacer)),
-                (RoomElementType.Key, typeof(RoomElementsPlacer)),
-                (RoomElementType.Door, typeof(RoomElementsPlacer)),
-                (RoomElementType.Exit, typeof(RoomElementsPlacer))
+                (RoomElementType.Wall, typeof(RoomElementsPlacer), default),
+                (RoomElementType.Player, typeof(RoomElementsUnderContainerPlacer), playersContainerName),
+                (RoomElementType.Key, typeof(RoomElementsPlacer), default),
+                (RoomElementType.Door, typeof(RoomElementsPlacer), default),
+                (RoomElementType.Exit, typeof(RoomElementsPlacer), default)
             };
             
-            foreach ((object Id, Type TypeToBind) placer in roomElementsPlacers) 
-                Container
+            foreach ((object Id, Type TypeToBind, string ContainerName) placer in roomElementsPlacers)
+            {
+                ConcreteIdArgConditionCopyNonLazyBinder roomElementPlacer = Container
                     .Bind<IRoomElementsPlacer>()
                     .WithId(placer.Id)
                     .To(placer.TypeToBind)
                     .AsCached();
+
+                if (placer.ContainerName != default)
+                    roomElementPlacer.WithArguments(placer.ContainerName);
+            }
         }
         #endregion
     }
