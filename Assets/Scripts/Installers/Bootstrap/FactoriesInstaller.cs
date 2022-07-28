@@ -12,6 +12,7 @@ namespace Roguelike.Installers.Bootstrap
         [Header("Room elements:")]
         [SerializeField] GameObject wallFactory;
         [SerializeField] GameObject playerFactory;
+        [SerializeField] GameObject enemyFactory;
         [SerializeField] GameObject keyFactory;
         [SerializeField] GameObject doorFactory;
         [SerializeField] GameObject exitFactory;
@@ -42,6 +43,7 @@ namespace Roguelike.Installers.Bootstrap
             {
                 (wallFactory, RoomElementType.Wall),
                 (playerFactory, RoomElementType.Player),
+                (enemyFactory, RoomElementType.Enemy),
                 (keyFactory, RoomElementType.Key),
                 (doorFactory, RoomElementType.Door),
                 (exitFactory, RoomElementType.Exit)
