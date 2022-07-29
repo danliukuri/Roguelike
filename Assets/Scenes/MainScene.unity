@@ -333,6 +333,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playersParent: {fileID: 540219891}
   enemiesParent: {fileID: 1216347169}
+  roomsParent: {fileID: 1764354345}
 --- !u!114 &950892030
 MonoBehaviour:
   m_ObjectHideFlags: 0

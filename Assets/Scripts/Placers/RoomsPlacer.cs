@@ -1,8 +1,8 @@
+using System.Collections.Generic;
 using Roguelike.Core.Entities;
 using Roguelike.Core.Factories;
 using Roguelike.Core.Placers;
 using Roguelike.Utilities.Extensions;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Roguelike.Placers
@@ -11,11 +11,17 @@ namespace Roguelike.Placers
     {
         #region Fields
         readonly List<IGameObjectFactory> roomsFactories;
+        readonly Transform parent;
         #endregion
 
         #region Methods
-        public RoomsPlacer(List<IGameObjectFactory> roomsFactories) => this.roomsFactories = roomsFactories;
-        public List<Room> Place(Vector3 firstRoomPosition, int count, Transform parent)
+        public RoomsPlacer(List<IGameObjectFactory> roomsFactories, Transform parent = default)
+        {
+            this.roomsFactories = roomsFactories;
+            this.parent = parent;
+        }
+
+        public List<Room> Place(int count, Vector3 firstRoomPosition = default)
         {
             List<Room> rooms = new List<Room>();
             List<Vector3> roomPositions = new List<Vector3>();

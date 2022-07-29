@@ -10,7 +10,6 @@ namespace Roguelike.Core.Information
         [field: SerializeField] public int NumberOfRooms { get; set; }
         [field: SerializeField] public int NumberOfKeys { get; set; }
         [field: SerializeField] public int NumberOfEnemies { get; set; }
-        [field: SerializeField] public Transform EnvironmentParent { get; set; }
         #endregion
     }
 }

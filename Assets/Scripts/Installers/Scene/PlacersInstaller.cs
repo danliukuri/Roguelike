@@ -9,6 +9,7 @@ namespace Roguelike.Installers.Scene
     public class PlacersInstaller : MonoInstaller
     {
         #region Fields
+        [SerializeField] Transform roomsParent;
         [SerializeField] Transform playersParent;
         [SerializeField] Transform enemiesParent;
         #endregion
@@ -32,7 +33,8 @@ namespace Roguelike.Installers.Scene
             Container
                 .Bind<IRoomsPlacer>()
                 .To<RoomsPlacer>()
-                .AsSingle();
+                .AsSingle()
+                .WithArguments(roomsParent);
         }
         void BindRoomElementsPlacers()
         {

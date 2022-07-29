@@ -39,8 +39,7 @@ namespace Roguelike.Placers
         
         public void Place(LevelSettings levelSettings)
         {
-            dungeonInfo.Rooms = roomsPlacer.Place(default, levelSettings.NumberOfRooms,
-                levelSettings.EnvironmentParent);
+            dungeonInfo.Rooms = roomsPlacer.Place(levelSettings.NumberOfRooms);
             
             List<Transform>[] allWallMarkersByRoom = dungeonInfo.GetAllMarkersByRoom(room => room.AllWallsMarkers);
             List<Transform>[] allPlayerMarkersByRoom = dungeonInfo.GetAllMarkersByRoom(room => room.AllPlayerMarkers);
