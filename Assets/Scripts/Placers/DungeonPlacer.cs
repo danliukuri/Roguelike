@@ -14,6 +14,7 @@ namespace Roguelike.Placers
         
         readonly IRoomElementsPlacer wallsPlacer;
         readonly IRoomElementsPlacer playersPlacer;
+        readonly IRoomElementsPlacer enemiesPlacer;
         readonly IRoomElementsPlacer keysPlacer;
         readonly IRoomElementsPlacer doorsPlacer;
         readonly IRoomElementsPlacer exitsPlacer;
@@ -23,6 +24,7 @@ namespace Roguelike.Placers
         public DungeonPlacer(DungeonInfo dungeonInfo, IRoomsPlacer roomsPlacer,
             [Inject(Id = RoomElementType.Wall)] IRoomElementsPlacer wallsPlacer,
             [Inject(Id = RoomElementType.Player)] IRoomElementsPlacer playersPlacer,
+            [Inject(Id = RoomElementType.Enemy)] IRoomElementsPlacer enemiesPlacer,
             [Inject(Id = RoomElementType.Key)] IRoomElementsPlacer keysPlacer,
             [Inject(Id = RoomElementType.Door)] IRoomElementsPlacer doorsPlacer, 
             [Inject(Id = RoomElementType.Exit)] IRoomElementsPlacer exitsPlacer)
@@ -32,6 +34,7 @@ namespace Roguelike.Placers
             
             this.wallsPlacer = wallsPlacer;
             this.playersPlacer = playersPlacer;
+            this.enemiesPlacer = enemiesPlacer;
             this.keysPlacer = keysPlacer;
             this.doorsPlacer = doorsPlacer;
             this.exitsPlacer = exitsPlacer;
@@ -43,12 +46,14 @@ namespace Roguelike.Placers
             
             List<Transform>[] allWallMarkersByRoom = dungeonInfo.GetAllMarkersByRoom(room => room.AllWallsMarkers);
             List<Transform>[] allPlayerMarkersByRoom = dungeonInfo.GetAllMarkersByRoom(room => room.AllPlayerMarkers);
+            List<Transform>[] allEnemyMarkersByRoom = dungeonInfo.GetAllMarkersByRoom(room => room.AllEnemyMarkers);
             List<Transform>[] allKeyMarkersByRoom = dungeonInfo.GetAllMarkersByRoom(room => room.AllItemMarkers);
             List<Transform>[] allDoorMarkersByRoom = dungeonInfo.GetAllMarkersByRoom(room => room.AllDoorMarkers);
             List<Transform>[] allExitMarkersByRoom = dungeonInfo.GetAllMarkersByRoom(room => room.AllExitMarkers);
             
             dungeonInfo.WallsByRoom = wallsPlacer.PlaceAll(allWallMarkersByRoom);
             dungeonInfo.PlayersByRoom = playersPlacer.PlaceRandom(allPlayerMarkersByRoom);
+            dungeonInfo.EnemiesByRoom = enemiesPlacer.PlaceRandom(allEnemyMarkersByRoom, levelSettings.NumberOfEnemies);
             dungeonInfo.KeysByRoom = keysPlacer.PlaceRandom(allKeyMarkersByRoom, levelSettings.NumberOfKeys);
             dungeonInfo.DoorsByRoom = doorsPlacer.PlaceAll(allDoorMarkersByRoom);
             dungeonInfo.ExitsByRoom = exitsPlacer.PlaceRandom(allExitMarkersByRoom);
