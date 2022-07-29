@@ -9,8 +9,8 @@ namespace Roguelike.Installers.Scene
     public class PlacersInstaller : MonoInstaller
     {
         #region Fields
-        [SerializeField] string playersContainerName;
-        [SerializeField] string enemiesContainerName;
+        [SerializeField] Transform playersParent;
+        [SerializeField] Transform enemiesParent;
         #endregion
 
         #region Methods
@@ -36,27 +36,23 @@ namespace Roguelike.Installers.Scene
         }
         void BindRoomElementsPlacers()
         {
-            (object Id, Type TypeToBind, string ContainerName)[] roomElementsPlacers =
+            (object Id, Type TypeToBind, Transform ElementsParent)[] roomElementsPlacers =
             {
                 (RoomElementType.Wall, typeof(RoomElementsPlacer), default),
-                (RoomElementType.Player, typeof(RoomElementsUnderContainerPlacer), playersContainerName),
-                (RoomElementType.Enemy, typeof(RoomElementsUnderContainerPlacer), enemiesContainerName),
+                (RoomElementType.Player, typeof(RoomElementsPlacer), playersParent),
+                (RoomElementType.Enemy, typeof(RoomElementsPlacer), enemiesParent),
                 (RoomElementType.Key, typeof(RoomElementsPlacer), default),
                 (RoomElementType.Door, typeof(RoomElementsPlacer), default),
                 (RoomElementType.Exit, typeof(RoomElementsPlacer), default)
             };
             
-            foreach ((object Id, Type TypeToBind, string ContainerName) placer in roomElementsPlacers)
-            {
-                ConcreteIdArgConditionCopyNonLazyBinder roomElementPlacer = Container
+            foreach ((object Id, Type TypeToBind, Transform ElementsParent) placer in roomElementsPlacers)
+                Container
                     .Bind<IRoomElementsPlacer>()
                     .WithId(placer.Id)
                     .To(placer.TypeToBind)
-                    .AsCached();
-
-                if (placer.ContainerName != default)
-                    roomElementPlacer.WithArguments(placer.ContainerName);
-            }
+                    .AsCached()
+                    .WithArguments(placer.ElementsParent);
         }
         #endregion
     }

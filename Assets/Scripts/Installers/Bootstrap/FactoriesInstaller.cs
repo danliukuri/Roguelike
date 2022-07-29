@@ -8,7 +8,6 @@ namespace Roguelike.Installers.Bootstrap
     {
         #region Fields 
         [SerializeField] Object[] roomsFactories;
-        [SerializeField] GameObject objectsContainerFactory;
         [Header("Room elements:")]
         [SerializeField] GameObject wallFactory;
         [SerializeField] GameObject playerFactory;
@@ -25,7 +24,6 @@ namespace Roguelike.Installers.Bootstrap
                 BindRoomFactory(roomFactory);
             
             BindRoomElementFactories();
-            BindObjectsContainerFactory();
         }
 
         void BindRoomFactory(Object roomFactory)
@@ -65,15 +63,6 @@ namespace Roguelike.Installers.Bootstrap
                     .When(context => IsParentContextIdEqual(context, factory.ParentId))
                     .NonLazy();
             }
-        }
-        void BindObjectsContainerFactory()
-        {
-            Container
-                .Bind<IObjectsContainerFactory>()
-                .FromComponentInNewPrefab(objectsContainerFactory)
-                .UnderTransform(transform)
-                .AsSingle()
-                .NonLazy();
         }
         #endregion
     }
