@@ -1,5 +1,6 @@
 using Roguelike.Core.EventHandlers;
 using Roguelike.Core.EventSubscribers;
+using Roguelike.Core.Information;
 using UnityEngine;
 using Zenject;
 
@@ -8,10 +9,7 @@ namespace Roguelike.Installers.Bootstrap
     public class LevelInstaller : MonoInstaller
     {
         #region Fields
-        [SerializeField] Vector3 firstRoomPosition;
-        [SerializeField] Transform environmentParent;
-        [SerializeField] int initialNumberOfRooms;
-        [SerializeField] int initialNumberOfKeys;
+        [SerializeField] LevelSettings levelSettings;
         #endregion
 
         #region Methods
@@ -28,7 +26,7 @@ namespace Roguelike.Installers.Bootstrap
                 .BindInterfacesAndSelfTo<LevelLoader>()
                 .FromNew()
                 .AsSingle()
-                .WithArguments(firstRoomPosition, environmentParent, initialNumberOfRooms, initialNumberOfKeys);
+                .WithArguments(levelSettings);
         }
         void BindEventHandler()
         {

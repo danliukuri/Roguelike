@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Roguelike.Core.Information;
 using Roguelike.Core.Placers;
 using UnityEngine;
@@ -8,6 +9,7 @@ namespace Roguelike.Placers
     public class DungeonPlacer : IDungeonPlacer
     {
         #region Fields
+        readonly DungeonInfo dungeonInfo;
         readonly IRoomsPlacer roomsPlacer;
         
         readonly IRoomElementsPlacer wallsPlacer;
@@ -15,19 +17,17 @@ namespace Roguelike.Placers
         readonly IRoomElementsPlacer keysPlacer;
         readonly IRoomElementsPlacer doorsPlacer;
         readonly IRoomElementsPlacer exitsPlacer;
-        
-        readonly DungeonInfo dungeonInfo;
         #endregion
 
         #region Methods
-        public DungeonPlacer(IRoomsPlacer roomsPlacer,
+        public DungeonPlacer(DungeonInfo dungeonInfo, IRoomsPlacer roomsPlacer,
             [Inject(Id = RoomElementType.Wall)] IRoomElementsPlacer wallsPlacer,
             [Inject(Id = RoomElementType.Player)] IRoomElementsPlacer playersPlacer,
             [Inject(Id = RoomElementType.Key)] IRoomElementsPlacer keysPlacer,
             [Inject(Id = RoomElementType.Door)] IRoomElementsPlacer doorsPlacer, 
-            [Inject(Id = RoomElementType.Exit)] IRoomElementsPlacer exitsPlacer,
-            DungeonInfo dungeonInfo)
+            [Inject(Id = RoomElementType.Exit)] IRoomElementsPlacer exitsPlacer)
         {
+            this.dungeonInfo = dungeonInfo;
             this.roomsPlacer = roomsPlacer;
             
             this.wallsPlacer = wallsPlacer;
@@ -35,24 +35,24 @@ namespace Roguelike.Placers
             this.keysPlacer = keysPlacer;
             this.doorsPlacer = doorsPlacer;
             this.exitsPlacer = exitsPlacer;
-            
-            this.dungeonInfo = dungeonInfo;
         }
         
-        public void Place(Vector3 firstRoomPosition ,int numberOfRooms, Transform parent, int numberOfKeys)
+        public void Place(LevelSettings levelSettings)
         {
-            dungeonInfo.Rooms = roomsPlacer.Place(firstRoomPosition, numberOfRooms, parent);
-
-            dungeonInfo.WallsByRoom =
-                wallsPlacer.PlaceAll(dungeonInfo.GetAllMarkersByRoom(room => room.AllWallsMarkers));
-            dungeonInfo.PlayersByRoom =
-                playersPlacer.PlaceRandom(dungeonInfo.GetAllMarkersByRoom(room => room.AllPlayerMarkers));
-            dungeonInfo.KeysByRoom =
-                keysPlacer.PlaceRandom(dungeonInfo.GetAllMarkersByRoom(room => room.AllItemMarkers), numberOfKeys);
-            dungeonInfo.DoorsByRoom =
-                doorsPlacer.PlaceAll(dungeonInfo.GetAllMarkersByRoom(room => room.AllDoorMarkers));
-            dungeonInfo.ExitsByRoom =
-                exitsPlacer.PlaceRandom(dungeonInfo.GetAllMarkersByRoom(room => room.AllExitMarkers));
+            dungeonInfo.Rooms = roomsPlacer.Place(default, levelSettings.NumberOfRooms,
+                levelSettings.EnvironmentParent);
+            
+            List<Transform>[] allWallMarkersByRoom = dungeonInfo.GetAllMarkersByRoom(room => room.AllWallsMarkers);
+            List<Transform>[] allPlayerMarkersByRoom = dungeonInfo.GetAllMarkersByRoom(room => room.AllPlayerMarkers);
+            List<Transform>[] allKeyMarkersByRoom = dungeonInfo.GetAllMarkersByRoom(room => room.AllItemMarkers);
+            List<Transform>[] allDoorMarkersByRoom = dungeonInfo.GetAllMarkersByRoom(room => room.AllDoorMarkers);
+            List<Transform>[] allExitMarkersByRoom = dungeonInfo.GetAllMarkersByRoom(room => room.AllExitMarkers);
+            
+            dungeonInfo.WallsByRoom = wallsPlacer.PlaceAll(allWallMarkersByRoom);
+            dungeonInfo.PlayersByRoom = playersPlacer.PlaceRandom(allPlayerMarkersByRoom);
+            dungeonInfo.KeysByRoom = keysPlacer.PlaceRandom(allKeyMarkersByRoom, levelSettings.NumberOfKeys);
+            dungeonInfo.DoorsByRoom = doorsPlacer.PlaceAll(allDoorMarkersByRoom);
+            dungeonInfo.ExitsByRoom = exitsPlacer.PlaceRandom(allExitMarkersByRoom);
         }
         #endregion
     }

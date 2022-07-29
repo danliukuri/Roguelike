@@ -1,7 +1,7 @@
 using Roguelike.Core;
+using Roguelike.Core.Information;
 using Roguelike.Core.Placers;
 using Roguelike.Utilities.Pools;
-using UnityEngine;
 using Zenject;
 
 namespace Roguelike
@@ -9,29 +9,20 @@ namespace Roguelike
     public class LevelLoader : IInitializable
     {
         #region Fields
-        readonly Vector3 firstRoomPosition;
-        readonly Transform environmentParent;
-        int numberOfRooms;
-        int numberOfKeys;
-    
+        readonly LevelSettings levelSettings;
+        
         int currentLevelNumber;
-    
+        
         readonly IDungeonPlacer dungeonPlacer;
         readonly PoolableObjectsReturner poolableObjectsReturner;
         readonly IResettable[] resettableComponents;
         #endregion
-    
-        #region Methods
-        public LevelLoader(Vector3 firstRoomPosition, Transform environmentParent,
-            int initialNumberOfRooms, int initialNumberOfKeys,
-            IDungeonPlacer dungeonPlacer, PoolableObjectsReturner poolableObjectsReturner,
-            IResettable[] resettableComponents)
-        {
-            this.firstRoomPosition = firstRoomPosition;
-            this.environmentParent = environmentParent;
-            this.numberOfRooms = initialNumberOfRooms;
-            this.numberOfKeys = initialNumberOfKeys;
         
+        #region Methods
+        public LevelLoader(LevelSettings levelSettings, IDungeonPlacer dungeonPlacer,
+            PoolableObjectsReturner poolableObjectsReturner, IResettable[] resettableComponents)
+        {
+            this.levelSettings = levelSettings;
             this.dungeonPlacer = dungeonPlacer;
             this.poolableObjectsReturner = poolableObjectsReturner;
             this.resettableComponents = resettableComponents;
@@ -40,16 +31,16 @@ namespace Roguelike
         {
             LoadLevel();
         }
-    
+        
         public void LoadNextLevel()
         {
             UnLoadCurrentLevel();
-            numberOfRooms += currentLevelNumber;
+            levelSettings.NumberOfRooms += currentLevelNumber;
             LoadLevel();
         }
         void LoadLevel()
         {
-            dungeonPlacer.Place(firstRoomPosition, numberOfRooms, environmentParent, numberOfKeys);
+            dungeonPlacer.Place(levelSettings);
             currentLevelNumber++;
         }
         void UnLoadCurrentLevel()

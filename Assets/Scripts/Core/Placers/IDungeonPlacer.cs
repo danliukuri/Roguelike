@@ -1,9 +1,9 @@
-﻿using UnityEngine;
+﻿using Roguelike.Core.Information;
 
 namespace Roguelike.Core.Placers
 {
     public interface IDungeonPlacer
     {
-        void Place(Vector3 firstRoomPosition, int numberOfRooms, Transform parent, int numberOfKeys);
+        void Place(LevelSettings levelSettings);
     }
 }
