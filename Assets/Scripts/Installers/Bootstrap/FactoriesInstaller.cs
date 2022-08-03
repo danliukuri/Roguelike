@@ -29,7 +29,7 @@ namespace Roguelike.Installers.Bootstrap
         void BindRoomFactory(Object roomFactory)
         {
             Container
-                .Bind<IGameObjectFactory>()
+                .Bind<IRoomFactory>()
                 .FromComponentInNewPrefab(roomFactory)
                 .UnderTransform(transform)
                 .AsCached()

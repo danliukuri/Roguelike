@@ -10,12 +10,12 @@ namespace Roguelike.Placers
     public class RoomsPlacer : IRoomsPlacer
     {
         #region Fields
-        readonly List<IGameObjectFactory> roomsFactories;
+        readonly IRoomFactory[] roomsFactories;
         readonly Transform parent;
         #endregion
 
         #region Methods
-        public RoomsPlacer(List<IGameObjectFactory> roomsFactories, Transform parent = default)
+        public RoomsPlacer(IRoomFactory[] roomsFactories, Transform parent = default)
         {
             this.roomsFactories = roomsFactories;
             this.parent = parent;
@@ -29,21 +29,17 @@ namespace Roguelike.Placers
 
             for (int i = 0; i < count; i++)
             {
-                GameObject roomGameObject = GetRoom(i);
-
-                Transform roomTransform = roomGameObject.transform;
-                roomTransform.SetParent(parent, false);
+                Room room = GetRoom(i);
+                rooms.Add(room);
+                
+                room.transform.SetParent(parent, false);
 
                 Vector3 roomPosition = freePositions.Random();
                 freePositions.Remove(roomPosition);
                 roomPositions.Add(roomPosition);
-
-                Room room = roomGameObject.GetComponent<Room>();
+                
                 room.SetNewPositionAndSizeBounds(roomPosition);
-                rooms.Add(room);
-
-                roomGameObject.SetActive(true);
-
+                
                 AddNewFreePositions(roomPositions, freePositions, roomPosition, room.Size);
             }
             
@@ -51,10 +47,10 @@ namespace Roguelike.Placers
             return rooms;
         }
 
-        GameObject GetRoom(int roomIndex)
+        Room GetRoom(int roomIndex)
         {  
             const int firstRoomFactoryIndex = 0;
-            int lastRoomFactoryIndex = roomsFactories.Count - 1;
+            int lastRoomFactoryIndex = roomsFactories.Length - 1;
             
             int randomRoomFactoryIndexExceptFirstAndLast =
                 Random.Range(firstRoomFactoryIndex + 1, lastRoomFactoryIndex);
@@ -64,7 +60,7 @@ namespace Roguelike.Placers
                 roomIndex == lastRoomFactoryIndex ? lastRoomFactoryIndex :
                 randomRoomFactoryIndexExceptFirstAndLast;
 
-            return roomsFactories[roomFactoryIndex].GetGameObject();
+            return roomsFactories[roomFactoryIndex].GetRoom();
         }
         static void AddNewFreePositions(ICollection<Vector3> roomPositions, ICollection<Vector3> freePositions,
             Vector3 currentRoomPosition, int roomSize)
