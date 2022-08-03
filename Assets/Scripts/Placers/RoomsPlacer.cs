@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Roguelike.Core.Entities;
 using Roguelike.Core.Factories;
+using Roguelike.Core.Information;
 using Roguelike.Core.Placers;
 using Roguelike.Utilities.Extensions;
 using UnityEngine;
@@ -21,13 +22,13 @@ namespace Roguelike.Placers
             this.parent = parent;
         }
 
-        public List<Room> Place(int count, Vector3 firstRoomPosition = default)
+        public List<Room> Place(LevelSettings levelSettings, Vector3 firstRoomPosition = default)
         {
             List<Room> rooms = new List<Room>();
             List<Vector3> roomPositions = new List<Vector3>();
             List<Vector3> freePositions = new List<Vector3> { firstRoomPosition };
 
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < levelSettings.NumberOfRooms; i++)
             {
                 Room room = GetRoom(i);
                 rooms.Add(room);
