@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Roguelike.Core.Entities;
 using Roguelike.Core.Factories;
 using Roguelike.Core.Information;
@@ -21,48 +22,64 @@ namespace Roguelike.Placers
             this.roomsFactories = roomsFactories;
             this.parent = parent;
         }
-
+        
         public List<Room> Place(LevelSettings levelSettings, Vector3 firstRoomPosition = default)
         {
-            List<Room> rooms = new List<Room>();
             List<Vector3> roomPositions = new List<Vector3>();
             List<Vector3> freePositions = new List<Vector3> { firstRoomPosition };
-
-            for (int i = 0; i < levelSettings.NumberOfRooms; i++)
+            List<Room> rooms = GetRooms(levelSettings);
+            foreach (var room in rooms)
             {
-                Room room = GetRoom(i);
-                rooms.Add(room);
-                
                 room.transform.SetParent(parent, false);
-
                 Vector3 roomPosition = freePositions.Random();
-                freePositions.Remove(roomPosition);
-                roomPositions.Add(roomPosition);
-                
                 room.SetNewPositionAndSizeBounds(roomPosition);
                 
+                roomPositions.Add(roomPosition);
+                freePositions.Remove(roomPosition);
                 AddNewFreePositions(roomPositions, freePositions, roomPosition, room.Size);
             }
-            
             CreatePassagesBetweenRooms(rooms);
             return rooms;
         }
+        List<Room> GetRooms(LevelSettings levelSettings)
+        {
+            RoomElementMarkersInfo[] markersInfo = levelSettings.RoomElementMarkersInfo.ShallowCopy().ToArray();
+            int maxNumberOfRooms = levelSettings.NumberOfRooms;
+            List<Room> rooms = GetRoomsWithRequiredMarkers(markersInfo, maxNumberOfRooms);
 
-        Room GetRoom(int roomIndex)
-        {  
-            const int firstRoomFactoryIndex = 0;
-            int lastRoomFactoryIndex = roomsFactories.Length - 1;
+            IRoomFactory[] availableFactories = roomsFactories
+                .Where(factory => markersInfo
+                    .Where(elementsCount => elementsCount.GetActualCount(factory.Sample) > 0)
+                    .All(elementsCount => elementsCount.RelatedRoomsMaxCount > 0))
+                .ToArray();
             
-            int randomRoomFactoryIndexExceptFirstAndLast =
-                Random.Range(firstRoomFactoryIndex + 1, lastRoomFactoryIndex);
-                
-            int roomFactoryIndex =
-                roomIndex == firstRoomFactoryIndex ? firstRoomFactoryIndex :
-                roomIndex == lastRoomFactoryIndex ? lastRoomFactoryIndex :
-                randomRoomFactoryIndexExceptFirstAndLast;
-
-            return roomsFactories[roomFactoryIndex].GetRoom();
+            Room lastRoom = rooms.Last();
+            rooms.Remove(lastRoom);
+            while (rooms.Count + 1 < maxNumberOfRooms)
+                rooms.Add(availableFactories.Random().GetRoom());
+            rooms.Add(lastRoom);
+            return rooms;
         }
+        List<Room> GetRoomsWithRequiredMarkers(RoomElementMarkersInfo[] markersInfo, int maxNumberOfRooms)
+        {
+            List<Room> rooms = new List<Room>(maxNumberOfRooms);
+            for (int i = 0; i < markersInfo.Length; i++)
+                while (markersInfo[i].RequiredCount > 0 &&
+                       markersInfo[i].RelatedRoomsMaxCount > 0 && rooms.Count < maxNumberOfRooms)
+                {
+                    IRoomFactory factory = roomsFactories
+                        .Where(factory => markersInfo[i].GetActualCount(factory.Sample) > 0).ToArray().Random();
+
+                    for (int j = 0; j < markersInfo.Length; j++)
+                    {
+                        markersInfo[j].RequiredCount -= markersInfo[j].GetActualCount(factory.Sample);
+                        markersInfo[j].RelatedRoomsMaxCount--;
+                    }
+                    rooms.Add(factory.GetRoom());
+                }
+            return rooms;
+        }
+        
         static void AddNewFreePositions(ICollection<Vector3> roomPositions, ICollection<Vector3> freePositions,
             Vector3 currentRoomPosition, int roomSize)
         {
@@ -73,7 +90,6 @@ namespace Roguelike.Placers
                     freePositions.Add(newFreePosition);
             }
         }
-        
         static void CreatePassagesBetweenRooms(IReadOnlyList<Room> rooms)
         {
             for (int i = 0; i < rooms?.Count; i++)
