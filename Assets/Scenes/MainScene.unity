@@ -331,9 +331,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1714a81e8b512c546b88c895ea8779d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roomsParent: {fileID: 1764354345}
   playersParent: {fileID: 540219891}
   enemiesParent: {fileID: 1216347169}
-  roomsParent: {fileID: 1764354345}
 --- !u!114 &950892030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,7 +350,6 @@ MonoBehaviour:
     <NumberOfRooms>k__BackingField: 5
     <NumberOfKeys>k__BackingField: 3
     <NumberOfEnemies>k__BackingField: 2
-    <EnvironmentParent>k__BackingField: {fileID: 1764354345}
 --- !u!114 &950892031
 MonoBehaviour:
   m_ObjectHideFlags: 0
