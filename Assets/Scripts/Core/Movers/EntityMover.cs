@@ -19,11 +19,12 @@ namespace Roguelike.Core.Movers
         public event EventHandler<MovingEventArgs> MovingToKey;
         public event EventHandler<MovingEventArgs> MovingToDoor;
         public event EventHandler<MovingEventArgs> MovingToExit;
+        public event EventHandler<MovingEventArgs> ActionCompleted;
         public event Action<int> RoomIndexChanged;
         
         DungeonInfo dungeonInfo;
         #endregion
-
+        
         #region Methods
         [Inject]
         public void Construct(DungeonInfo dungeonInfo) => this.dungeonInfo = dungeonInfo;
@@ -31,17 +32,22 @@ namespace Roguelike.Core.Movers
         {
             RoomIndex = default;
         }
-
-        public void TryToMove(Vector3 translation)
+        
+        public bool TryToMove(Vector3 translation)
         {
             Vector3 destination = transform.position + translation;
             (MovingEventArgs movingArgs, EventHandler<MovingEventArgs> movingEvent) = GetMovingInfo(destination);
-
+            
             if (!movingArgs.IsMovePossible)
                 movingEvent?.Invoke(this, movingArgs);
-
+            
             if (movingArgs.IsMovePossible)
                 Move(translation, movingArgs);
+            else
+                movingArgs.Destination = transform.position;
+            ActionCompleted?.Invoke(this, movingArgs);
+            
+            return movingArgs.IsMovePossible;
         }
         void Move(Vector3 translation, MovingEventArgs movingArgs)
         {
@@ -56,7 +62,7 @@ namespace Roguelike.Core.Movers
                 RoomIndexChanged?.Invoke(roomIndex);
             }
         }
-
+        
         public bool IsMovePossible(Vector3 destination) => GetMovingInfo(destination).MovingArgs.IsMovePossible;
         (MovingEventArgs MovingArgs, EventHandler<MovingEventArgs> MovingEvent) GetMovingInfo(Vector3 destination)
         {
@@ -73,7 +79,7 @@ namespace Roguelike.Core.Movers
                 .Select(elementsInfo => (ElementAtDestination: elementsInfo.ElementsByRoom[destinationRoomIndex]?
                         .FirstOrDefault(element => element.position == destination), elementsInfo.MovingEvent))
                 .FirstOrDefault(elementInfo => elementInfo.ElementAtDestination != default);
-
+            
             MovingEventArgs movingArgs = new MovingEventArgs
             {
                 Element = elementAtDestination,
