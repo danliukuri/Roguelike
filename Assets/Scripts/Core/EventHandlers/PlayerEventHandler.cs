@@ -8,9 +8,9 @@ namespace Roguelike.Core.EventHandlers
     public class PlayerEventHandler
     {
         #region Fields
-        EntityMover mover;
-        IPicker keyPicker;
-        IOpener doorOpener;
+        readonly EntityMover mover;
+        readonly IPicker keyPicker;
+        readonly IOpener doorOpener;
         #endregion
 
         #region Methods
@@ -21,12 +21,9 @@ namespace Roguelike.Core.EventHandlers
             this.doorOpener = doorOpener;
         }
 
-        public void OnMoving(object sender, MovingEventArgs e) =>
-            mover.TryToMove(e.Destination);
-        public void OnMovingToKey(object sender, MovingEventArgs e) =>
-            keyPicker.TryToPickUp(e.ElementWhichEntityIsMovingTo);
-        public void OnMovingToDoor(object sender, MovingEventArgs e) =>
-            doorOpener.TryToOpen(e.ElementWhichEntityIsMovingTo);
+        public void OnMoving(object sender, MovingEventArgs e) => mover.TryToMove(e.Destination);
+        public void OnMovingToKey(object sender, MovingEventArgs e) => keyPicker.TryToPickUp(e.Element);
+        public void OnMovingToDoor(object sender, MovingEventArgs e) => doorOpener.TryToOpen(e.Element);
         #endregion
     }
 }

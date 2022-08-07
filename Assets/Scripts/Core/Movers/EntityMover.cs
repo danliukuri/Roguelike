@@ -11,11 +11,10 @@ namespace Roguelike.Core.Movers
     {
         #region Properties
         public int RoomIndex { get; private set; }
+        [field: SerializeField] public float MovementStep { get; private set; } = 1f;
         #endregion
         
         #region Fields
-        [SerializeField] float movementStep = 1f;
-        
         public event EventHandler<MovingEventArgs> MovingToWall;
         public event EventHandler<MovingEventArgs> MovingToKey;
         public event EventHandler<MovingEventArgs> MovingToDoor;
@@ -35,54 +34,54 @@ namespace Roguelike.Core.Movers
 
         public void TryToMove(Vector3 translation)
         {
-            if (IsMovePossible(transform.position + translation))
-                Move(translation);
+            Vector3 destination = transform.position + translation;
+            (MovingEventArgs movingArgs, EventHandler<MovingEventArgs> movingEvent) = GetMovingInfo(destination);
+
+            if (!movingArgs.IsMovePossible)
+                movingEvent?.Invoke(this, movingArgs);
+
+            if (movingArgs.IsMovePossible)
+                Move(translation, movingArgs);
         }
-        void Move(Vector3 translation) => transform.Translate(translation * movementStep);
-        
-        bool IsMovePossible(Vector3 destination)
+        void Move(Vector3 translation, MovingEventArgs movingArgs)
+        {
+            transform.Translate(translation * MovementStep);
+            SetRoomIndexIfNew(movingArgs.ElementRoomIndex);
+        }
+        void SetRoomIndexIfNew(int roomIndex)
+        {
+            if (RoomIndex != roomIndex)
+            {
+                RoomIndex = roomIndex;
+                RoomIndexChanged?.Invoke(roomIndex);
+            }
+        }
+
+        public bool IsMovePossible(Vector3 destination) => GetMovingInfo(destination).MovingArgs.IsMovePossible;
+        (MovingEventArgs MovingArgs, EventHandler<MovingEventArgs> MovingEvent) GetMovingInfo(Vector3 destination)
         {
             int destinationRoomIndex = dungeonInfo.GetRoomIndex(destination);
+            (List<Transform>[] ElementsByRoom, EventHandler<MovingEventArgs> MovingEvent)[] roomElementsInfo =
+            { 
+                (dungeonInfo.KeysByRoom, MovingToKey),
+                (dungeonInfo.DoorsByRoom, MovingToDoor),
+                (dungeonInfo.ExitsByRoom, MovingToExit),
+                (dungeonInfo.WallsByRoom, MovingToWall),
+            };
             
-            var roomElementsInfo = new (List<Transform>[] ElementsByRoom, 
-                EventHandler<MovingEventArgs> MovingToElement)[] 
-                { 
-                    (dungeonInfo.KeysByRoom, MovingToKey),
-                    (dungeonInfo.DoorsByRoom, MovingToDoor),
-                    (dungeonInfo.ExitsByRoom, MovingToExit),
-                    (dungeonInfo.WallsByRoom, MovingToWall),
-                };
-            var (elementWhichEntityIsMovingTo, movingToElement) = roomElementsInfo
+            (Transform elementAtDestination, EventHandler<MovingEventArgs> movingEvent) = roomElementsInfo
                 .Select(elementsInfo => (ElementAtDestination: elementsInfo.ElementsByRoom[destinationRoomIndex]?
-                        .FirstOrDefault(element => element.position == destination), elementsInfo.MovingToElement))
+                        .FirstOrDefault(element => element.position == destination), elementsInfo.MovingEvent))
                 .FirstOrDefault(elementInfo => elementInfo.ElementAtDestination != default);
-            
-            bool isElementAtDestination = elementWhichEntityIsMovingTo != default;
-            const bool canMoveToElements = false;
-            const bool canMoveToEmptyCells = true;
-            bool isMovePossible = canMoveToEmptyCells;
-            
-            if (isElementAtDestination)
-                if (movingToElement != default)
-                {
-                    MovingEventArgs movingEventArgs = new MovingEventArgs
-                    {
-                        ElementWhichEntityIsMovingTo = elementWhichEntityIsMovingTo,
-                        IsMovePossible = canMoveToElements,
-                        Destination = destination
-                    };
-                    movingToElement.Invoke(this, movingEventArgs);
-                    isMovePossible = movingEventArgs.IsMovePossible;
-                }
-                else
-                    isMovePossible = canMoveToElements;
 
-            if (isMovePossible && RoomIndex != destinationRoomIndex)
+            MovingEventArgs movingArgs = new MovingEventArgs
             {
-                RoomIndex = destinationRoomIndex;
-                RoomIndexChanged?.Invoke(destinationRoomIndex);
-            }
-            return isMovePossible;
+                Element = elementAtDestination,
+                ElementRoomIndex = destinationRoomIndex,
+                IsMovePossible = elementAtDestination == default,
+                Destination = destination
+            };
+            return (movingArgs, movingEvent);
         }
         #endregion
     }
