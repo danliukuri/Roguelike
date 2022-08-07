@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.silent-games-studio.a-star-pathfinding": {
+      "version": "https://github.com/yuradanyliuk/AStarPathfindingUnityPackage.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "b7df11e4defd33c7056974626df41ad9802917cf"
+    },
     "com.unity.2d.animation": {
       "version": "5.0.7",
       "depth": 0,
