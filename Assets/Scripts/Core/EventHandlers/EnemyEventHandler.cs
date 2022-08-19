@@ -12,7 +12,8 @@ namespace Roguelike.Core.EventHandlers
         #region Methods
         public EnemyEventHandler(PathfindingEntityMover mover) => this.mover = mover;
         
-        public void OnPlayerActionCompleted(object sender, MovingEventArgs e) => mover.MakeClosestMoveTo(e.Destination);
+        public void OnPlayerActionCompleted(object sender, MovingEventArgs e) =>
+            mover.TryToMakeClosestMoveToTarget(e.Destination);
         #endregion
     }
 }
