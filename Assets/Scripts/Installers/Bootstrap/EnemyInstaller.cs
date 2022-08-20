@@ -2,6 +2,7 @@ using Roguelike.Core.EventHandlers;
 using Roguelike.Core.EventSubscribers;
 using Roguelike.Core.Movers;
 using Roguelike.Core.Sensors;
+using Roguelike.Finishers;
 using Roguelike.Sensors;
 using Zenject;
 
@@ -15,6 +16,7 @@ namespace Roguelike.Installers.Bootstrap
             BindMover();
             BindSensors();
             BindEventHandler();
+            BindTurnFinisher();
         }
         void BindMover()
         {
@@ -32,6 +34,13 @@ namespace Roguelike.Installers.Bootstrap
                 .FromComponentsOn(context => ((EnemyEventSubscriber)context.ParentContext.ObjectInstance).gameObject)
                 .AsTransient()
                 .WhenInjectedInto<EnemyEventHandler>();
+        }
+        void BindTurnFinisher()
+        {
+            Container
+                .Bind<TurnFinisher>()
+                .AsTransient()
+                .WhenInjectedInto<EnemyEventSubscriber>();
         }
         void BindEventHandler()
         {
