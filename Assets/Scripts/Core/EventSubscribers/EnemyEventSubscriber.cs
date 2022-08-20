@@ -6,7 +6,7 @@ using Zenject;
 
 namespace Roguelike.Core.EventSubscribers
 {
-    public class EnemyEventSubscriber : MonoBehaviour
+    public class EnemyEventSubscriber : MonoBehaviour, IResettable
     {
         #region Fields
         EnemyEventHandler eventHandler;
@@ -21,6 +21,7 @@ namespace Roguelike.Core.EventSubscribers
             (this.eventHandler = eventHandler).SetTurnFinisher(this.turnFinisher = turnFinisher);
             this.playerMover = playerMover;
         }
+        public void Reset() => eventHandler.Reset();
         
         void OnEnable()
         {

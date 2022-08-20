@@ -2,6 +2,7 @@ using Roguelike.Core.EventHandlers;
 using Roguelike.Core.EventSubscribers;
 using Roguelike.Core.Movers;
 using Roguelike.Core.Sensors;
+using Roguelike.Core.Services.Trackers;
 using Roguelike.Finishers;
 using Roguelike.Sensors;
 using Zenject;
@@ -15,6 +16,7 @@ namespace Roguelike.Installers.Bootstrap
         {
             BindMover();
             BindSensors();
+            BindTargetMovingTracker();
             BindEventHandler();
             BindTurnFinisher();
         }
@@ -32,6 +34,13 @@ namespace Roguelike.Installers.Bootstrap
                 .Bind<ISensor>()
                 .To(typeof(HearingSensor), typeof(VisionSensor))
                 .FromComponentsOn(context => ((EnemyEventSubscriber)context.ParentContext.ObjectInstance).gameObject)
+                .AsTransient()
+                .WhenInjectedInto<EnemyEventHandler>();
+        }
+        void BindTargetMovingTracker()
+        {
+            Container
+                .Bind<TargetMovingTracker>()
                 .AsTransient()
                 .WhenInjectedInto<EnemyEventHandler>();
         }
