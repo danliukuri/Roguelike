@@ -2,21 +2,29 @@ using Roguelike.Core.EventHandlers;
 using Roguelike.Core.EventSubscribers;
 using Roguelike.Core.Movers;
 using Roguelike.Core.Sensors;
+using Roguelike.Core.Services.Managers;
 using Roguelike.Core.Services.Trackers;
 using Roguelike.Finishers;
 using Roguelike.Sensors;
+using UnityEngine;
 using Zenject;
 
 namespace Roguelike.Installers.Bootstrap
 {
     public class EnemyInstaller : MonoInstaller
     {
+        #region Fields
+        [SerializeField] int numberOfActionsToUseStamina;
+        [SerializeField] int numberOfActionsForRestoringStamina;
+        #endregion
+        
         #region Methods
         public override void InstallBindings()
         {
             BindMover();
             BindSensors();
             BindTargetMovingTracker();
+            BindStaminaManager();
             BindEventHandler();
             BindTurnFinisher();
         }
@@ -42,6 +50,14 @@ namespace Roguelike.Installers.Bootstrap
             Container
                 .Bind<TargetMovingTracker>()
                 .AsTransient()
+                .WhenInjectedInto<EnemyEventHandler>();
+        }
+        void BindStaminaManager()
+        {
+            Container
+                .Bind<StaminaManager>()
+                .AsTransient()
+                .WithArguments(numberOfActionsToUseStamina, numberOfActionsForRestoringStamina)
                 .WhenInjectedInto<EnemyEventHandler>();
         }
         void BindTurnFinisher()

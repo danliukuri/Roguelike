@@ -188,3 +188,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68f0b77fcdca41a5b2d8cc65ced86c62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numberOfActionsToUseStamina: 10
+  numberOfActionsForRestoringStamina: 7
