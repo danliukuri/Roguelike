@@ -13,14 +13,14 @@ namespace Roguelike.Placers
         readonly IGameObjectFactory gameObjectFactory;
         readonly Transform parent;
         #endregion
-
+        
         #region Methods
         public RoomElementsPlacer(IGameObjectFactory gameObjectFactory, Transform parent = default)
         {
             this.gameObjectFactory = gameObjectFactory;
             this.parent = parent;
         }
-
+        
         public List<Transform>[] PlaceAll(List<Transform>[] elementMarkersByRoom)
         {
             List<Transform>[] elementsByRoom = elementMarkersByRoom
@@ -55,11 +55,12 @@ namespace Roguelike.Placers
         Transform PlaceElement(Transform elementMarker)
         {
             GameObject elementGameObject = gameObjectFactory.GetGameObject();
-            elementGameObject.SetActive(true);
-            
+
             Transform elementTransform = elementGameObject.transform;
             elementTransform.position = elementMarker.position;
             elementTransform.SetParent(parent == default ? elementMarker : parent);
+            
+            elementGameObject.SetActive(true);
             return elementTransform;
         }
         #endregion

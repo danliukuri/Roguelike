@@ -33,6 +33,17 @@ namespace Roguelike.Core.Information
                     return roomIndex;
             throw new InvalidOperationException("There is no room with such position");
         }
+        public void ChangeRoomIndex(Transform element, int oldRoomIndex, int newRoomIndex)
+        {
+            List<Transform>[][] entities = { PlayersByRoom, EnemiesByRoom };
+            List<Transform>[] entitiesByRoom = entities.FirstOrDefault(entitiesByRoom =>
+                entitiesByRoom[oldRoomIndex] != default && entitiesByRoom[oldRoomIndex].Contains(element));
+            if (entitiesByRoom != default)
+            {
+                entitiesByRoom[oldRoomIndex].Remove(element);
+                (entitiesByRoom[newRoomIndex] ??= new List<Transform>()).Add(element);
+            }
+        }
         #endregion
     }
 }

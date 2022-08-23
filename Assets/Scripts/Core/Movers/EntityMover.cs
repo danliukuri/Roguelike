@@ -7,7 +7,7 @@ using Zenject;
 
 namespace Roguelike.Core.Movers
 {
-    public class EntityMover : MonoBehaviour, IResettable
+    public class EntityMover : MonoBehaviour
     {
         #region Properties
         public int RoomIndex { get; private set; }
@@ -28,9 +28,25 @@ namespace Roguelike.Core.Movers
         #region Methods
         [Inject]
         public void Construct(DungeonInfo dungeonInfo) => this.dungeonInfo = dungeonInfo;
-        public void Reset()
+        void OnEnable()
         {
-            RoomIndex = default;
+            if (dungeonInfo.Rooms != default) 
+                RoomIndex = dungeonInfo.GetRoomIndex(transform.position);
+        }
+        
+        void SetRoomIndexIfNew(int roomIndex)
+        {
+            if (RoomIndex != roomIndex)
+            {
+                dungeonInfo.ChangeRoomIndex(transform, RoomIndex, roomIndex);
+                RoomIndex = roomIndex;
+                RoomIndexChanged?.Invoke(roomIndex);
+            }
+        }
+        void Move(Vector3 translation, MovingEventArgs movingArgs)
+        {
+            transform.Translate(translation * MovementStep);
+            SetRoomIndexIfNew(movingArgs.ElementRoomIndex);
         }
         
         public bool TryToMove(Vector3 translation)
@@ -49,21 +65,8 @@ namespace Roguelike.Core.Movers
             
             return movingArgs.IsMovePossible;
         }
-        void Move(Vector3 translation, MovingEventArgs movingArgs)
-        {
-            transform.Translate(translation * MovementStep);
-            SetRoomIndexIfNew(movingArgs.ElementRoomIndex);
-        }
-        void SetRoomIndexIfNew(int roomIndex)
-        {
-            if (RoomIndex != roomIndex)
-            {
-                RoomIndex = roomIndex;
-                RoomIndexChanged?.Invoke(roomIndex);
-            }
-        }
-        
         public bool IsMovePossible(Vector3 destination) => GetMovingInfo(destination).MovingArgs.IsMovePossible;
+        
         (MovingEventArgs MovingArgs, EventHandler<MovingEventArgs> MovingEvent) GetMovingInfo(Vector3 destination)
         {
             int destinationRoomIndex = dungeonInfo.GetRoomIndex(destination);
