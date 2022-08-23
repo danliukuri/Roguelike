@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using AStarPathfinding;
-using Roguelike.Core;
 using Roguelike.Core.Movers;
 using Roguelike.Core.Services.Pathfinding;
 using Roguelike.Utilities;
@@ -16,7 +15,8 @@ namespace Roguelike.Services.Pathfinding
         #endregion
         
         #region Methods
-        public PathfindingAdapter(EntityMover mover) => aStar = new AStar<Vector3>(new Vector3PathNodeGraph(mover));
+        public PathfindingAdapter(PathfindingEntityMover mover) => 
+            aStar = new AStar<Vector3>(new Vector3PathNodeGraph(mover.IsPathPossible, mover.MovementStep));
         
         public List<Vector3> FindPath(Vector3 startPosition, Vector3 targetPosition) =>
             foundPath ??= aStar.ShortestReversedPathOrDefault(startPosition, targetPosition);

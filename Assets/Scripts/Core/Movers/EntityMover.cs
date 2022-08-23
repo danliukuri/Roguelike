@@ -29,7 +29,7 @@ namespace Roguelike.Core.Movers
         [SerializeField] bool canMoveToExits;
         [SerializeField] bool canMoveToDoors;
         
-        DungeonInfo dungeonInfo;
+        protected DungeonInfo dungeonInfo;
         MovingInfo[] generalMovingInfo;
         #endregion
         
@@ -41,7 +41,7 @@ namespace Roguelike.Core.Movers
             if (dungeonInfo.Rooms != default) 
                 RoomIndex = dungeonInfo.GetRoomIndex(transform.position);
         }
-        public void Reset() => generalMovingInfo = default;
+        public virtual void Reset() => generalMovingInfo = default;
         
         void SetRoomIndexIfNew(int roomIndex)
         {
@@ -82,7 +82,7 @@ namespace Roguelike.Core.Movers
         {
             generalMovingInfo ??= GetGeneralMovingInfo();
             int destinationRoomIndex = dungeonInfo.GetRoomIndex(destination);
-
+            
             MovingInfo movingInfo = generalMovingInfo.FirstOrDefault(elementInfo =>
                 (elementInfo.Args.Element = elementInfo.ElementsByRoom[destinationRoomIndex]
                     ?.FirstOrDefault(element => element.position == destination)) != default);

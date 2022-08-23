@@ -1,7 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using AStarPathfinding;
-using Roguelike.Core.Movers;
 using UnityEngine;
 
 namespace Roguelike.Utilities
@@ -9,15 +9,16 @@ namespace Roguelike.Utilities
     public class Vector3PathNodeGraph : PathNodeGraph<Vector3>
     {
         #region Fields
-        readonly EntityMover entityMover;
+        readonly Func<Vector3, bool> isPathPossible;
         readonly float distanceBetweenTwoConnectedNodes;
         #endregion
         
         #region Methods
-        public Vector3PathNodeGraph(EntityMover entityMover) : base((first, second) => first == second)
+        public Vector3PathNodeGraph(Func<Vector3, bool> isPathPossible, float distanceBetweenTwoConnectedNodes) : 
+            base((first, second) => first == second)
         {
-            this.entityMover = entityMover;
-            distanceBetweenTwoConnectedNodes = entityMover.MovementStep;
+            this.isPathPossible = isPathPossible;
+            this.distanceBetweenTwoConnectedNodes = distanceBetweenTwoConnectedNodes;
         }
         
         public override float CostToTarget(Vector3 node, Vector3 target) => (target - node).magnitude;
@@ -50,7 +51,7 @@ namespace Roguelike.Utilities
                 new Vector3(node.x + distanceBetweenTwoConnectedNodes, node.y),
                 new Vector3(node.x - distanceBetweenTwoConnectedNodes, node.y)
             };
-            return neighborPositions.Where(neighborPosition => entityMover.IsMovePossible(neighborPosition));
+            return neighborPositions.Where(neighborPosition => isPathPossible(neighborPosition));
         }
         #endregion
     }

@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4010444630482727835}
   - component: {fileID: 4010444630482727834}
-  - component: {fileID: 7254055647913896672}
   - component: {fileID: -5698851387444850553}
   - component: {fileID: 5443843966657915314}
   - component: {fileID: 4406038310047757364}
@@ -87,24 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7254055647913896672
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4010444630482727833}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fb8e41f90950fb42bf361f245e63bea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <MovementStep>k__BackingField: 1
-  canMoveToWalls: 0
-  canMoveToEnemies: 0
-  canMoveToItems: 0
-  canMoveToExits: 0
-  canMoveToDoors: 0
 --- !u!114 &-5698851387444850553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,6 +98,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f9000275eee43b29b226e9f40127e28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <MovementStep>k__BackingField: 1
+  canMoveToWalls: 0
+  canMoveToEnemies: 0
+  canMoveToItems: 0
+  canMoveToExits: 0
+  canMoveToDoors: 0
+  canPavePathToWalls: 0
+  canPavePathToEnemies: 1
+  canPavePathToItems: 0
+  canPavePathToExits: 0
+  canPavePathToDoors: 0
 --- !u!114 &5443843966657915314
 MonoBehaviour:
   m_ObjectHideFlags: 0
