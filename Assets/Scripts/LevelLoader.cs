@@ -10,6 +10,7 @@ namespace Roguelike
     {
         #region Fields
         readonly LevelSettings levelSettings;
+        readonly LevelSettingsUpdater levelSettingsUpdater;
         
         int currentLevelNumber;
         
@@ -19,27 +20,26 @@ namespace Roguelike
         #endregion
         
         #region Methods
-        public LevelLoader(LevelSettings levelSettings, IDungeonPlacer dungeonPlacer,
+        public LevelLoader(LevelSettings levelSettings, LevelSettingsUpdater levelSettingsUpdater,
+            IDungeonPlacer dungeonPlacer,
             PoolableObjectsReturner poolableObjectsReturner, IResettable[] resettableComponents)
         {
             this.levelSettings = levelSettings;
+            this.levelSettingsUpdater = levelSettingsUpdater;
             this.dungeonPlacer = dungeonPlacer;
             this.poolableObjectsReturner = poolableObjectsReturner;
             this.resettableComponents = resettableComponents;
         }
-        public void Initialize()
-        {
-            LoadLevel();
-        }
-        
+        public void Initialize() => LoadLevel();
+
         public void LoadNextLevel()
         {
             UnLoadCurrentLevel();
-            levelSettings.NumberOfRooms += currentLevelNumber;
             LoadLevel();
         }
         void LoadLevel()
         {
+            levelSettingsUpdater.Update(currentLevelNumber);
             dungeonPlacer.Place(levelSettings);
             currentLevelNumber++;
         }
