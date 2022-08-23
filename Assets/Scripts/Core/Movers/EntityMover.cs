@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using Roguelike.Core.Information;
 using UnityEngine;
@@ -7,7 +6,7 @@ using Zenject;
 
 namespace Roguelike.Core.Movers
 {
-    public class EntityMover : MonoBehaviour
+    public class EntityMover : MonoBehaviour, IResettable
     {
         #region Properties
         public int RoomIndex { get; private set; }
@@ -23,6 +22,7 @@ namespace Roguelike.Core.Movers
         public event Action<int> RoomIndexChanged;
         
         DungeonInfo dungeonInfo;
+        MovingInfo[] generalMovingInfo;
         #endregion
         
         #region Methods
@@ -33,6 +33,7 @@ namespace Roguelike.Core.Movers
             if (dungeonInfo.Rooms != default) 
                 RoomIndex = dungeonInfo.GetRoomIndex(transform.position);
         }
+        public void Reset() => generalMovingInfo = default;
         
         void SetRoomIndexIfNew(int roomIndex)
         {
@@ -52,10 +53,11 @@ namespace Roguelike.Core.Movers
         public bool TryToMove(Vector3 translation)
         {
             Vector3 destination = transform.position + translation;
-            (MovingEventArgs movingArgs, EventHandler<MovingEventArgs> movingEvent) = GetMovingInfo(destination);
+            MovingInfo movingInfo = GetMovingInfo(destination);
+            MovingEventArgs movingArgs = movingInfo.Args;
             
             if (!movingArgs.IsMovePossible)
-                movingEvent?.Invoke(this, movingArgs);
+                movingInfo.Event?.Invoke(this, movingArgs);
             
             if (movingArgs.IsMovePossible)
                 Move(translation, movingArgs);
@@ -65,33 +67,37 @@ namespace Roguelike.Core.Movers
             
             return movingArgs.IsMovePossible;
         }
-        public bool IsMovePossible(Vector3 destination) => GetMovingInfo(destination).MovingArgs.IsMovePossible;
+        public bool IsMovePossible(Vector3 destination, MovingInfo[] generalMovingInfo = default) =>
+            GetMovingInfo(destination, generalMovingInfo).Args.IsMovePossible;
         
-        (MovingEventArgs MovingArgs, EventHandler<MovingEventArgs> MovingEvent) GetMovingInfo(Vector3 destination)
+        MovingInfo GetMovingInfo(Vector3 destination, MovingInfo[] generalMovingInfo = default)
         {
+            generalMovingInfo ??= GetGeneralMovingInfo();
             int destinationRoomIndex = dungeonInfo.GetRoomIndex(destination);
-            (List<Transform>[] ElementsByRoom, EventHandler<MovingEventArgs> MovingEvent)[] roomElementsInfo =
-            { 
-                (dungeonInfo.KeysByRoom, MovingToKey),
-                (dungeonInfo.DoorsByRoom, MovingToDoor),
-                (dungeonInfo.ExitsByRoom, MovingToExit),
-                (dungeonInfo.WallsByRoom, MovingToWall),
-            };
+
+            MovingInfo movingInfo = generalMovingInfo.FirstOrDefault(elementInfo =>
+                (elementInfo.Args.Element = elementInfo.ElementsByRoom[destinationRoomIndex]
+                    ?.FirstOrDefault(element => element.position == destination)) != default);
+            movingInfo ??= new MovingInfo { Args = new MovingEventArgs() };
             
-            (Transform elementAtDestination, EventHandler<MovingEventArgs> movingEvent) = roomElementsInfo
-                .Select(elementsInfo => (ElementAtDestination: elementsInfo.ElementsByRoom[destinationRoomIndex]?
-                        .FirstOrDefault(element => element.position == destination), elementsInfo.MovingEvent))
-                .FirstOrDefault(elementInfo => elementInfo.ElementAtDestination != default);
+            MovingEventArgs movingArgs = movingInfo.Args;
+            movingArgs.ElementRoomIndex = destinationRoomIndex;
+            movingArgs.IsMovePossible = movingArgs.Element == default;
+            movingArgs.Destination = destination;
             
-            MovingEventArgs movingArgs = new MovingEventArgs
-            {
-                Element = elementAtDestination,
-                ElementRoomIndex = destinationRoomIndex,
-                IsMovePossible = elementAtDestination == default,
-                Destination = destination
-            };
-            return (movingArgs, movingEvent);
+            return movingInfo;
         }
+        MovingInfo[] GetGeneralMovingInfo() => generalMovingInfo ??= new[]
+        {
+            new MovingInfo { ElementsByRoom = dungeonInfo.KeysByRoom, Event = MovingToKey,
+                Args = new MovingEventArgs() },
+            new MovingInfo { ElementsByRoom = dungeonInfo.DoorsByRoom, Event = MovingToDoor,
+                Args = new MovingEventArgs() },
+            new MovingInfo { ElementsByRoom = dungeonInfo.ExitsByRoom, Event = MovingToExit,
+                Args = new MovingEventArgs() },
+            new MovingInfo { ElementsByRoom = dungeonInfo.WallsByRoom, Event = MovingToWall,
+                Args = new MovingEventArgs() },
+        };
         #endregion
     }
 }
