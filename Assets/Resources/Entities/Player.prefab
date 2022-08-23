@@ -96,7 +96,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fb8e41f90950fb42bf361f245e63bea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementStep: 1
+  <MovementStep>k__BackingField: 1
+  canMoveToWalls: 0
+  canMoveToEnemies: 1
+  canMoveToItems: 0
+  canMoveToExits: 0
+  canMoveToDoors: 0
 --- !u!114 &6235274547389589019
 MonoBehaviour:
   m_ObjectHideFlags: 0

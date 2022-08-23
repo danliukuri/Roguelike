@@ -100,6 +100,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <MovementStep>k__BackingField: 1
+  canMoveToWalls: 0
+  canMoveToEnemies: 0
+  canMoveToItems: 0
+  canMoveToExits: 0
+  canMoveToDoors: 0
 --- !u!114 &-5698851387444850553
 MonoBehaviour:
   m_ObjectHideFlags: 0
