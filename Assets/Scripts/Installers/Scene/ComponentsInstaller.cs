@@ -2,14 +2,14 @@ using Roguelike.Core;
 using UnityEngine;
 using Zenject;
 
-namespace Roguelike.Installers.Bootstrap
+namespace Roguelike.Installers.Scene
 {
     public class ComponentsInstaller : MonoInstaller
     {
         #region Fields
         [SerializeField] Component[] resettableComponents;
         #endregion
-
+        
         #region Methods
         public override void InstallBindings()
         {

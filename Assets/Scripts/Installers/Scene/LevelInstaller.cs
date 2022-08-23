@@ -4,14 +4,14 @@ using Roguelike.Core.Information;
 using UnityEngine;
 using Zenject;
 
-namespace Roguelike.Installers.Bootstrap
+namespace Roguelike.Installers.Scene
 {
     public class LevelInstaller : MonoInstaller
     {
         #region Fields
         [SerializeField] LevelSettings levelSettings;
         #endregion
-
+        
         #region Methods
         public override void InstallBindings()
         {
