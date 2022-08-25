@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 1f96c811dcc4a384b87fad581b9ed8bf
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Thug Life
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: e8b4d3c3b50042c4a926c6380da5b317, type: 3}
+  customCharacters: 
+  fontRenderingMode: 2
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
