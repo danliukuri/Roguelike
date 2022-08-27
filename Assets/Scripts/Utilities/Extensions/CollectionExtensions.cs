@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Roguelike.Utilities.Extensions
@@ -31,7 +32,7 @@ namespace Roguelike.Utilities.Extensions
 
             return UnityEngine.Random.Range(0, source.Count);
         }
-
+        
         /// <summary>
         /// Return a random item based on weights from the sequence.
         /// </summary>
@@ -51,7 +52,7 @@ namespace Roguelike.Utilities.Extensions
 
             return source.First(item => (currentWeight -= item.Weight) < minWeight);
         }
-
+        
         /// <summary>
         /// Creates a new sequence with shallow copies of each item.
         /// </summary>
@@ -61,6 +62,27 @@ namespace Roguelike.Utilities.Extensions
         /// <returns>A new sequence with shallow copies of each item.</returns>
         public static IEnumerable<T> ShallowCopy<T>(this IEnumerable<T> source) where T : IShallowCopyable<T> =>
             source?.Select(item => item.ShallowCopy());
+        
+        /// <summary>
+        /// Shifts right array items. Modifies source array.
+        /// </summary>
+        /// <param name="source">An array of items.</param>
+        /// <typeparam name="T">The type of items of the array.</typeparam>
+        /// <returns>A shifted right source array.</returns>
+        public static T[] ShiftedRight<T>(this T[] source)
+        {
+            source.CheckForNullException(nameof(source)).CheckForNoElementsException(source.Length);
+            
+            const int sourceIndex = 0;
+            const int destinationIndex = 1;
+            const int firstSourceItemIndex = 0;
+            int lastSourceItemIndex = source.Length - 1;
+            
+            T lastItem = source[lastSourceItemIndex];
+            Array.Copy(source, sourceIndex, source, destinationIndex, lastSourceItemIndex);
+            source[firstSourceItemIndex] = lastItem;
+            return source;
+        }
         #endregion
     }
 }

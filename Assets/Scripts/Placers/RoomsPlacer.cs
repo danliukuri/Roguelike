@@ -83,9 +83,9 @@ namespace Roguelike.Placers
         static void AddNewFreePositions(ICollection<Vector3> roomPositions, ICollection<Vector3> freePositions,
             Vector3 currentRoomPosition, int roomSize)
         {
-            foreach (var direction in Room.Directions)
+            foreach (Vector3 neighborDirection in Room.NeighborDirections)
             {
-                Vector3 newFreePosition = currentRoomPosition + direction * roomSize;
+                Vector3 newFreePosition = currentRoomPosition + neighborDirection * roomSize;
                 if (!freePositions.Contains(newFreePosition) && !roomPositions.Contains(newFreePosition))
                     freePositions.Add(newFreePosition);
             }

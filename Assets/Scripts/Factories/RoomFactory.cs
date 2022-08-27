@@ -17,17 +17,9 @@ namespace Roguelike.Factories
         #endregion
         
         #region Methods
-        void Start()
-        {
-            InitializeSample();
-        }
-        void InitializeSample()
-        {
-            Room room = roomsPool.GetFreeObject().GetComponent<Room>();
-            room.Initialize();
-            Sample = room;
-        }
-        
+        void Start() => InitializeSample();
+        void InitializeSample() => Sample = roomsPool.GetFreeObject().GetComponent<Room>();
+
         public Room GetRoom()
         {
             GameObject roomGameObject = roomsPool.GetFreeObject();
@@ -36,10 +28,7 @@ namespace Roguelike.Factories
             Room room = roomGameObject.GetComponent<Room>();
             Transform roomTransform = roomGameObject.transform;
             
-            roomTransform.RotateRandomNumberOfTimesByRightAngle(roomTransform.forward,
-                room.SavePassagesDirectionsOnRotationToRight);
-            room.Initialize();
-            
+            roomTransform.RotateRandomNumberOfTimesByRightAngle(roomTransform.forward, room.RotateToRight);
             return room;
         }
         #endregion
