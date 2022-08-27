@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Roguelike.Utilities;
@@ -23,6 +24,9 @@ namespace Roguelike.Core.Entities
         #endregion
         
         #region Fields
+        public event Action<int> PassageOpened;
+        public event Action RotatedToRight;
+        
         [SerializeField] int size;
         [Header("Markers:")]
         [SerializeField] Transform[] walls;
@@ -58,8 +62,11 @@ namespace Roguelike.Core.Entities
             lowerSizeBounds = new Vector2(roomPosition.x - halfSize, roomPosition.y - halfSize);
         }
         
-        public void RotateToRight() => ChangePassagesOrientationToEast();
-        
+        public void RotateToRight()
+        {
+            ChangePassagesOrientationToEast();
+            RotatedToRight?.Invoke();
+        }
         void ChangePassagesOrientationToEast()
         {
             passages.ChangeOrientationToEast();
@@ -90,6 +97,7 @@ namespace Roguelike.Core.Entities
                     Transform[] neighborPassage =
                         room.passages[passages.OppositeDirectionIndexTo(passageDirectionIndex)];
                     OpenRandomPassage(new [] { passage, neighborPassage });
+                    PassageOpened?.Invoke(passageDirectionIndex);
                     isPassageCreated = true;
                 }
             }

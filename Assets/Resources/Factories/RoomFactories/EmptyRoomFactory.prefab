@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9045221281702068704}
   - component: {fileID: 9045221281702068707}
-  - component: {fileID: 9045221281702068706}
+  - component: {fileID: 8857573537542714336}
   m_Layer: 0
   m_Name: EmptyRoomFactory
   m_TagString: Untagged
@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61acbc0b901b797409833764d77b8856, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomsPool: {fileID: 9045221281702068706}
---- !u!114 &9045221281702068706
+  roomsPool: {fileID: 8857573537542714336}
+--- !u!114 &8857573537542714336
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -54,7 +54,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 9045221281702068705}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 741a8601dd5f7da478c0e2740c181b9b, type: 3}
+  m_Script: {fileID: 11500000, guid: d3b6a77dbb8a4e7390022cd7505ea4ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   gameObjectPrefab: {fileID: 4930347004118562440, guid: 857b2e3cb0930e94da54a742ab93b9dc, type: 3}
