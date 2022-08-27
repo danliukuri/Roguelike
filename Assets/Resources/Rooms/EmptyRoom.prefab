@@ -616,6 +616,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4930347004118562441}
   - component: {fileID: 4930347004118562442}
+  - component: {fileID: 4055027661681006607}
   m_Layer: 0
   m_Name: EmptyRoom
   m_TagString: Untagged
@@ -691,6 +692,23 @@ MonoBehaviour:
     - {fileID: 1864817189531015191}
     - {fileID: 1864817190578643424}
     - {fileID: 1864817190881365741}
+--- !u!114 &4055027661681006607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4930347004118562440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23be8130d6ac499f819970e480e8d0b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  passageBackgrounds:
+    north: {fileID: 4253617273527771893}
+    west: {fileID: 1355618285195613006}
+    south: {fileID: 5037939420045706917}
+    east: {fileID: 2693573062463824431}
 --- !u!1 &4930347004477376364
 GameObject:
   m_ObjectHideFlags: 0
