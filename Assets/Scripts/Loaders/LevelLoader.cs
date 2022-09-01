@@ -4,7 +4,7 @@ using Roguelike.Core.Placers;
 using Roguelike.Utilities.Pools;
 using Zenject;
 
-namespace Roguelike
+namespace Roguelike.Loaders
 {
     public class LevelLoader : IInitializable
     {
@@ -12,11 +12,11 @@ namespace Roguelike
         readonly LevelSettings levelSettings;
         readonly LevelSettingsUpdater levelSettingsUpdater;
         
-        int currentLevelNumber;
-        
         readonly IDungeonPlacer dungeonPlacer;
         readonly PoolableObjectsReturner poolableObjectsReturner;
         readonly IResettable[] resettableComponents;
+        
+        int currentLevelNumber;
         #endregion
         
         #region Methods
@@ -31,7 +31,7 @@ namespace Roguelike
             this.resettableComponents = resettableComponents;
         }
         public void Initialize() => LoadLevel();
-
+        
         public void LoadNextLevel()
         {
             UnLoadCurrentLevel();
