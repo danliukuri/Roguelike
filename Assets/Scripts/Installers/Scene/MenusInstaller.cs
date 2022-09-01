@@ -1,3 +1,4 @@
+using Roguelike.UI.EventHandlers;
 using Roguelike.UI.Information;
 using UnityEngine;
 using Zenject;
@@ -14,6 +15,7 @@ namespace Roguelike.Installers.Scene
         public override void InstallBindings()
         {
             BindMenusInfo();
+            BindPlayerDeathMenuEventHandler();
         }
         void BindMenusInfo()
         {
@@ -22,6 +24,13 @@ namespace Roguelike.Installers.Scene
                 .FromNew()
                 .AsSingle()
                 .WithArguments(mainMenu, playerDeathMenu);
+        }
+        void BindPlayerDeathMenuEventHandler()
+        {
+            Container
+                .Bind<PlayerDeathMenuEventHandler>()
+                .FromComponentOn(playerDeathMenu)
+                .AsSingle();
         }
         #endregion
     }
