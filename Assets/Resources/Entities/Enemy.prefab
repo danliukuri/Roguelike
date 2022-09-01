@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5443843966657915314}
   - component: {fileID: 4406038310047757364}
   - component: {fileID: -8056145858381877486}
+  - component: {fileID: 4008658839970284800}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -100,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MovementStep>k__BackingField: 1
   canMoveToWalls: 0
+  canMoveToPlayers: 1
   canMoveToEnemies: 0
   canMoveToItems: 0
   canMoveToExits: 0
@@ -145,5 +147,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 94a2d65b196a435cac959ce635627258, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4008658839970284800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4010444630482727833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b76b312f0204231a26a0b510941875c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

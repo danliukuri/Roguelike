@@ -1,5 +1,6 @@
 using Roguelike.Core.EventHandlers;
 using Roguelike.Core.EventSubscribers;
+using Roguelike.Core.Information;
 using Roguelike.Core.Movers;
 using Roguelike.Core.Sensors;
 using Roguelike.Core.Services.Managers;
@@ -27,6 +28,7 @@ namespace Roguelike.Installers.Bootstrap
             BindStaminaManager();
             BindEventHandler();
             BindTurnFinisher();
+            BindInfo();
         }
         void BindMover()
         {
@@ -73,6 +75,12 @@ namespace Roguelike.Installers.Bootstrap
                 .Bind<EnemyEventHandler>()
                 .AsTransient()
                 .WhenInjectedInto<EnemyEventSubscriber>();
+        }
+        void BindInfo()
+        {
+            Container
+                .Bind<EnemiesInfo>()
+                .AsSingle();
         }
         #endregion
     }
