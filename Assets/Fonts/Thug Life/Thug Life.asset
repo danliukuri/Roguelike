@@ -55,9 +55,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: Thug Life
   m_EditorClassIdentifier: 
-  hashCode: 0
+  hashCode: 695798280
   material: {fileID: -580114271082197576}
-  materialHashCode: 0
+  materialHashCode: -1563543384
   m_Version: 1.1.0
   m_SourceFontFileGUID: 1f96c811dcc4a384b87fad581b9ed8bf
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 1f96c811dcc4a384b87fad581b9ed8bf, type: 3}
@@ -85,6 +85,20 @@ MonoBehaviour:
     m_StrikethroughThickness: 4.1748047
     m_TabWidth: 19
   m_GlyphTable:
+  - m_Index: 3
+    m_Metrics:
+      m_Width: 0
+      m_Height: 0
+      m_HorizontalBearingX: 0
+      m_HorizontalBearingY: 0
+      m_HorizontalAdvance: 19
+    m_GlyphRect:
+      m_X: 0
+      m_Y: 0
+      m_Width: 0
+      m_Height: 0
+    m_Scale: 1
+    m_AtlasIndex: 0
   - m_Index: 4
     m_Metrics:
       m_Width: 14
@@ -1417,6 +1431,10 @@ MonoBehaviour:
     m_AtlasIndex: 0
   m_CharacterTable:
   - m_ElementType: 1
+    m_Unicode: 32
+    m_GlyphIndex: 3
+    m_Scale: 1
+  - m_ElementType: 1
     m_Unicode: 33
     m_GlyphIndex: 4
     m_Scale: 1
@@ -1791,6 +1809,10 @@ MonoBehaviour:
   - m_ElementType: 1
     m_Unicode: 126
     m_GlyphIndex: 97
+    m_Scale: 1
+  - m_ElementType: 1
+    m_Unicode: 160
+    m_GlyphIndex: 3
     m_Scale: 1
   - m_ElementType: 1
     m_Unicode: 8230
@@ -2450,9 +2472,9 @@ MonoBehaviour:
     packingMode: 0
     atlasWidth: 512
     atlasHeight: 512
-    characterSetSelectionMode: 7
-    characterSequence: "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~\u2026"
-    referencedFontAssetGUID: 
+    characterSetSelectionMode: 0
+    characterSequence: 32 - 126, 160, 8203, 8230, 9633
+    referencedFontAssetGUID: 6a9b3123260091047853cac26eeb02c7
     referencedTextAssetGUID: 7614da314f3ab8e4eaa04916270eb9b1
     fontStyle: 0
     fontStyleModifier: 0
