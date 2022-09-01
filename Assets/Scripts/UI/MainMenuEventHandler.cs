@@ -1,20 +1,30 @@
+using Roguelike.UI.Information;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 namespace Roguelike.UI
 {
     public class MainMenuEventHandler : MonoBehaviour
     {
         #region Fields
-        [SerializeField] int levelSceneBuildIndex;
+        MenusInfo menusInfo;
         #endregion
-
+        
         #region Methods
-        public void OnPlayButtonClick() => SceneManager.LoadScene(levelSceneBuildIndex);
+        [Inject]
+        void Construct(MenusInfo menusInfo) => this.menusInfo = menusInfo;
+        
+        public void OnPlayButtonClick()
+        {
+            menusInfo.SceneLoader.LoadLevelScene(LoadSceneMode.Additive);
+            menusInfo.MainMenu.SetActive(false);
+        }
         public void OnExitButtonClick()
         {
 #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
+            EditorApplication.isPlaying = false;
 #elif UNITY_WEBGL
             Application.Quit();
             Application.OpenURL("https://yuriy-danyliuk.itch.io/");
