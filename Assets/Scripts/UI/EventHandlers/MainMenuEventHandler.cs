@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Zenject;
 
-namespace Roguelike.UI
+namespace Roguelike.UI.EventHandlers
 {
     public class MainMenuEventHandler : MonoBehaviour
     {
