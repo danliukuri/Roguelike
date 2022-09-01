@@ -15,6 +15,7 @@ namespace Roguelike.Core.Movers
         
         #region Fields
         public event EventHandler<MovingEventArgs> MovingToWall;
+        public event EventHandler<MovingEventArgs> MovingToPlayer;
         public event EventHandler<MovingEventArgs> MovingToEnemy;
         public event EventHandler<MovingEventArgs> MovingToKey;
         public event EventHandler<MovingEventArgs> MovingToDoor;
@@ -24,6 +25,7 @@ namespace Roguelike.Core.Movers
         
         [Header("Movement abilities")]
         [SerializeField] bool canMoveToWalls;
+        [SerializeField] bool canMoveToPlayers;
         [SerializeField] bool canMoveToEnemies;
         [SerializeField] bool canMoveToItems;
         [SerializeField] bool canMoveToExits;
@@ -64,9 +66,7 @@ namespace Roguelike.Core.Movers
             MovingInfo movingInfo = GetMovingInfo(destination);
             MovingEventArgs movingArgs = movingInfo.Args;
             
-            if (!movingArgs.IsMovePossible)
-                movingInfo.Event?.Invoke(this, movingArgs);
-            
+            movingInfo.Event?.Invoke(this, movingArgs);
             if (movingArgs.IsMovePossible)
                 Move(translation, movingArgs);
             else
@@ -97,6 +97,8 @@ namespace Roguelike.Core.Movers
         }
         MovingInfo[] GetGeneralMovingInfo() => generalMovingInfo ??= new[]
         {
+            new MovingInfo { ElementsByRoom = dungeonInfo.PlayersByRoom, Event = MovingToPlayer,
+                Args = new MovingEventArgs { IsMovePossible = canMoveToPlayers } },
             new MovingInfo { ElementsByRoom = dungeonInfo.EnemiesByRoom, Event = MovingToEnemy,
                 Args = new MovingEventArgs { IsMovePossible = canMoveToEnemies } },
             new MovingInfo { ElementsByRoom = dungeonInfo.KeysByRoom, Event = MovingToKey,
