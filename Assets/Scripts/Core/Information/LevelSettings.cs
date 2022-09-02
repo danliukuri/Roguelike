@@ -4,14 +4,47 @@ using UnityEngine;
 namespace Roguelike.Core.Information
 {
     [Serializable]
-    public class LevelSettings
+    public class LevelSettings : IResettable
     {
         #region Properties
-        [field: SerializeField] public int NumberOfRooms { get; set; }
-        [field: SerializeField] public int NumberOfKeys { get; set; }
-        [field: SerializeField] public int NumberOfEnemies { get; set; }
-        
+        public int NumberOfRooms { get; set; }
+        public int NumberOfKeys { get; set; }
+        public int NumberOfEnemies { get; set; }
+        public int LevelNumber
+        {
+            get => levelNumber;
+            set
+            {
+                levelNumber = value;
+                LevelNumberChanged?.Invoke(value);
+            }
+        }
         public RoomElementMarkersInfo[] RoomElementMarkersInfo { get; set; }
+        #endregion
+        
+        #region Fields
+        public event Action<int> LevelNumberChanged;
+        
+        [SerializeField] int numberOfRoomsAtFirstLevel;
+        [SerializeField] int numberOfKeysAtFirstLevel;
+        [SerializeField] int numberOfEnemiesAtFirstLevel;
+        int levelNumber;
+        #endregion
+        
+        #region Methods
+        public LevelSettings Initialize()
+        {
+            NumberOfRooms = numberOfRoomsAtFirstLevel;
+            NumberOfKeys = numberOfKeysAtFirstLevel;
+            NumberOfEnemies = numberOfEnemiesAtFirstLevel;
+            return this;
+        }
+        public void Reset()
+        {
+            Initialize();
+            LevelNumber = default;
+            RoomElementMarkersInfo = default;
+        }
         #endregion
     }
 }

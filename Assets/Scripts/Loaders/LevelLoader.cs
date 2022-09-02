@@ -39,9 +39,8 @@ namespace Roguelike.Loaders
         }
         void LoadLevel()
         {
-            levelSettingsUpdater.Update(currentLevelNumber);
+            levelSettingsUpdater.Update();
             dungeonPlacer.Place(levelSettings);
-            currentLevelNumber++;
         }
         void UnLoadCurrentLevel()
         {

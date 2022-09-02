@@ -5,17 +5,18 @@ namespace Roguelike
     public class LevelSettingsUpdater
     {
         #region Fields
-        private readonly LevelSettings levelSettings;
+        readonly LevelSettings levelSettings;
         #endregion
-
+        
         #region Methods
-        public LevelSettingsUpdater(LevelSettings levelSettings) => this.levelSettings = levelSettings;
-
-        public void Update(int currentLevelNumber)
+        public LevelSettingsUpdater(LevelSettings levelSettings) => this.levelSettings = levelSettings.Initialize();
+        
+        public void Update()
         {
-            levelSettings.NumberOfRooms += currentLevelNumber;
-            levelSettings.NumberOfEnemies += currentLevelNumber;
+            levelSettings.NumberOfRooms += levelSettings.LevelNumber;
+            levelSettings.NumberOfEnemies += levelSettings.LevelNumber;
             ConfigureRoomElementMarkersCountsPerLevel();
+            levelSettings.LevelNumber++;
         }
         public void ConfigureRoomElementMarkersCountsPerLevel()
         {
