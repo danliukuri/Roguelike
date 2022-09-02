@@ -8,15 +8,18 @@ namespace Roguelike.UI.Information
         #region Properties
         public GameObject MainMenu { get; }
         public GameObject PlayerDeathMenu { get; }
+        public GameObject GameplayMenu { get; }
         
         public SceneLoader SceneLoader { get; }
         #endregion
         
         #region Methods
-        public MenusInfo(GameObject mainMenu, GameObject playerDeathMenu, SceneLoader sceneLoader)
+        public MenusInfo(GameObject mainMenu, GameObject playerDeathMenu, GameObject gameplayMenu,
+            SceneLoader sceneLoader)
         {
             MainMenu = mainMenu;
             PlayerDeathMenu = playerDeathMenu;
+            GameplayMenu = gameplayMenu;
             
             SceneLoader = sceneLoader;
         }

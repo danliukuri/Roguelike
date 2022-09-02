@@ -19,7 +19,9 @@ namespace Roguelike.UI.EventHandlers
         public void OnPlayButtonClick()
         {
             menusInfo.SceneLoader.LoadLevelScene(LoadSceneMode.Additive);
+            
             menusInfo.MainMenu.SetActive(false);
+            menusInfo.GameplayMenu.SetActive(true);
         }
         public void OnExitButtonClick()
         {

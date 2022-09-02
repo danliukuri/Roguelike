@@ -1,6 +1,7 @@
 using Roguelike.UI.EventHandlers;
 using Roguelike.UI.EventSubscribers;
 using Roguelike.UI.Information;
+using TMPro;
 using UnityEngine;
 using Zenject;
 
@@ -9,7 +10,12 @@ namespace Roguelike.Installers.Scene
     public class MenusInstaller: MonoInstaller
     {
         #region Fields
-        [SerializeField] GameObject mainMenu, playerDeathMenu;
+        [Header("Menus:")]
+        [SerializeField] GameObject mainMenu;
+        [SerializeField] GameObject playerDeathMenu;
+        [SerializeField] GameObject gameplayMenu;
+        [Header("Gameplay menu:")]
+        [SerializeField] TMP_Text levelNumberTMP;
         #endregion
         
         #region Methods
@@ -18,6 +24,8 @@ namespace Roguelike.Installers.Scene
             BindMenusInfo();
             BindPlayerDeathMenuEventSubscriber();
             BindPlayerDeathMenuEventHandler();
+            BindGameplayMenuEventSubscriber();
+            BindGameplayMenuEventHandler();
         }
         void BindMenusInfo()
         {
@@ -25,7 +33,7 @@ namespace Roguelike.Installers.Scene
                 .Bind<MenusInfo>()
                 .FromNew()
                 .AsSingle()
-                .WithArguments(mainMenu, playerDeathMenu);
+                .WithArguments(mainMenu, playerDeathMenu, gameplayMenu);
         }
         void BindPlayerDeathMenuEventSubscriber()
         {
@@ -41,6 +49,22 @@ namespace Roguelike.Installers.Scene
                 .Bind<PlayerDeathMenuEventHandler>()
                 .FromComponentOn(playerDeathMenu)
                 .AsSingle();
+        }
+        void BindGameplayMenuEventSubscriber()
+        {
+            Container
+                .BindInterfacesAndSelfTo<GameplayMenuEventSubscriber>()
+                .FromNew()
+                .AsSingle()
+                .NonLazy();
+        }
+        void BindGameplayMenuEventHandler()
+        {
+            Container
+                .Bind<GameplayMenuEventHandler>()
+                .FromNew()
+                .AsSingle()
+                .WithArguments(levelNumberTMP);
         }
         #endregion
     }
