@@ -26,21 +26,20 @@ namespace Roguelike.Installers.Bootstrap
             Container
                 .Bind<EntityMover>()
                 .FromComponentSibling()
-                .AsCached();
+                .AsSingle();
         }
         void BindInventory()
         {
             Container
                 .Bind<Inventory>()
-                .AsCached()
-                .When(context => context.ParentContext.ObjectType == typeof(PlayerEventHandler));
+                .AsSingle();
         }
         void BindKeyPicker()
         {
             Container
                 .Bind<IPicker>()
                 .To<KeyPicker>()
-                .AsCached()
+                .AsTransient()
                 .WhenInjectedInto<PlayerEventHandler>();
         }        
         void BindDoorOpener()
@@ -48,7 +47,7 @@ namespace Roguelike.Installers.Bootstrap
             Container
                 .Bind<IOpener>()
                 .To<DoorOpener>()
-                .AsCached()
+                .AsTransient()
                 .WhenInjectedInto<PlayerEventHandler>();
         }
         void BindEventHandler()

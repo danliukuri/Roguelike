@@ -14,17 +14,19 @@ namespace Roguelike.Loaders
         
         readonly LevelSettings levelSettings;
         readonly PoolableObjectsReturner poolableObjectsReturner;
+        readonly Inventory playerInventory;
         #endregion
         
         #region Methods
         public SceneLoader(int levelSceneBuildIndex, int menusSceneBuildIndex,
-            LevelSettings levelSettings, PoolableObjectsReturner poolableObjectsReturner)
+            LevelSettings levelSettings, PoolableObjectsReturner poolableObjectsReturner, Inventory playerInventory)
         {
             this.levelSceneBuildIndex = levelSceneBuildIndex;
             this.menusSceneBuildIndex = menusSceneBuildIndex;
             
             this.levelSettings = levelSettings;
             this.poolableObjectsReturner = poolableObjectsReturner;
+            this.playerInventory = playerInventory;
         }
         public void Initialize() => LoadMenusScene();
         
@@ -34,6 +36,7 @@ namespace Roguelike.Loaders
             SceneManager.LoadSceneAsync(menusSceneBuildIndex, sceneMode);
         public AsyncOperation UnloadLevelScene()
         {
+            playerInventory.Reset();
             levelSettings.Reset();
             poolableObjectsReturner.ReturnAllToPool();
             return SceneManager.UnloadSceneAsync(levelSceneBuildIndex);

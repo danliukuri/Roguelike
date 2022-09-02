@@ -38546,6 +38546,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMenu: {fileID: 557293486}
   playerDeathMenu: {fileID: 306335894}
+  gameplayMenu: {fileID: 1122236775}
+  levelNumberTMP: {fileID: 642816509}
+  keysNumberTMP: {fileID: 1034077956}
 --- !u!1 &1984568157
 GameObject:
   m_ObjectHideFlags: 0

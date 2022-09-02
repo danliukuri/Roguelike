@@ -10,17 +10,28 @@ namespace Roguelike.UI.EventSubscribers
         #region Fields
         readonly LevelSettings levelSettings;
         readonly GameplayMenuEventHandler eventHandler;
+        readonly Inventory playerInventory;
         #endregion
         
         #region Methods
-        public GameplayMenuEventSubscriber(GameplayMenuEventHandler eventHandler, LevelSettings levelSettings)
+        public GameplayMenuEventSubscriber(GameplayMenuEventHandler eventHandler, LevelSettings levelSettings,
+            Inventory playerInventory)
         {
             this.eventHandler = eventHandler;
             this.levelSettings = levelSettings;
+            this.playerInventory = playerInventory;
         }
         
-        public void Initialize() => levelSettings.LevelNumberChanged += eventHandler.OnLevelNumberChanged;
-        public void Dispose() => levelSettings.LevelNumberChanged -= eventHandler.OnLevelNumberChanged;
+        public void Initialize()
+        {
+            levelSettings.LevelNumberChanged += eventHandler.OnLevelNumberChanged;
+            playerInventory.NumberOfKeysChanged += eventHandler.OnPlayerNumberOfKeysChanged;
+        }
+        public void Dispose()
+        {
+            levelSettings.LevelNumberChanged -= eventHandler.OnLevelNumberChanged;
+            playerInventory.NumberOfKeysChanged -= eventHandler.OnPlayerNumberOfKeysChanged;
+        }
         #endregion
     }
 }

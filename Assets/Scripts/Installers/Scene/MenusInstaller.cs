@@ -16,6 +16,7 @@ namespace Roguelike.Installers.Scene
         [SerializeField] GameObject gameplayMenu;
         [Header("Gameplay menu:")]
         [SerializeField] TMP_Text levelNumberTMP;
+        [SerializeField] TMP_Text keysNumberTMP;
         #endregion
         
         #region Methods
@@ -64,7 +65,7 @@ namespace Roguelike.Installers.Scene
                 .Bind<GameplayMenuEventHandler>()
                 .FromNew()
                 .AsSingle()
-                .WithArguments(levelNumberTMP);
+                .WithArguments(levelNumberTMP, keysNumberTMP);
         }
         #endregion
     }
