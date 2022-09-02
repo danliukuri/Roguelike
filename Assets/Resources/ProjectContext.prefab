@@ -72,6 +72,7 @@ GameObject:
   - component: {fileID: -3804743002073866874}
   - component: {fileID: 3041856328205720832}
   - component: {fileID: 1929813791357701072}
+  - component: {fileID: 9025771920677217610}
   m_Layer: 0
   m_Name: ProjectContext
   m_TagString: Untagged
@@ -116,6 +117,7 @@ MonoBehaviour:
   - {fileID: -3804743002073866874}
   - {fileID: 3041856328205720832}
   - {fileID: 1929813791357701072}
+  - {fileID: 9025771920677217610}
   _installerPrefabs: []
   _parentNewObjectsUnderContext: 0
   _editorReflectionBakingCoverageMode: 0
@@ -220,3 +222,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelSceneBuildIndex: 1
   menusSceneBuildIndex: 2
+--- !u!114 &9025771920677217610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8150889173429399862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f503d4c02a04ccb93a7ad511d52d48b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelSettings:
+    numberOfRoomsAtFirstLevel: 5
+    numberOfKeysAtFirstLevel: 3
+    numberOfEnemiesAtFirstLevel: 2
+    levelNumber: 1

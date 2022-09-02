@@ -346,10 +346,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 273731b844eb45441858ead834cf267f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelSettings:
-    <NumberOfRooms>k__BackingField: 5
-    <NumberOfKeys>k__BackingField: 3
-    <NumberOfEnemies>k__BackingField: 2
 --- !u!114 &950892031
 MonoBehaviour:
   m_ObjectHideFlags: 0
