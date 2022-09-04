@@ -6605,32 +6605,48 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 3
-      m_TileSpriteIndex: 3
+      m_TileSpriteIndex: 2
       m_TileMatrixIndex: 4
       m_TileColorIndex: 1
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
-      m_AllTileFlags: 1073741825
+      m_AllTileFlags: 0
   - first: {x: 2, y: -1, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 3
+      m_TileIndex: 2
       m_TileSpriteIndex: 3
       m_TileMatrixIndex: 5
       m_TileColorIndex: 1
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
-      m_AllTileFlags: 1073741825
-  m_AnimatedTiles: {}
+      m_AllTileFlags: 0
+  m_AnimatedTiles:
+  - first: {x: -3, y: -1, z: 0}
+    second:
+      m_AnimatedSprites:
+      - {fileID: 1349380382610176929, guid: 5d067a6f46fc02e49ac24e68089e0451, type: 3}
+      - {fileID: 1694913177206695654, guid: 5d067a6f46fc02e49ac24e68089e0451, type: 3}
+      m_AnimationSpeed: 2
+      m_AnimationTimeOffset: 0
+      m_IsLooping: 1
+  - first: {x: 2, y: -1, z: 0}
+    second:
+      m_AnimatedSprites:
+      - {fileID: 1694913177206695654, guid: 5d067a6f46fc02e49ac24e68089e0451, type: 3}
+      - {fileID: 1349380382610176929, guid: 5d067a6f46fc02e49ac24e68089e0451, type: 3}
+      m_AnimationSpeed: 2
+      m_AnimationTimeOffset: 0
+      m_IsLooping: 1
   m_TileAssetArray:
   - m_RefCount: 0
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 2
-    m_Data: {fileID: 11400000, guid: 2a44fbe55c651d94d956dbf43d782f79, type: 2}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 714a1802c9e53744e8cf0404ec814db4, type: 2}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 3ede1fd64c4608c458697b966eacb06a, type: 2}
   - m_RefCount: 2
     m_Data: {fileID: 11400000, guid: 74d9a5771f873704bb22f6a21c3fa7c6, type: 2}
   m_TileSpriteArray:
@@ -6638,9 +6654,9 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 2
+  - m_RefCount: 1
+    m_Data: {fileID: 1694913177206695654, guid: 5d067a6f46fc02e49ac24e68089e0451, type: 3}
+  - m_RefCount: 1
     m_Data: {fileID: 1349380382610176929, guid: 5d067a6f46fc02e49ac24e68089e0451, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: -8870190480896015562, guid: c7bebcac6f2b7f14497af06e6ad5d53b, type: 3}
