@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Roguelike.Animators
 {
     [RequireComponent(typeof(Animator))]
-    public class KeyAnimator : MonoBehaviour
+    public class IdleAnimationPlayer : MonoBehaviour
     {
         #region Fields
         [SerializeField] AnimationClip idle;
