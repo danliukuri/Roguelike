@@ -2,6 +2,7 @@ using Roguelike.Core.EventHandlers;
 using Roguelike.Core.EventSubscribers;
 using Roguelike.Core.Information;
 using Roguelike.Core.Movers;
+using Roguelike.Core.Rotators;
 using Roguelike.Core.Sensors;
 using Roguelike.Core.Services.Managers;
 using Roguelike.Core.Services.Trackers;
@@ -23,6 +24,7 @@ namespace Roguelike.Installers.Bootstrap
         public override void InstallBindings()
         {
             BindMover();
+            BindRotator();
             BindSensors();
             BindTargetMovingTracker();
             BindStaminaManager();
@@ -34,7 +36,15 @@ namespace Roguelike.Installers.Bootstrap
         {
             Container
                 .Bind<PathfindingEntityMover>()
-                .FromComponentOn(context => ((EnemyEventSubscriber)context.ParentContext.ObjectInstance).gameObject)
+                .FromComponentOn(GetParentContextGameObject)
+                .AsTransient()
+                .WhenInjectedInto<EnemyEventHandler>();
+        }
+        void BindRotator()
+        {
+            Container
+                .Bind<SpriteRotator>()
+                .FromComponentOn(GetParentContextGameObject)
                 .AsTransient()
                 .WhenInjectedInto<EnemyEventHandler>();
         }
@@ -43,7 +53,7 @@ namespace Roguelike.Installers.Bootstrap
             Container
                 .Bind<ISensor>()
                 .To(typeof(HearingSensor), typeof(VisionSensor))
-                .FromComponentsOn(context => ((EnemyEventSubscriber)context.ParentContext.ObjectInstance).gameObject)
+                .FromComponentsOn(GetParentContextGameObject)
                 .AsTransient()
                 .WhenInjectedInto<EnemyEventHandler>();
         }
@@ -82,6 +92,9 @@ namespace Roguelike.Installers.Bootstrap
                 .Bind<EnemiesInfo>()
                 .AsSingle();
         }
+        
+        GameObject GetParentContextGameObject(InjectContext context) => 
+            ((Component)context.ParentContext.ObjectInstance).gameObject;
         #endregion
     }
 }

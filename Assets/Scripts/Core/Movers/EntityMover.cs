@@ -14,6 +14,7 @@ namespace Roguelike.Core.Movers
         #endregion
         
         #region Fields
+        public event EventHandler<MovingEventArgs> Moving;
         public event EventHandler<MovingEventArgs> MovingToWall;
         public event EventHandler<MovingEventArgs> MovingToPlayer;
         public event EventHandler<MovingEventArgs> MovingToEnemy;
@@ -56,6 +57,7 @@ namespace Roguelike.Core.Movers
         }
         void Move(Vector3 translation, MovingEventArgs movingArgs)
         {
+            Moving?.Invoke(this, movingArgs);
             transform.Translate(translation * MovementStep);
             SetRoomIndexIfNew(movingArgs.ElementRoomIndex);
         }
