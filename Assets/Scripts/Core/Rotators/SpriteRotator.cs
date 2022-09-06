@@ -17,6 +17,7 @@ namespace Roguelike.Core.Rotators
         public void RotateLeft() => spriteRenderer.flipX = isRotatedToRightByDefault;
         public void RotateRight() => spriteRenderer.flipX = !isRotatedToRightByDefault;
         
+        public bool IsLeftRotated() => isRotatedToRightByDefault ? spriteRenderer.flipX : !spriteRenderer.flipX;
         public bool TryToRotateRightOrLeft(Vector3 targetPosition) => TryToRotateRightOrLeft(
             () => targetPosition.x < transform.position.x, () => targetPosition.x > transform.position.x);
         public bool TryToRotateRightOrLeft(Func<bool> isRotateToLeft, Func<bool> isRotateToRight)
