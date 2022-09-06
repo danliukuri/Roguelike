@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5359632410016626628
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5359632410016626629}
+  - component: {fileID: 8709724223164310139}
+  - component: {fileID: 1681437051649477553}
+  m_Layer: 0
+  m_Name: EnemySalivaFactory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5359632410016626629
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5359632410016626628}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8709724223164310139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5359632410016626628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a397c452e804916af07e316b9c4648a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomElementsPool: {fileID: 1681437051649477553}
+  roomElementSprites:
+  - value: {fileID: 7291387154598782847, guid: 922827f75efcafb4fbada2cb96c8b84b, type: 3}
+    weight: 1
+--- !u!114 &1681437051649477553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5359632410016626628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3b6a77dbb8a4e7390022cd7505ea4ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameObjectPrefab: {fileID: 4694511235088443462, guid: e274d978561a5e748bfc8b164c28bfa4, type: 3}
+  objectsParent: {fileID: 5359632410016626629}
+  initialNumberOfObjects: 10
