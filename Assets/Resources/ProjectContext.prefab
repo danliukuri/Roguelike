@@ -55,6 +55,7 @@ MonoBehaviour:
   keyFactory: {fileID: 4813649219192336993, guid: d3c9d422764b7a84da1994f98f336515, type: 3}
   doorFactory: {fileID: 5957519045766193991, guid: 8f84016d5c033de468801f61ad6695ee, type: 3}
   exitFactory: {fileID: 5634837662990372829, guid: 81fc1fa165840e747bf4d51ae8dc78b9, type: 3}
+  enemySalivaFactory: {fileID: 5359632410016626628, guid: 897dfc93ab8735346969ccf4848209b0, type: 3}
 --- !u!1 &8150889173429399862
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,4 +239,3 @@ MonoBehaviour:
     numberOfRoomsAtFirstLevel: 5
     numberOfKeysAtFirstLevel: 3
     numberOfEnemiesAtFirstLevel: 2
-    levelNumber: 1

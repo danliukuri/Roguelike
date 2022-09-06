@@ -6,7 +6,7 @@ namespace Roguelike.Installers.Bootstrap
 {
     public class FactoriesInstaller : MonoInstaller
     {
-        #region Fields 
+        #region Fields
         [SerializeField] Object[] roomsFactories;
         [Header("Room elements:")]
         [SerializeField] GameObject wallFactory;
@@ -15,8 +15,9 @@ namespace Roguelike.Installers.Bootstrap
         [SerializeField] GameObject keyFactory;
         [SerializeField] GameObject doorFactory;
         [SerializeField] GameObject exitFactory;
+        [SerializeField] GameObject enemySalivaFactory;
         #endregion
-
+        
         #region Methods
         public override void InstallBindings()
         {
@@ -24,8 +25,8 @@ namespace Roguelike.Installers.Bootstrap
                 BindRoomFactory(roomFactory);
             
             BindRoomElementFactories();
+            BindSalivaFactories();
         }
-
         void BindRoomFactory(Object roomFactory)
         {
             Container
@@ -63,6 +64,15 @@ namespace Roguelike.Installers.Bootstrap
                     .When(context => IsParentContextIdEqual(context, factory.ParentId))
                     .NonLazy();
             }
+        }
+        void BindSalivaFactories()
+        {
+            Container
+                .Bind<IGameObjectFactory>()
+                .FromComponentInNewPrefab(enemySalivaFactory)
+                .UnderTransform(transform)
+                .AsCached()
+                .NonLazy();
         }
         #endregion
     }
