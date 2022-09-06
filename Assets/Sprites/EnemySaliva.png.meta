@@ -1,19 +1,58 @@
 fileFormatVersion: 2
-guid: 382ed82f2adaac142af459fdad273957
+guid: 922827f75efcafb4fbada2cb96c8b84b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8596640243658272642
-    second: Enemy_0
+      213: 3945156918341392682
+    second: EnemyDropOfSaliva_0
   - first:
-      213: -7642239419928554605
-    second: Enemy_1
+      213: -8286354987592301128
+    second: EnemyDropOfSaliva_1
   - first:
-      213: -3876759189950653258
-    second: Enemy_2
+      213: 2457322019232221856
+    second: EnemyDropOfSaliva_2
   - first:
-      213: -5720429097031363069
-    second: Enemy_3
+      213: -2464293187566668983
+    second: EnemyDropOfSaliva_3
+  - first:
+      213: 7291387154598782847
+    second: EnemyDropOfSaliva1_0
+  - first:
+      213: 3392179369890626724
+    second: EnemyDropOfSaliva1_1
+  - first:
+      213: -3607895903343340953
+    second: EnemyDropOfSaliva1_2
+  - first:
+      213: 7241988093924736863
+    second: EnemyDropOfSaliva1_3
+  - first:
+      213: 5371723505315950800
+    second: EnemyDropOfSaliva1_4
+  - first:
+      213: 5320254172902515255
+    second: EnemyDropOfSaliva1_5
+  - first:
+      213: -6200225727292848877
+    second: EnemyDropOfSaliva1_6
+  - first:
+      213: 4392941789666640923
+    second: EnemySaliva_0
+  - first:
+      213: 4775577139562536607
+    second: EnemySaliva_1
+  - first:
+      213: -426650728992645702
+    second: EnemySaliva_2
+  - first:
+      213: -492068563849097288
+    second: EnemySaliva_3
+  - first:
+      213: -5720995573653185749
+    second: EnemySaliva_4
+  - first:
+      213: 1582803609791455229
+    second: EnemySaliva_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -127,7 +166,49 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Enemy_0
+      name: EnemySaliva_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b148c0c684dd6fc30800000000000000
+      internalID: 4392941789666640923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EnemySaliva_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9ed9193b12464240800000000000000
+      internalID: 4775577139562536607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EnemySaliva_2
       rect:
         serializedVersion: 2
         x: 0
@@ -141,14 +222,35 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 28f241131c66d4770800000000000000
-      internalID: 8596640243658272642
+      spriteID: abd5b372c6b341af0800000000000000
+      internalID: -426650728992645702
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Enemy_1
+      name: EnemySaliva_3
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8bf43ae8f32db29f0800000000000000
+      internalID: -492068563849097288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EnemySaliva_4
       rect:
         serializedVersion: 2
         x: 0
@@ -162,8 +264,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 393dba6ecbf41f590800000000000000
-      internalID: -7642239419928554605
+      spriteID: b2bd1de36d0fa90b0800000000000000
+      internalID: -5720995573653185749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: EnemySaliva_5
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dff53de3f7f37f510800000000000000
+      internalID: 1582803609791455229
       vertices: []
       indices: 
       edges: []
