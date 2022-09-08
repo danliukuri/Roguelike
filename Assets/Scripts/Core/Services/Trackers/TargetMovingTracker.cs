@@ -1,3 +1,4 @@
+using System;
 using Roguelike.Core.Information;
 using UnityEngine;
 
@@ -7,8 +8,27 @@ namespace Roguelike.Core.Services.Trackers
     {
         #region Properties
         public MovingEventArgs TargetMovingEventArgs { get; set; }
+        public bool IsTargetDetected
+        {
+            get => isTargetDetected;
+            set
+            {
+                isTargetDetected = value;
+                if (isTargetDetected)
+                    TargetDetected?.Invoke(this, TargetMovingEventArgs);
+                else
+                    TargetOverlooked?.Invoke(this, TargetMovingEventArgs);
+            }
+        }
         #endregion
         
+        #region Fields
+        public event EventHandler<MovingEventArgs> TargetDetected;
+        public event EventHandler<MovingEventArgs> TargetOverlooked;
+
+        bool isTargetDetected;
+        #endregion
+
         #region Methods
         public void Reset() => TargetMovingEventArgs = default;
         

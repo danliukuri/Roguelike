@@ -1,5 +1,6 @@
 using Roguelike.Core.EventHandlers;
 using Roguelike.Core.Movers;
+using Roguelike.Core.Services.Trackers;
 using Roguelike.Finishers;
 using UnityEngine;
 using Zenject;
@@ -9,6 +10,10 @@ namespace Roguelike.Core.EventSubscribers
     [RequireComponent(typeof(EntityMover))]
     public class EnemyEventSubscriber : MonoBehaviour, IResettable
     {
+        #region Properties
+        public TargetMovingTracker TargetMovingTracker { get; private set; }
+        #endregion
+        
         #region Fields
         EnemyEventHandler eventHandler;
         TurnFinisher turnFinisher;
@@ -18,9 +23,12 @@ namespace Roguelike.Core.EventSubscribers
         
         #region Methods
         [Inject]
-        void Construct(EnemyEventHandler eventHandler, TurnFinisher turnFinisher, EntityMover playerMover)
+        void Construct(EnemyEventHandler eventHandler, TurnFinisher turnFinisher, EntityMover playerMover,
+            TargetMovingTracker targetMovingTracker)
         {
-            (this.eventHandler = eventHandler).SetTurnFinisher(this.turnFinisher = turnFinisher);
+            this.eventHandler = eventHandler;
+            eventHandler.SetTurnFinisher(this.turnFinisher = turnFinisher);
+            eventHandler.SetTargetMovingTracker(TargetMovingTracker = targetMovingTracker);
             this.playerMover = playerMover;
             mover = GetComponent<EntityMover>();
         }

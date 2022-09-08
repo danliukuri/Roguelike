@@ -62,7 +62,7 @@ namespace Roguelike.Installers.Bootstrap
             Container
                 .Bind<TargetMovingTracker>()
                 .AsTransient()
-                .WhenInjectedInto<EnemyEventHandler>();
+                .WhenInjectedInto<EnemyEventSubscriber>();
         }
         void BindStaminaManager()
         {
