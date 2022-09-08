@@ -1,12 +1,16 @@
+using Roguelike.Animators;
 using Roguelike.Core.EventHandlers;
 using Roguelike.Core.EventSubscribers;
 using Roguelike.Core.Information;
 using Roguelike.Core.Movers;
+using Roguelike.Core.Placers;
 using Roguelike.Core.Rotators;
 using Roguelike.Core.Sensors;
 using Roguelike.Core.Services.Managers;
 using Roguelike.Core.Services.Trackers;
 using Roguelike.Finishers;
+using Roguelike.Loaders;
+using Roguelike.Placers;
 using Roguelike.Sensors;
 using UnityEngine;
 using Zenject;
@@ -31,6 +35,7 @@ namespace Roguelike.Installers.Bootstrap
             BindEventHandler();
             BindTurnFinisher();
             BindInfo();
+            BindTargetDetectionStatus();
         }
         void BindMover()
         {
@@ -91,6 +96,47 @@ namespace Roguelike.Installers.Bootstrap
             Container
                 .Bind<EnemiesInfo>()
                 .AsSingle();
+        }
+        void BindTargetDetectionStatus()
+        {
+            BindEventHandler();
+            BindAnimatorParameterSetter();
+            BindPlacer();
+            BindSpriteRotator();
+            
+            void BindEventHandler()
+            {
+                Container
+                    .Bind<TargetDetectionStatusEventHandler>()
+                    .FromNew()
+                    .AsTransient()
+                    .WhenInjectedInto<TargetDetectionStatusEventSubscriber>();
+            }
+            void BindAnimatorParameterSetter()
+            {
+                Container
+                    .Bind<AnimatorParameter>()
+                    .FromComponentOn(GetParentContextGameObject)
+                    .AsTransient()
+                    .WhenInjectedInto<TargetDetectionStatusEventHandler>();
+            }
+            void BindPlacer()
+            {
+                Container
+                    .Bind<IGameObjectPlacer>()
+                    .To<ChildPlacer>()
+                    .FromComponentSibling()
+                    .AsTransient()
+                    .WhenInjectedInto<GameObjectLoader>();
+            }
+            void BindSpriteRotator()
+            {
+                Container
+                    .Bind<SpriteRotator>()
+                    .FromComponentOn(GetParentContextGameObject)
+                    .AsTransient()
+                    .WhenInjectedInto<TargetDetectionStatusEventHandler>();
+            }
         }
         
         GameObject GetParentContextGameObject(InjectContext context) => 

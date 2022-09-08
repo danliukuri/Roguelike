@@ -19,6 +19,8 @@ GameObject:
   - component: {fileID: -3984630219491281134}
   - component: {fileID: 550129233699062699}
   - component: {fileID: -6668974407545339946}
+  - component: {fileID: 3237693755866095918}
+  - component: {fileID: 2086150952955925962}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -223,3 +225,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   salivateRepeatRate: 2.25
+--- !u!114 &3237693755866095918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4010444630482727833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c136140a7184ca8924cd942b877bfd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2086150952955925962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4010444630482727833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 816d7569492948558b2d3aba3434315f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
