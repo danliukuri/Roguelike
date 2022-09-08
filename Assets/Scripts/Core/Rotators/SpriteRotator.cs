@@ -7,6 +7,9 @@ namespace Roguelike.Core.Rotators
     public class SpriteRotator : MonoBehaviour
     {
         #region Fields
+        public event Action RotatedLeft;
+        public event Action RotatedRight;
+        
         [SerializeField] bool isRotatedToRightByDefault;
         SpriteRenderer spriteRenderer;
         #endregion
@@ -14,8 +17,16 @@ namespace Roguelike.Core.Rotators
         #region Methods
         void Awake() => spriteRenderer = GetComponent<SpriteRenderer>();
         
-        public void RotateLeft() => spriteRenderer.flipX = isRotatedToRightByDefault;
-        public void RotateRight() => spriteRenderer.flipX = !isRotatedToRightByDefault;
+        public void RotateLeft()
+        {
+            RotatedLeft?.Invoke();
+            spriteRenderer.flipX = isRotatedToRightByDefault;
+        }
+        public void RotateRight()
+        {
+            RotatedRight?.Invoke();
+            spriteRenderer.flipX = !isRotatedToRightByDefault;
+        }
         
         public bool IsLeftRotated() => isRotatedToRightByDefault ? spriteRenderer.flipX : !spriteRenderer.flipX;
         public bool TryToRotateRightOrLeft(Vector3 targetPosition) => TryToRotateRightOrLeft(
