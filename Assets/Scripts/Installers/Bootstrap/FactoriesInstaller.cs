@@ -1,4 +1,6 @@
+using Roguelike.Core;
 using Roguelike.Core.Factories;
+using Roguelike.Loaders;
 using UnityEngine;
 using Zenject;
 
@@ -16,6 +18,7 @@ namespace Roguelike.Installers.Bootstrap
         [SerializeField] GameObject doorFactory;
         [SerializeField] GameObject exitFactory;
         [SerializeField] GameObject enemySalivaFactory;
+        [SerializeField] GameObject enemyStatusFactory;
         #endregion
         
         #region Methods
@@ -26,6 +29,7 @@ namespace Roguelike.Installers.Bootstrap
             
             BindRoomElementFactories();
             BindSalivaFactories();
+            BindStatusFactories();
         }
         void BindRoomFactory(Object roomFactory)
         {
@@ -72,6 +76,17 @@ namespace Roguelike.Installers.Bootstrap
                 .FromComponentInNewPrefab(enemySalivaFactory)
                 .UnderTransform(transform)
                 .AsCached()
+                .WhenInjectedInto<EnemyMouth>()
+                .NonLazy();
+        }
+        void BindStatusFactories()
+        {
+            Container
+                .Bind<IGameObjectFactory>()
+                .FromComponentInNewPrefab(enemyStatusFactory)
+                .UnderTransform(transform)
+                .AsCached()
+                .WhenInjectedInto<GameObjectLoader>()
                 .NonLazy();
         }
         #endregion
