@@ -44,17 +44,17 @@ namespace Roguelike.Installers.Bootstrap
         }
         void BindRoomElementFactories()
         {
-            (Object Prefab, RoomElementType ParentId)[] roomElementFactories =
+            (Object Prefab, object ParentId)[] roomElementFactories =
             {
                 (wallFactory, RoomElementType.Wall),
-                (playerFactory, RoomElementType.Player),
-                (enemyFactory, RoomElementType.Enemy),
+                (playerFactory, EntityType.Player),
+                (enemyFactory, EntityType.Enemy),
                 (keyFactory, RoomElementType.Key),
                 (doorFactory, RoomElementType.Door),
                 (exitFactory, RoomElementType.Exit)
             };
             
-            foreach ((Object Prefab, RoomElementType ParentId) factory in roomElementFactories)
+            foreach ((Object Prefab, object ParentId) factory in roomElementFactories)
             {
                 static bool IsParentContextIdEqual<T>(InjectContext context, T id)
                 {

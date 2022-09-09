@@ -1,10 +1,8 @@
-namespace Roguelike
+namespace Roguelike.Core.Information
 {
     public enum RoomElementType
     { 
         Wall,
-        Player,
-        Enemy,
         Key,
         Door,
         Exit

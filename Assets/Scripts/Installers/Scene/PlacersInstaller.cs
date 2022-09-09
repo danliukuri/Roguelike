@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Roguelike.Core.Information;
 using Roguelike.Core.Placers;
 using Roguelike.Placers;
 using UnityEngine;
@@ -38,21 +38,21 @@ namespace Roguelike.Installers.Scene
         }
         void BindRoomElementsPlacers()
         {
-            (object Id, Type TypeToBind, Transform ElementsParent)[] roomElementsPlacers =
+            (object Id, Transform ElementsParent)[] roomElementsPlacers =
             {
-                (RoomElementType.Wall, typeof(RoomElementsPlacer), default),
-                (RoomElementType.Player, typeof(RoomElementsPlacer), playersParent),
-                (RoomElementType.Enemy, typeof(RoomElementsPlacer), enemiesParent),
-                (RoomElementType.Key, typeof(RoomElementsPlacer), default),
-                (RoomElementType.Door, typeof(RoomElementsPlacer), default),
-                (RoomElementType.Exit, typeof(RoomElementsPlacer), default)
+                (RoomElementType.Wall, default),
+                (EntityType.Player, playersParent),
+                (EntityType.Enemy, enemiesParent),
+                (RoomElementType.Key, default),
+                (RoomElementType.Door, default),
+                (RoomElementType.Exit, default)
             };
             
-            foreach ((object Id, Type TypeToBind, Transform ElementsParent) placer in roomElementsPlacers)
+            foreach ((object Id, Transform ElementsParent) placer in roomElementsPlacers)
                 Container
                     .Bind<IRoomElementsPlacer>()
                     .WithId(placer.Id)
-                    .To(placer.TypeToBind)
+                    .To<RoomElementsPlacer>()
                     .AsCached()
                     .WithArguments(placer.ElementsParent);
         }

@@ -23,8 +23,8 @@ namespace Roguelike.Placers
         #region Methods
         public DungeonPlacer(DungeonInfo dungeonInfo, IRoomsPlacer roomsPlacer,
             [Inject(Id = RoomElementType.Wall)] IRoomElementsPlacer wallsPlacer,
-            [Inject(Id = RoomElementType.Player)] IRoomElementsPlacer playersPlacer,
-            [Inject(Id = RoomElementType.Enemy)] IRoomElementsPlacer enemiesPlacer,
+            [Inject(Id = EntityType.Player)] IRoomElementsPlacer playersPlacer,
+            [Inject(Id = EntityType.Enemy)] IRoomElementsPlacer enemiesPlacer,
             [Inject(Id = RoomElementType.Key)] IRoomElementsPlacer keysPlacer,
             [Inject(Id = RoomElementType.Door)] IRoomElementsPlacer doorsPlacer, 
             [Inject(Id = RoomElementType.Exit)] IRoomElementsPlacer exitsPlacer)
