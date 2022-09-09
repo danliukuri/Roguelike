@@ -55,6 +55,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyBigSaliva
       objectReference: {fileID: 0}
+    - target: {fileID: 5530589564704696513, guid: e274d978561a5e748bfc8b164c28bfa4, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 1e1c140505de24943ba46709ffd83d42, type: 2}
     - target: {fileID: 6229963630105077740, guid: e274d978561a5e748bfc8b164c28bfa4, type: 3}
       propertyPath: m_Sprite
       value: 
