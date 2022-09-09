@@ -39,12 +39,16 @@ namespace Roguelike.Core.EventSubscribers
             mover.Moving += eventHandler.OnMoving;
             playerMover.ActionCompleted += eventHandler.OnPlayerActionCompleted;
             turnFinisher.Finished += eventHandler.OnTurnFinished;
+            TargetMovingTracker.TargetDetected += eventHandler.OnTargetDetected;
+            TargetMovingTracker.TargetOverlooked += eventHandler.OnTargetOverlooked;
         }
         void OnDisable()
         {
             mover.Moving -= eventHandler.OnMoving;
             playerMover.ActionCompleted -= eventHandler.OnPlayerActionCompleted;
             turnFinisher.Finished -= eventHandler.OnTurnFinished;
+            TargetMovingTracker.TargetDetected -= eventHandler.OnTargetDetected;
+            TargetMovingTracker.TargetOverlooked -= eventHandler.OnTargetOverlooked;
         }
         #endregion
     }

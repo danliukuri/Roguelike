@@ -1,4 +1,5 @@
 using Roguelike.Animators;
+using Roguelike.Core;
 using Roguelike.Core.EventHandlers;
 using Roguelike.Core.EventSubscribers;
 using Roguelike.Core.Information;
@@ -36,6 +37,7 @@ namespace Roguelike.Installers.Bootstrap
             BindTurnFinisher();
             BindInfo();
             BindTargetDetectionStatus();
+            BindMouth();
         }
         void BindMover()
         {
@@ -137,6 +139,14 @@ namespace Roguelike.Installers.Bootstrap
                     .AsTransient()
                     .WhenInjectedInto<TargetDetectionStatusEventHandler>();
             }
+        }
+        void BindMouth()
+        {
+            Container
+                .Bind<EnemyMouth>()
+                .FromComponentOn(GetParentContextGameObject)
+                .AsTransient()
+                .WhenInjectedInto<EnemyEventHandler>();
         }
         
         GameObject GetParentContextGameObject(InjectContext context) => 

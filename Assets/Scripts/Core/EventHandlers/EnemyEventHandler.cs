@@ -18,16 +18,18 @@ namespace Roguelike.Core.EventHandlers
         readonly StaminaManager staminaManager;
         TargetMovingTracker targetMovingTracker;
         TurnFinisher turnFinisher;
+        EnemyMouth enemyMouth;
         #endregion
         
         #region Methods
         public EnemyEventHandler(PathfindingEntityMover mover, SpriteRotator rotator, ISensor[] sensors,
-            StaminaManager staminaManager)
+            StaminaManager staminaManager, EnemyMouth enemyMouth)
         {
             this.mover = mover;
             this.rotator = rotator;
             this.sensors = sensors;
             this.staminaManager = staminaManager;
+            this.enemyMouth = enemyMouth;
         }
         public void Reset() => targetMovingTracker.Reset();
         public void SetTurnFinisher(TurnFinisher value) => turnFinisher = staminaManager.turnFinisher = value;
@@ -43,7 +45,8 @@ namespace Roguelike.Core.EventHandlers
             if (sensors.Any(sensor => sensor.IsInSensitivityRange(e.Destination)))
             {
                 targetMovingTracker.TargetMovingEventArgs = e;
-                targetMovingTracker.IsTargetDetected = true;
+                if(!targetMovingTracker.IsTargetDetected)
+                    targetMovingTracker.IsTargetDetected = true;
             }
             
             if(targetMovingTracker.IsTargetDetected)
@@ -58,6 +61,8 @@ namespace Roguelike.Core.EventHandlers
         }
         public void OnTurnFinished(object sender, MovingEventArgs e) =>
             mover.TryToMakeClosestMoveToTarget(e.Destination);
+        public void OnTargetDetected(object sender, MovingEventArgs e) => enemyMouth.StartSalivateMore();
+        public void OnTargetOverlooked(object sender, MovingEventArgs e) => enemyMouth.FinishSalivateMore();
         #endregion
     }
 }

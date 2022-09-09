@@ -225,6 +225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   salivateRepeatRate: 2.25
+  salivateMoreRepeatRate: 0.95
 --- !u!114 &3237693755866095918
 MonoBehaviour:
   m_ObjectHideFlags: 0
