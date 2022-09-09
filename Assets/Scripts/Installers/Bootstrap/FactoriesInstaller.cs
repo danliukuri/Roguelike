@@ -1,5 +1,6 @@
 using Roguelike.Core;
 using Roguelike.Core.Factories;
+using Roguelike.Core.Information;
 using Roguelike.Loaders;
 using UnityEngine;
 using Zenject;
@@ -18,6 +19,7 @@ namespace Roguelike.Installers.Bootstrap
         [SerializeField] GameObject doorFactory;
         [SerializeField] GameObject exitFactory;
         [SerializeField] GameObject enemySalivaFactory;
+        [SerializeField] GameObject enemyBigSalivaFactory;
         [SerializeField] GameObject enemyStatusFactory;
         #endregion
         
@@ -73,7 +75,17 @@ namespace Roguelike.Installers.Bootstrap
         {
             Container
                 .Bind<IGameObjectFactory>()
+                .WithId(EntityType.Saliva)
                 .FromComponentInNewPrefab(enemySalivaFactory)
+                .UnderTransform(transform)
+                .AsCached()
+                .WhenInjectedInto<EnemyMouth>()
+                .NonLazy();
+            
+            Container
+                .Bind<IGameObjectFactory>()
+                .WithId(EntityType.BigSaliva)
+                .FromComponentInNewPrefab(enemyBigSalivaFactory)
                 .UnderTransform(transform)
                 .AsCached()
                 .WhenInjectedInto<EnemyMouth>()

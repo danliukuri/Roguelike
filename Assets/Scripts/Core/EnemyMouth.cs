@@ -1,4 +1,5 @@
 using Roguelike.Core.Factories;
+using Roguelike.Core.Information;
 using Roguelike.Core.Rotators;
 using UnityEngine;
 using Zenject;
@@ -17,7 +18,8 @@ namespace Roguelike.Core
         
         #region Methods
         [Inject]
-        void Construct(IGameObjectFactory salivaFactory) => this.salivaFactory = salivaFactory;
+        void Construct([Inject(Id = EntityType.Saliva)] IGameObjectFactory salivaFactory) =>
+            this.salivaFactory = salivaFactory;
         void Awake() => rotator = GetComponent<SpriteRotator>();
         void OnEnable() => InvokeRepeating(nameof(Salivate), Random.value, salivateRepeatRate);
         void OnDisable() => CancelInvoke(nameof(Salivate));
