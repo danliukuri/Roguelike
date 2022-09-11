@@ -9,8 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2394766789636395598}
-  - component: {fileID: 7666088815727384409}
+  - component: {fileID: 7242530810686508818}
   - component: {fileID: 6994807020270277523}
+  - component: {fileID: -409954609510671230}
   m_Layer: 0
   m_Name: PlayerFactory
   m_TagString: Untagged
@@ -32,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7666088815727384409
+--- !u!114 &7242530810686508818
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,15 +42,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2394766789636395569}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a397c452e804916af07e316b9c4648a, type: 3}
+  m_Script: {fileID: 11500000, guid: d43ccd269303463ea3cbc55f1977dcf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   objectsPool: {fileID: 6994807020270277523}
-  roomElementSprites:
-  - value: {fileID: -2311659948842064771, guid: 868c623171112d0498f5474a27cc6689, type: 3}
-    weight: 1
-  - value: {fileID: 7364682651488144517, guid: 868c623171112d0498f5474a27cc6689, type: 3}
-    weight: 1
 --- !u!114 &6994807020270277523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,3 +61,20 @@ MonoBehaviour:
   gameObjectPrefab: {fileID: 6683056411834367146, guid: 878e35288200541449c938bcf40db016, type: 3}
   objectsParent: {fileID: 2394766789636395598}
   initialNumberOfObjects: 1
+--- !u!114 &-409954609510671230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2394766789636395569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbec359a786648c1a48c235abd92cfef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spritesToPickFrom:
+  - value: {fileID: -2311659948842064771, guid: 868c623171112d0498f5474a27cc6689, type: 3}
+    weight: 1
+  - value: {fileID: 7364682651488144517, guid: 868c623171112d0498f5474a27cc6689, type: 3}
+    weight: 1

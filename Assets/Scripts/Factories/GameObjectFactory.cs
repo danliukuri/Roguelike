@@ -1,3 +1,4 @@
+using Roguelike.Core.Configurators;
 using Roguelike.Core.Factories;
 using Roguelike.Utilities.Pools;
 using UnityEngine;
@@ -8,10 +9,19 @@ namespace Roguelike.Factories
     {
         #region Fields
         [SerializeField] ObjectsPool objectsPool;
+        IConfigurator<GameObject>[] gameObjectConfigurators;
         #endregion
         
         #region Methods
-        public virtual GameObject GetGameObject() => objectsPool.GetFreeObject();
+        void Awake() => gameObjectConfigurators = GetComponents<IConfigurator<GameObject>>();
+        
+        public virtual GameObject GetGameObject()
+        {
+            GameObject freeGameObject = objectsPool.GetFreeObject();
+            foreach (IConfigurator<GameObject> gameObjectConfigurator in gameObjectConfigurators)
+                gameObjectConfigurator.Configure(freeGameObject);
+            return freeGameObject;
+        }
         #endregion
     }
 }

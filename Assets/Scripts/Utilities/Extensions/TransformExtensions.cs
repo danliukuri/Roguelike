@@ -7,7 +7,7 @@ namespace Roguelike.Utilities.Extensions
     public static class TransformExtensions
     {
         #region Methods
-        public static void RotateRandomNumberOfTimesByRightAngle(this Transform source, Vector3 axis,
+        public static Transform RotateRandomNumberOfTimesByRightAngle(this Transform source, Vector3 axis,
             Action onRotateAction = default)
         {
             source.CheckForNullException(nameof(source));
@@ -17,8 +17,9 @@ namespace Roguelike.Utilities.Extensions
             int randomNumberOfTurns = Random.Range(MinNumberOfTurns, MaxNumberOfTurns + 1);
             for (int i = 0; i < randomNumberOfTurns; i++)
                 source.RotateRightAngle(axis, onRotateAction, true);
+            return source;
         }
-        public static void RotateRightAngle(this Transform source, Vector3 axis, Action onRotateAction = default,
+        public static Transform RotateRightAngle(this Transform source, Vector3 axis, Action onRotateAction = default,
             bool isParametersChecked = false)
         {
             if (!isParametersChecked)
@@ -30,6 +31,7 @@ namespace Roguelike.Utilities.Extensions
             const float RightAngle = 90f;
             source.Rotate(axis, RightAngle);
             onRotateAction?.Invoke();
+            return source;
         }
         #endregion
     }
