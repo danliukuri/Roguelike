@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6683056411834367145}
   - component: {fileID: 6683056411834367150}
   - component: {fileID: 6235274547389589019}
+  - component: {fileID: -2202106714723461707}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -98,6 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MovementStep>k__BackingField: 1
   canMoveToWalls: 0
+  canMoveToPlayers: 0
   canMoveToEnemies: 1
   canMoveToItems: 0
   canMoveToExits: 0
@@ -114,3 +116,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23188d6d7c9f4600a73b95def8633cc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-2202106714723461707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6683056411834367146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c7e4e84311b435a8eae521fe67d57db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRotatedToRightByDefault: 0

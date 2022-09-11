@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4813649219192336926}
   - component: {fileID: -7480606826970932552}
   - component: {fileID: 4813649219192336992}
+  - component: {fileID: 5156456656221235630}
   m_Layer: 0
   m_Name: KeyFactory
   m_TagString: Untagged
@@ -60,3 +61,15 @@ MonoBehaviour:
   gameObjectPrefab: {fileID: 2189895830321001211, guid: 242f8652324eda84ebaa0bdfe9a005cd, type: 3}
   objectsParent: {fileID: 4813649219192336926}
   initialNumberOfObjects: 3
+--- !u!114 &5156456656221235630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4813649219192336993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ea98839b31646df8209fc9dd8c79acf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

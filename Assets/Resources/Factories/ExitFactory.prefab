@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5634837662990372770}
   - component: {fileID: -186281378672474407}
   - component: {fileID: 5634837662990372828}
+  - component: {fileID: -6140038189336478239}
   m_Layer: 0
   m_Name: ExitFactory
   m_TagString: Untagged
@@ -60,3 +61,15 @@ MonoBehaviour:
   gameObjectPrefab: {fileID: 473181959769466946, guid: aa25bf2458cdd2942bc656451c2c9414, type: 3}
   objectsParent: {fileID: 5634837662990372770}
   initialNumberOfObjects: 1
+--- !u!114 &-6140038189336478239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5634837662990372829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ea98839b31646df8209fc9dd8c79acf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

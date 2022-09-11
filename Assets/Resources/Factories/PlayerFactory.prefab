@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7242530810686508818}
   - component: {fileID: 6994807020270277523}
   - component: {fileID: -409954609510671230}
+  - component: {fileID: -2992779832885286696}
   m_Layer: 0
   m_Name: PlayerFactory
   m_TagString: Untagged
@@ -78,3 +79,15 @@ MonoBehaviour:
     weight: 1
   - value: {fileID: 7364682651488144517, guid: 868c623171112d0498f5474a27cc6689, type: 3}
     weight: 1
+--- !u!114 &-2992779832885286696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2394766789636395569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ea98839b31646df8209fc9dd8c79acf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace Roguelike.Utilities.Extensions
 {
@@ -14,9 +13,8 @@ namespace Roguelike.Utilities.Extensions
             axis.CheckForNullException(nameof(axis));
             
             const int MinNumberOfTurns = 0, MaxNumberOfTurns = 3;
-            int randomNumberOfTurns = Random.Range(MinNumberOfTurns, MaxNumberOfTurns + 1);
-            for (int i = 0; i < randomNumberOfTurns; i++)
-                source.RotateRightAngle(axis, onRotateAction, true);
+            RandomExtensions.InvokeRandomNumberOfTimes(() => source.RotateRightAngle(axis, onRotateAction, true),
+                MinNumberOfTurns, MaxNumberOfTurns);
             return source;
         }
         public static Transform RotateRightAngle(this Transform source, Vector3 axis, Action onRotateAction = default,

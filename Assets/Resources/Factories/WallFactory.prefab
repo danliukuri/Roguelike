@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7511223073496482631}
   - component: {fileID: -4344028713599226295}
   - component: {fileID: -4888539001073855096}
+  - component: {fileID: -8244192298131923448}
   m_Layer: 0
   m_Name: WallFactory
   m_TagString: Untagged
@@ -93,5 +94,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 27004eba57d841af9fee644b75ed9e20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-8244192298131923448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7511223073496482629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ea98839b31646df8209fc9dd8c79acf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

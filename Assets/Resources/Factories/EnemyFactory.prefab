@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6163535039006413695}
   - component: {fileID: 1577761060441817382}
   - component: {fileID: 629889490125582091}
+  - component: {fileID: 6782664579522151678}
   m_Layer: 0
   m_Name: EnemyFactory
   m_TagString: Untagged
@@ -60,3 +61,15 @@ MonoBehaviour:
   gameObjectPrefab: {fileID: 4010444630482727833, guid: 534bc6ce3b87eb74da099b8b5d47906f, type: 3}
   objectsParent: {fileID: 6163535039006413695}
   initialNumberOfObjects: 10
+--- !u!114 &6782664579522151678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6163535039006413694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ea98839b31646df8209fc9dd8c79acf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
