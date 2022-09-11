@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6163535039006413695}
-  - component: {fileID: 7437504815921514177}
+  - component: {fileID: 1577761060441817382}
   - component: {fileID: 629889490125582091}
   m_Layer: 0
   m_Name: EnemyFactory
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7437504815921514177
+--- !u!114 &1577761060441817382
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,19 +41,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6163535039006413694}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a397c452e804916af07e316b9c4648a, type: 3}
+  m_Script: {fileID: 11500000, guid: d43ccd269303463ea3cbc55f1977dcf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomElementsPool: {fileID: 629889490125582091}
-  roomElementSprites:
-  - value: {fileID: 8596640243658272642, guid: 382ed82f2adaac142af459fdad273957, type: 3}
-    weight: 1
-  - value: {fileID: -7642239419928554605, guid: 382ed82f2adaac142af459fdad273957, type: 3}
-    weight: 1
-  - value: {fileID: -3876759189950653258, guid: 382ed82f2adaac142af459fdad273957, type: 3}
-    weight: 1
-  - value: {fileID: -5720429097031363069, guid: 382ed82f2adaac142af459fdad273957, type: 3}
-    weight: 1
+  objectsPool: {fileID: 629889490125582091}
 --- !u!114 &629889490125582091
 MonoBehaviour:
   m_ObjectHideFlags: 0

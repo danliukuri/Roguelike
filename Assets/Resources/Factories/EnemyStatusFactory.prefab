@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2217979890838771052}
-  - component: {fileID: 3204818811559821522}
+  - component: {fileID: 8789393373377451388}
   - component: {fileID: 4896344788400269592}
   m_Layer: 0
   m_Name: EnemyStatusFactory
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3204818811559821522
+--- !u!114 &8789393373377451388
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,15 +41,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2217979890838771053}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a397c452e804916af07e316b9c4648a, type: 3}
+  m_Script: {fileID: 11500000, guid: d43ccd269303463ea3cbc55f1977dcf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomElementsPool: {fileID: 4896344788400269592}
-  roomElementSprites:
-  - value: {fileID: -3745787982511044172, guid: 874545e184618b64d96e128865c10aec, type: 3}
-    weight: 1
-  - value: {fileID: -1970975916831593037, guid: 874545e184618b64d96e128865c10aec, type: 3}
-    weight: 1
+  objectsPool: {fileID: 4896344788400269592}
 --- !u!114 &4896344788400269592
 MonoBehaviour:
   m_ObjectHideFlags: 0

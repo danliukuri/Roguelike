@@ -44,9 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a397c452e804916af07e316b9c4648a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomElementsPool: {fileID: 6994807020270277523}
+  objectsPool: {fileID: 6994807020270277523}
   roomElementSprites:
   - value: {fileID: -2311659948842064771, guid: 868c623171112d0498f5474a27cc6689, type: 3}
+    weight: 1
+  - value: {fileID: 7364682651488144517, guid: 868c623171112d0498f5474a27cc6689, type: 3}
     weight: 1
 --- !u!114 &6994807020270277523
 MonoBehaviour:

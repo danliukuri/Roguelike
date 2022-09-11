@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61acbc0b901b797409833764d77b8856, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomsPool: {fileID: 8857573537542714336}
+  objectsPool: {fileID: 8857573537542714336}
 --- !u!114 &8857573537542714336
 MonoBehaviour:
   m_ObjectHideFlags: 0

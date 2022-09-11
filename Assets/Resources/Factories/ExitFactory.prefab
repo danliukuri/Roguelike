@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5634837662990372770}
-  - component: {fileID: 8107733430770174987}
+  - component: {fileID: -186281378672474407}
   - component: {fileID: 5634837662990372828}
   m_Layer: 0
   m_Name: ExitFactory
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8107733430770174987
+--- !u!114 &-186281378672474407
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,13 +41,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5634837662990372829}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a397c452e804916af07e316b9c4648a, type: 3}
+  m_Script: {fileID: 11500000, guid: d43ccd269303463ea3cbc55f1977dcf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomElementsPool: {fileID: 5634837662990372828}
-  roomElementSprites:
-  - value: {fileID: -8870190480896015562, guid: c7bebcac6f2b7f14497af06e6ad5d53b, type: 3}
-    weight: 1
+  objectsPool: {fileID: 5634837662990372828}
 --- !u!114 &5634837662990372828
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -17,7 +17,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5359632410016626628, guid: 897dfc93ab8735346969ccf4848209b0, type: 3}
       propertyPath: m_Name
-      value: EnemyMoreSalivaFactory
+      value: EnemyBigSalivaFactory
       objectReference: {fileID: 0}
     - target: {fileID: 5359632410016626629, guid: 897dfc93ab8735346969ccf4848209b0, type: 3}
       propertyPath: m_RootOrder
@@ -64,8 +64,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8709724223164310139, guid: 897dfc93ab8735346969ccf4848209b0, type: 3}
+      propertyPath: objectsPool
+      value: 
+      objectReference: {fileID: 8904926427308960677}
+    - target: {fileID: 8709724223164310139, guid: 897dfc93ab8735346969ccf4848209b0, type: 3}
       propertyPath: roomElementSprites.Array.data[0].value
       value: 
       objectReference: {fileID: 352249867992181187, guid: c30a31f738bff1a4189cde03524c875c, type: 3}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8709724223164310139, guid: 897dfc93ab8735346969ccf4848209b0, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 897dfc93ab8735346969ccf4848209b0, type: 3}
+--- !u!114 &8904926427308960677 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1681437051649477553, guid: 897dfc93ab8735346969ccf4848209b0, type: 3}
+  m_PrefabInstance: {fileID: 7836559606607405076}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3b6a77dbb8a4e7390022cd7505ea4ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
