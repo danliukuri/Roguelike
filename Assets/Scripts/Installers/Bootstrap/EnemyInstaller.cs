@@ -13,6 +13,7 @@ using Roguelike.Finishers;
 using Roguelike.Loaders;
 using Roguelike.Placers;
 using Roguelike.Sensors;
+using Roguelike.Utilities.Extensions.Extenject;
 using UnityEngine;
 using Zenject;
 
@@ -43,7 +44,7 @@ namespace Roguelike.Installers.Bootstrap
         {
             Container
                 .Bind<PathfindingEntityMover>()
-                .FromComponentOn(GetParentContextGameObject)
+                .FromComponentOnParentContextGameObject()
                 .AsTransient()
                 .WhenInjectedInto<EnemyEventHandler>();
         }
@@ -51,16 +52,17 @@ namespace Roguelike.Installers.Bootstrap
         {
             Container
                 .Bind<SpriteRotator>()
-                .FromComponentOn(GetParentContextGameObject)
+                .FromComponentOnParentContextGameObject()
                 .AsTransient()
                 .WhenInjectedInto<EnemyEventHandler>();
         }
+
         void BindSensors()
         {
             Container
                 .Bind<ISensor>()
                 .To(typeof(HearingSensor), typeof(VisionSensor))
-                .FromComponentsOn(GetParentContextGameObject)
+                .FromComponentOnParentContextGameObject()
                 .AsTransient()
                 .WhenInjectedInto<EnemyEventHandler>();
         }
@@ -118,7 +120,7 @@ namespace Roguelike.Installers.Bootstrap
             {
                 Container
                     .Bind<AnimatorParameter>()
-                    .FromComponentOn(GetParentContextGameObject)
+                    .FromComponentOnParentContextGameObject()
                     .AsTransient()
                     .WhenInjectedInto<TargetDetectionStatusEventHandler>();
             }
@@ -135,7 +137,7 @@ namespace Roguelike.Installers.Bootstrap
             {
                 Container
                     .Bind<SpriteRotator>()
-                    .FromComponentOn(GetParentContextGameObject)
+                    .FromComponentOnParentContextGameObject()
                     .AsTransient()
                     .WhenInjectedInto<TargetDetectionStatusEventHandler>();
             }
@@ -144,13 +146,10 @@ namespace Roguelike.Installers.Bootstrap
         {
             Container
                 .Bind<EnemyMouth>()
-                .FromComponentOn(GetParentContextGameObject)
+                .FromComponentOnParentContextGameObject()
                 .AsTransient()
                 .WhenInjectedInto<EnemyEventHandler>();
         }
-        
-        GameObject GetParentContextGameObject(InjectContext context) => 
-            ((Component)context.ParentContext.ObjectInstance).gameObject;
         #endregion
     }
 }

@@ -1,4 +1,5 @@
 using Roguelike.Core;
+using Roguelike.Utilities.Extensions.Extenject;
 using UnityEngine;
 using Zenject;
 
@@ -19,7 +20,7 @@ namespace Roguelike.Installers.Scene
         {
             Container
                 .Bind<IResettable>()
-                .FromMethodMultipleUntyped(context => resettableComponents)
+                .FromMultipleUntyped(resettableComponents)
                 .AsCached();
         }
         #endregion

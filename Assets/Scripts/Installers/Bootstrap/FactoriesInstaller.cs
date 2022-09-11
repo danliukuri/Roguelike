@@ -2,6 +2,7 @@ using Roguelike.Core;
 using Roguelike.Core.Factories;
 using Roguelike.Core.Information;
 using Roguelike.Loaders;
+using Roguelike.Utilities.Extensions.Extenject;
 using UnityEngine;
 using Zenject;
 
@@ -55,21 +56,13 @@ namespace Roguelike.Installers.Bootstrap
             };
             
             foreach ((Object Prefab, object ParentId) factory in roomElementFactories)
-            {
-                static bool IsParentContextIdEqual<T>(InjectContext context, T id)
-                {
-                    object parentId = context.ParentContext?.Identifier;
-                    return parentId != default && Equals(parentId, id);
-                }
-
                 Container
                     .Bind<IGameObjectFactory>()
                     .FromComponentInNewPrefab(factory.Prefab)
                     .UnderTransform(transform)
                     .AsCached()
-                    .When(context => IsParentContextIdEqual(context, factory.ParentId))
+                    .WhenParentContextIdEqual(factory.ParentId)
                     .NonLazy();
-            }
         }
         void BindSalivaFactories()
         {
