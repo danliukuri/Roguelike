@@ -13,6 +13,11 @@ GameObject:
   - component: {fileID: 6683056411834367150}
   - component: {fileID: 6235274547389589019}
   - component: {fileID: -2202106714723461707}
+  - component: {fileID: 7945162441694765832}
+  - component: {fileID: 2128435583880812}
+  - component: {fileID: -1699074111545651196}
+  - component: {fileID: -8730673266911196276}
+  - component: {fileID: 4395096811968565851}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -129,3 +134,78 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isRotatedToRightByDefault: 0
+--- !u!95 &7945162441694765832
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6683056411834367146}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fdf0d07ac6f13784bb2346da5403b20f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2128435583880812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6683056411834367146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ae214f85d4c4c3a9113e5944f57b33f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idle: {fileID: 7400000, guid: af23f89458586fa40ac4a1d7b2059094, type: 2}
+--- !u!114 &-1699074111545651196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6683056411834367146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c500e29cabe4b3abd8597671a452a64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parameterName: IdleCycleOffset
+--- !u!114 &-8730673266911196276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6683056411834367146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c500e29cabe4b3abd8597671a452a64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parameterName: IsMoving
+--- !u!114 &4395096811968565851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6683056411834367146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 935856a8cee34009b0298effef58dd3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  idleCycleOffset: {fileID: -1699074111545651196}
+  playerLeftRotatedIdleAnimationCycleOffset: 0.4
+  playerRightRotatedIdleAnimationCycleOffset: 0.9
+  isMoving: {fileID: -8730673266911196276}
+  movingAnimationTime: 0.5

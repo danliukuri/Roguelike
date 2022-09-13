@@ -1,3 +1,4 @@
+using Roguelike.Animators;
 using Roguelike.Core.EventHandlers;
 using Roguelike.Core.EventSubscribers;
 using Roguelike.Core.Information;
@@ -6,6 +7,7 @@ using Roguelike.Core.Openers;
 using Roguelike.Core.Pickers;
 using Roguelike.Openers;
 using Roguelike.Pickers;
+using Roguelike.Utilities.Extensions.Extenject;
 using Zenject;
 
 namespace Roguelike.Installers.Bootstrap
@@ -20,6 +22,7 @@ namespace Roguelike.Installers.Bootstrap
             BindKeyPicker();
             BindDoorOpener();
             BindEventHandler();
+            BindAnimationChanger();
         }
         void BindMover()
         {
@@ -56,6 +59,14 @@ namespace Roguelike.Installers.Bootstrap
                 .Bind<PlayerEventHandler>()
                 .AsSingle()
                 .WhenInjectedInto<PlayerEventSubscriber>();
+        }
+        void BindAnimationChanger()
+        {
+            Container
+                .Bind<PlayerAnimationChanger>()
+                .FromComponentOnParentContextGameObject()
+                .AsTransient()
+                .WhenInjectedInto<PlayerEventHandler>();
         }
         #endregion
     }

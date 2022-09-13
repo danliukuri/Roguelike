@@ -30,7 +30,8 @@ namespace Roguelike.Core.EventSubscribers
         
         void OnEnable()
         {
-            movementInputService.Moving += eventHandler.OnMoving;
+            movementInputService.Moving += eventHandler.OnInputServiceMoving;
+            mover.Moving += eventHandler.OnMoving;
             mover.MovingToKey += eventHandler.OnMovingToKey;
             mover.MovingToDoor += eventHandler.OnMovingToDoor;
             mover.MovingToEnemy += eventHandler.OnPlayerDeath;
@@ -40,6 +41,7 @@ namespace Roguelike.Core.EventSubscribers
         void OnDisable()
         {
             UnsubscribeFromInputServiceMovingEvent();
+            mover.Moving -= eventHandler.OnMoving;
             mover.MovingToKey -= eventHandler.OnMovingToKey;
             mover.MovingToDoor -= eventHandler.OnMovingToDoor;
             mover.MovingToEnemy -= eventHandler.OnPlayerDeath;
@@ -47,7 +49,8 @@ namespace Roguelike.Core.EventSubscribers
             enemiesInfo.MoversCountDecreased -= UnsubscribeFromEnemyOnMovingToPlayerEvent;
         }
         
-        public void UnsubscribeFromInputServiceMovingEvent() => movementInputService.Moving -= eventHandler.OnMoving;
+        public void UnsubscribeFromInputServiceMovingEvent() =>
+            movementInputService.Moving -= eventHandler.OnInputServiceMoving;
         void SubscribeToEnemyOnMovingToPlayerEvent(EntityMover enemyMover) =>
             enemyMover.MovingToPlayer += eventHandler.OnPlayerDeath;
         void UnsubscribeFromEnemyOnMovingToPlayerEvent(EntityMover enemyMover) =>

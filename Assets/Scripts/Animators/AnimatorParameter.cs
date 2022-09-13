@@ -14,6 +14,9 @@ namespace Roguelike.Animators
         void Awake() => animator = GetComponent<Animator>();
         
         public void Set(bool value) => animator.SetBool(parameterName, value);
+        public void Set(float value) => animator.SetFloat(parameterName, value);
+        public void SetDefaultBool() => animator.SetBool(parameterName, default);
+        public void SetDefaultFloat() => animator.SetFloat(parameterName, default);
         #endregion
     }
 }
