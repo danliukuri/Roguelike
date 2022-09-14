@@ -37,8 +37,11 @@ namespace Roguelike.Core.EventHandlers
         }
         public void OnMovingToKey(object sender, MovingEventArgs e) => keyPicker.TryToPickUp(e.Element);
         public void OnMovingToDoor(object sender, MovingEventArgs e) => doorOpener.TryToOpen(e.Element);
-        public void OnPlayerDeath(object sender, MovingEventArgs e) =>
+        public void OnPlayerDeath(object sender, MovingEventArgs e)
+        {
             subscriber.UnsubscribeFromInputServiceMovingEvent();
+            animationChanger.ActivateDeathAnimation();
+        }
         #endregion
     }
 }

@@ -14,6 +14,8 @@ namespace Roguelike.Animators
         [Header("Moving Animation Settings")]
         [SerializeField] AnimatorParameter isMoving;
         [SerializeField] float movingAnimationTime;
+        [Header("Death Animation Settings")]
+        [SerializeField] AnimatorParameter isDead;
         
         SpriteRotator spriteRotator;
         #endregion
@@ -21,6 +23,7 @@ namespace Roguelike.Animators
         #region Methods
         void Awake() => spriteRotator = GetComponent<SpriteRotator>();
         
+        public void ActivateDeathAnimation() => isDead.Set(true);
         public void ActivateMovingAnimation() => isMoving.Set(true);
         public void DeactivateMovingAnimationAfterItFinished() =>
             isMoving.Invoke(nameof(isMoving.SetDefaultBool), movingAnimationTime);
