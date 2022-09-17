@@ -1,5 +1,6 @@
 using Roguelike.Core.Information;
 using Roguelike.Core.Rotators;
+using Roguelike.Utilities.Extensions;
 using UnityEngine;
 
 namespace Roguelike.Animators
@@ -25,15 +26,15 @@ namespace Roguelike.Animators
             spriteRotator = GetComponent<SpriteRotator>();
         }
         
-        public void ActivateDeathAnimation() => animator.SetBool(AnimatorParameter.IsDead.ToString(), true);
-        public void ActivateMovingAnimation() => animator.SetBool(AnimatorParameter.IsMoving.ToString(), true);
-        public void DeactivateMovingAnimation() => animator.SetBool(AnimatorParameter.IsMoving.ToString(), false);
+        public void ActivateDeathAnimation() => animator.SetBool(AnimatorParameter.IsDead, true);
+        public void ActivateMovingAnimation() => animator.SetBool(AnimatorParameter.IsMoving, true);
+        public void DeactivateMovingAnimation() => animator.SetBool(AnimatorParameter.IsMoving, false);
         public void DeactivateMovingAnimationAfterItFinished() =>
             Invoke(nameof(DeactivateMovingAnimation), movingAnimationTime);
         
         public void SetIdleCycleOffset()
         {
-            animator.SetFloat(AnimatorParameter.IdleCycleOffset.ToString(), spriteRotator.IsLeftRotated() 
+            animator.SetFloat(AnimatorParameter.IdleCycleOffset, spriteRotator.IsLeftRotated() 
                 ? playerLeftRotatedIdleAnimationCycleOffset : playerRightRotatedIdleAnimationCycleOffset);
         }
         #endregion
