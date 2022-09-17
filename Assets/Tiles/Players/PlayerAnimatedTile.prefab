@@ -12,10 +12,6 @@ GameObject:
   - component: {fileID: 14237773291432321}
   - component: {fileID: 1490247482}
   - component: {fileID: -1028288398183510452}
-  - component: {fileID: -3588480228841089433}
-  - component: {fileID: -7895491193350016565}
-  - component: {fileID: 2001175970380799508}
-  - component: {fileID: 5823380618568835249}
   - component: {fileID: -4167393313162630418}
   m_Layer: 5
   m_Name: PlayerAnimatedTile
@@ -121,58 +117,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &-3588480228841089433
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4605779514565429426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c500e29cabe4b3abd8597671a452a64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parameterName: SpawnTrigger
---- !u!114 &-7895491193350016565
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4605779514565429426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c500e29cabe4b3abd8597671a452a64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parameterName: IsMoving
---- !u!114 &2001175970380799508
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4605779514565429426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c500e29cabe4b3abd8597671a452a64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parameterName: IsDespawning
---- !u!114 &5823380618568835249
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4605779514565429426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c500e29cabe4b3abd8597671a452a64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parameterName: IsNoHeadShaking
 --- !u!114 &-4167393313162630418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,7 +129,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45ea2261e9dd4cc69f085d972f763041, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isMoving: {fileID: -7895491193350016565}
-  isNoHeadShaking: {fileID: 5823380618568835249}
-  isDespawning: {fileID: 2001175970380799508}
-  spawnTrigger: {fileID: -3588480228841089433}

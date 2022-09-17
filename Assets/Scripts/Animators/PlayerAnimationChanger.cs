@@ -1,38 +1,40 @@
+using Roguelike.Core.Information;
 using Roguelike.Core.Rotators;
 using UnityEngine;
 
 namespace Roguelike.Animators
 {
-    [RequireComponent(typeof(SpriteRotator))]
+    [RequireComponent(typeof(Animator)), RequireComponent(typeof(SpriteRotator))]
     public class PlayerAnimationChanger : MonoBehaviour
     {
         #region Fields
         [Header("Idle Animation Settings")]
-        [SerializeField] AnimatorParameter idleCycleOffset;
         [SerializeField] float playerLeftRotatedIdleAnimationCycleOffset;
         [SerializeField] float playerRightRotatedIdleAnimationCycleOffset;
         [Header("Moving Animation Settings")]
-        [SerializeField] AnimatorParameter isMoving;
         [SerializeField] float movingAnimationTime;
-        [Header("Death Animation Settings")]
-        [SerializeField] AnimatorParameter isDead;
         
+        Animator animator;
         SpriteRotator spriteRotator;
         #endregion
         
         #region Methods
-        void Awake() => spriteRotator = GetComponent<SpriteRotator>();
+        void Awake()
+        {
+            animator = GetComponent<Animator>();
+            spriteRotator = GetComponent<SpriteRotator>();
+        }
         
-        public void ActivateDeathAnimation() => isDead.Set(true);
-        public void ActivateMovingAnimation() => isMoving.Set(true);
+        public void ActivateDeathAnimation() => animator.SetBool(AnimatorParameter.IsDead.ToString(), true);
+        public void ActivateMovingAnimation() => animator.SetBool(AnimatorParameter.IsMoving.ToString(), true);
+        public void DeactivateMovingAnimation() => animator.SetBool(AnimatorParameter.IsMoving.ToString(), false);
         public void DeactivateMovingAnimationAfterItFinished() =>
-            isMoving.Invoke(nameof(isMoving.SetDefaultBool), movingAnimationTime);
+            Invoke(nameof(DeactivateMovingAnimation), movingAnimationTime);
         
         public void SetIdleCycleOffset()
         {
-            idleCycleOffset.Set(spriteRotator.IsLeftRotated()
-                ? playerLeftRotatedIdleAnimationCycleOffset
-                : playerRightRotatedIdleAnimationCycleOffset);
+            animator.SetFloat(AnimatorParameter.IdleCycleOffset.ToString(), spriteRotator.IsLeftRotated() 
+                ? playerLeftRotatedIdleAnimationCycleOffset : playerRightRotatedIdleAnimationCycleOffset);
         }
         #endregion
     }

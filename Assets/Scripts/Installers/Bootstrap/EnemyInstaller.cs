@@ -1,4 +1,3 @@
-using Roguelike.Animators;
 using Roguelike.Core;
 using Roguelike.Core.EventHandlers;
 using Roguelike.Core.EventSubscribers;
@@ -56,7 +55,6 @@ namespace Roguelike.Installers.Bootstrap
                 .AsTransient()
                 .WhenInjectedInto<EnemyEventHandler>();
         }
-
         void BindSensors()
         {
             Container
@@ -104,7 +102,7 @@ namespace Roguelike.Installers.Bootstrap
         void BindTargetDetectionStatus()
         {
             BindEventHandler();
-            BindAnimatorParameterSetter();
+            BindAnimator();
             BindPlacer();
             BindSpriteRotator();
             
@@ -116,10 +114,10 @@ namespace Roguelike.Installers.Bootstrap
                     .AsTransient()
                     .WhenInjectedInto<TargetDetectionStatusEventSubscriber>();
             }
-            void BindAnimatorParameterSetter()
+            void BindAnimator()
             {
                 Container
-                    .Bind<AnimatorParameter>()
+                    .Bind<Animator>()
                     .FromComponentOnParentContextGameObject()
                     .AsTransient()
                     .WhenInjectedInto<TargetDetectionStatusEventHandler>();

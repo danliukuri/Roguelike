@@ -15,9 +15,6 @@ GameObject:
   - component: {fileID: -2202106714723461707}
   - component: {fileID: 7945162441694765832}
   - component: {fileID: 2128435583880812}
-  - component: {fileID: -1699074111545651196}
-  - component: {fileID: -8730673266911196276}
-  - component: {fileID: -7535405251077259830}
   - component: {fileID: 4395096811968565851}
   m_Layer: 0
   m_Name: Player
@@ -167,45 +164,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idle: {fileID: 7400000, guid: af23f89458586fa40ac4a1d7b2059094, type: 2}
---- !u!114 &-1699074111545651196
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6683056411834367146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c500e29cabe4b3abd8597671a452a64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parameterName: IdleCycleOffset
---- !u!114 &-8730673266911196276
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6683056411834367146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c500e29cabe4b3abd8597671a452a64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parameterName: IsMoving
---- !u!114 &-7535405251077259830
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6683056411834367146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c500e29cabe4b3abd8597671a452a64, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parameterName: IsDead
 --- !u!114 &4395096811968565851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,9 +176,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 935856a8cee34009b0298effef58dd3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idleCycleOffset: {fileID: -1699074111545651196}
   playerLeftRotatedIdleAnimationCycleOffset: 0.4
   playerRightRotatedIdleAnimationCycleOffset: 0.9
-  isMoving: {fileID: -8730673266911196276}
   movingAnimationTime: 0.5
-  isDead: {fileID: -7535405251077259830}
