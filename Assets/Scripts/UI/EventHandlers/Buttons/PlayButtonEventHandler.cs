@@ -5,16 +5,16 @@ namespace Roguelike.UI.EventHandlers.Buttons
     public class PlayButtonEventHandler : ButtonWithPlayerTilesEventHandler
     {
         #region Methods
-        protected override void OnPointerEnter(PlayerTileAnimationChanger playerAnimationChanger)
+        protected override void OnPointerEnter(PlayerAnimationActivator playerAnimationActivator)
         {
-            base.OnPointerEnter(playerAnimationChanger);
-            playerAnimationChanger.StartInvokeCoroutineAfterCurrentAnimationFinished(
-                playerAnimationChanger.ActivateMovingAnimation);
+            base.OnPointerEnter(playerAnimationActivator);
+            playerAnimationActivator.StartInvokeCoroutineAfterCurrentAnimationFinished(
+                playerAnimationActivator.ActivateMovingAnimation);
         }
-        protected override void OnPointerExit(PlayerTileAnimationChanger playerAnimationChanger)
+        protected override void OnPointerExit(PlayerAnimationActivator playerAnimationActivator)
         {
-            playerAnimationChanger.DeactivateMovingAnimation();
-            base.OnPointerExit(playerAnimationChanger);
+            playerAnimationActivator.DeactivateMovingAnimation();
+            base.OnPointerExit(playerAnimationActivator);
         }
         #endregion
     }

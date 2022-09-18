@@ -22,7 +22,8 @@ namespace Roguelike.Installers.Bootstrap
             BindKeyPicker();
             BindDoorOpener();
             BindEventHandler();
-            BindAnimationChanger();
+            BindAnimationActivator();
+            BindIdleAnimationCycleOffsetSetter();
         }
         void BindMover()
         {
@@ -60,10 +61,18 @@ namespace Roguelike.Installers.Bootstrap
                 .AsSingle()
                 .WhenInjectedInto<PlayerEventSubscriber>();
         }
-        void BindAnimationChanger()
+        void BindAnimationActivator()
         {
             Container
-                .Bind<PlayerAnimationChanger>()
+                .Bind<PlayerAnimationActivator>()
+                .FromComponentOnParentContextGameObject()
+                .AsTransient()
+                .WhenInjectedInto<PlayerEventHandler>();
+        }
+        void BindIdleAnimationCycleOffsetSetter()
+        {
+            Container
+                .Bind<PlayerAnimationCycleOffsetSetter>()
                 .FromComponentOnParentContextGameObject()
                 .AsTransient()
                 .WhenInjectedInto<PlayerEventHandler>();

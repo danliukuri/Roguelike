@@ -9,47 +9,47 @@ namespace Roguelike.UI.EventHandlers.Buttons
         IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
     {
         #region Fields
-        [SerializeField] PlayerTileAnimationChanger[] playerAnimationChangers;
+        [SerializeField] PlayerAnimationActivator[] playerAnimationChangers;
         #endregion
         
         #region Methods
         public void OnPointerEnter(PointerEventData eventData)
         {
-            foreach (PlayerTileAnimationChanger playerAnimationChanger in playerAnimationChangers)
+            foreach (PlayerAnimationActivator playerAnimationChanger in playerAnimationChangers)
                 OnPointerEnter(playerAnimationChanger);
         }
         public void OnPointerExit(PointerEventData eventData)
         {
-            foreach (PlayerTileAnimationChanger playerAnimationChanger in playerAnimationChangers)
+            foreach (PlayerAnimationActivator playerAnimationChanger in playerAnimationChangers)
                 if (playerAnimationChanger.gameObject.activeSelf)
                     OnPointerExit(playerAnimationChanger);
         }
         public void OnPointerClick(PointerEventData eventData)
         {
-            foreach (PlayerTileAnimationChanger playerAnimationChanger in playerAnimationChangers)
+            foreach (PlayerAnimationActivator playerAnimationChanger in playerAnimationChangers)
                 OnPointerClick(playerAnimationChanger);
         }
         
-        protected virtual void OnPointerEnter(PlayerTileAnimationChanger playerAnimationChanger)
+        protected virtual void OnPointerEnter(PlayerAnimationActivator playerAnimationActivator)
         {
-            if (playerAnimationChanger.IsInvokeCoroutineRunning(playerAnimationChanger.DeactivateGameObject))
+            if (playerAnimationActivator.IsInvokeCoroutineRunning(playerAnimationActivator.DeactivateGameObject))
             {
-                playerAnimationChanger.StopInvokeCoroutine(playerAnimationChanger.DeactivateGameObject);
-                playerAnimationChanger.DeactivateDespawningAnimation();
+                playerAnimationActivator.StopInvokeCoroutine(playerAnimationActivator.DeactivateGameObject);
+                playerAnimationActivator.DeactivateDespawningAnimation();
             }
             else
-                playerAnimationChanger.gameObject.SetActive(true);
+                playerAnimationActivator.gameObject.SetActive(true);
             
-            playerAnimationChanger.ActivateSpawningAnimation();
+            playerAnimationActivator.ActivateSpawningAnimation();
         }
-        protected virtual void OnPointerExit(PlayerTileAnimationChanger playerAnimationChanger)
+        protected virtual void OnPointerExit(PlayerAnimationActivator playerAnimationActivator)
         {
-            playerAnimationChanger.ActivateDespawningAnimation();
-            playerAnimationChanger.StartInvokeCoroutineAfterCurrentAnimationFinished(
-                playerAnimationChanger.DeactivateGameObject);
+            playerAnimationActivator.ActivateDespawningAnimation();
+            playerAnimationActivator.StartInvokeCoroutineAfterCurrentAnimationFinished(
+                playerAnimationActivator.DeactivateGameObject);
         }
-        protected virtual void OnPointerClick(PlayerTileAnimationChanger playerAnimationChanger) =>
-            playerAnimationChanger.gameObject.SetActive(false);
+        protected virtual void OnPointerClick(PlayerAnimationActivator playerAnimationActivator) =>
+            playerAnimationActivator.gameObject.SetActive(false);
         #endregion
     }
 }

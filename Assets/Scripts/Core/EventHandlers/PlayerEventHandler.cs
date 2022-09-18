@@ -13,34 +13,38 @@ namespace Roguelike.Core.EventHandlers
         readonly EntityMover mover;
         readonly IPicker keyPicker;
         readonly IOpener doorOpener;
-        readonly PlayerAnimationChanger animationChanger;
+        readonly PlayerAnimationActivator animationActivator;
+        readonly PlayerAnimationCycleOffsetSetter idleAnimationCycleOffsetSetter;
         PlayerEventSubscriber subscriber;
         #endregion
         
         #region Methods
         public PlayerEventHandler(EntityMover mover, IPicker keyPicker, IOpener doorOpener,
-            PlayerAnimationChanger animationChanger)
+            PlayerAnimationActivator animationActivator,
+            PlayerAnimationCycleOffsetSetter idleAnimationCycleOffsetSetter)
         {
             this.mover = mover;
             this.keyPicker = keyPicker;
             this.doorOpener = doorOpener;
-            this.animationChanger = animationChanger;
+            this.animationActivator = animationActivator;
+            this.idleAnimationCycleOffsetSetter = idleAnimationCycleOffsetSetter;
         }
         public void SetSubscriber(PlayerEventSubscriber value) => subscriber = value;
         
         public void OnInputServiceMoving(object sender, MovingEventArgs e) => mover.TryToMove(e.Destination);
         public void OnMoving(object sender, MovingEventArgs e)
         {
-            animationChanger.ActivateMovingAnimation();
-            animationChanger.DeactivateMovingAnimationAfterItFinished();
-            animationChanger.SetIdleCycleOffset();
+            animationActivator.ActivateMovingAnimation();
+            animationActivator.StartInvokeCoroutineAfterCurrentAnimationFinished(
+                animationActivator.DeactivateMovingAnimation);
+            idleAnimationCycleOffsetSetter.Set();
         }
         public void OnMovingToKey(object sender, MovingEventArgs e) => keyPicker.TryToPickUp(e.Element);
         public void OnMovingToDoor(object sender, MovingEventArgs e) => doorOpener.TryToOpen(e.Element);
         public void OnPlayerDeath(object sender, MovingEventArgs e)
         {
             subscriber.UnsubscribeFromInputServiceMovingEvent();
-            animationChanger.ActivateDeathAnimation();
+            animationActivator.ActivateDeathAnimation();
         }
         #endregion
     }

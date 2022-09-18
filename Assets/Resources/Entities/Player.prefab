@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -2202106714723461707}
   - component: {fileID: 7945162441694765832}
   - component: {fileID: 2128435583880812}
+  - component: {fileID: 657689301470681862}
   - component: {fileID: 4395096811968565851}
   m_Layer: 0
   m_Name: Player
@@ -164,6 +165,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   idle: {fileID: 7400000, guid: af23f89458586fa40ac4a1d7b2059094, type: 2}
+--- !u!114 &657689301470681862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6683056411834367146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45ea2261e9dd4cc69f085d972f763041, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4395096811968565851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,6 +189,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 935856a8cee34009b0298effef58dd3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cycleOffset: 5
   playerLeftRotatedIdleAnimationCycleOffset: 0.4
   playerRightRotatedIdleAnimationCycleOffset: 0.9
-  movingAnimationTime: 0.5

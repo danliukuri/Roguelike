@@ -5,16 +5,16 @@ namespace Roguelike.UI.EventHandlers.Buttons
     public class ExitButtonEventHandler : ButtonWithPlayerTilesEventHandler
     {
         #region Methods
-        protected override void OnPointerEnter(PlayerTileAnimationChanger playerAnimationChanger)
+        protected override void OnPointerEnter(PlayerAnimationActivator playerAnimationActivator)
         {
-            base.OnPointerEnter(playerAnimationChanger);
-            playerAnimationChanger.StartInvokeCoroutineAfterCurrentAnimationFinished(
-                playerAnimationChanger.ActivateNoHeadShakingAnimation);
+            base.OnPointerEnter(playerAnimationActivator);
+            playerAnimationActivator.StartInvokeCoroutineAfterCurrentAnimationFinished(
+                playerAnimationActivator.ActivateNoHeadShakingAnimation);
         }
-        protected override void OnPointerExit(PlayerTileAnimationChanger playerAnimationChanger)
+        protected override void OnPointerExit(PlayerAnimationActivator playerAnimationActivator)
         {
-            playerAnimationChanger.DeactivateNoHeadShakingAnimation();
-            base.OnPointerExit(playerAnimationChanger);
+            playerAnimationActivator.DeactivateNoHeadShakingAnimation();
+            base.OnPointerExit(playerAnimationActivator);
         }
         #endregion
     }
