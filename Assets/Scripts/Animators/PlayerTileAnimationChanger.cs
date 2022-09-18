@@ -22,15 +22,10 @@ namespace Roguelike.Animators
         public void DeactivateNoHeadShakingAnimation() => animator.SetBool(AnimatorParameter.IsNoHeadShaking, false);
         public void ActivateDespawningAnimation() => animator.SetBool(AnimatorParameter.IsDespawning, true);
         public void DeactivateDespawningAnimation() => animator.SetBool(AnimatorParameter.IsDespawning, false);
-        
-        public void DisableGameObject() => gameObject.SetActive(false);
-        public void InvokeAfterAnimationFinished(Action playerTileAnimationChangerAction, int layerIndex = default) =>
-            Invoke(playerTileAnimationChangerAction.Method.Name, GetCurrentAnimatorStateLength(layerIndex));
-        float GetCurrentAnimatorStateLength(int layerIndex = default)
-        {
-            animator.Update(default);
-            return animator.GetCurrentAnimatorStateInfo(layerIndex).length;
-        }
+
+        public void DeactivateGameObject() => gameObject.SetActive(false);
+        public void StartInvokeCoroutineAfterCurrentAnimationFinished(Action action) =>
+            this.StartInvokeCoroutineAfterCurrentAnimationFinished(action, animator);
         #endregion
     }
 }

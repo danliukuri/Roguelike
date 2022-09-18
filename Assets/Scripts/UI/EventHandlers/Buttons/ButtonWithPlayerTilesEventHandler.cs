@@ -1,4 +1,5 @@
 using Roguelike.Animators;
+using Roguelike.Utilities.Extensions;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -20,7 +21,8 @@ namespace Roguelike.UI.EventHandlers.Buttons
         public void OnPointerExit(PointerEventData eventData)
         {
             foreach (PlayerTileAnimationChanger playerAnimationChanger in playerAnimationChangers)
-                OnPointerExit(playerAnimationChanger);
+                if (playerAnimationChanger.gameObject.activeSelf)
+                    OnPointerExit(playerAnimationChanger);
         }
         public void OnPointerClick(PointerEventData eventData)
         {
@@ -30,9 +32,9 @@ namespace Roguelike.UI.EventHandlers.Buttons
         
         protected virtual void OnPointerEnter(PlayerTileAnimationChanger playerAnimationChanger)
         {
-            if (playerAnimationChanger.IsInvoking(nameof(playerAnimationChanger.DisableGameObject)))
+            if (playerAnimationChanger.IsInvokeCoroutineRunning(playerAnimationChanger.DeactivateGameObject))
             {
-                playerAnimationChanger.CancelInvoke(nameof(playerAnimationChanger.DisableGameObject));
+                playerAnimationChanger.StopInvokeCoroutine(playerAnimationChanger.DeactivateGameObject);
                 playerAnimationChanger.DeactivateDespawningAnimation();
             }
             else
@@ -43,7 +45,8 @@ namespace Roguelike.UI.EventHandlers.Buttons
         protected virtual void OnPointerExit(PlayerTileAnimationChanger playerAnimationChanger)
         {
             playerAnimationChanger.ActivateDespawningAnimation();
-            playerAnimationChanger.InvokeAfterAnimationFinished(playerAnimationChanger.DisableGameObject);
+            playerAnimationChanger.StartInvokeCoroutineAfterCurrentAnimationFinished(
+                playerAnimationChanger.DeactivateGameObject);
         }
         protected virtual void OnPointerClick(PlayerTileAnimationChanger playerAnimationChanger) =>
             playerAnimationChanger.gameObject.SetActive(false);

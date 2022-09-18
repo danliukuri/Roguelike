@@ -8,7 +8,8 @@ namespace Roguelike.UI.EventHandlers.Buttons
         protected override void OnPointerEnter(PlayerTileAnimationChanger playerAnimationChanger)
         {
             base.OnPointerEnter(playerAnimationChanger);
-            playerAnimationChanger.InvokeAfterAnimationFinished(playerAnimationChanger.ActivateNoHeadShakingAnimation);
+            playerAnimationChanger.StartInvokeCoroutineAfterCurrentAnimationFinished(
+                playerAnimationChanger.ActivateNoHeadShakingAnimation);
         }
         protected override void OnPointerExit(PlayerTileAnimationChanger playerAnimationChanger)
         {

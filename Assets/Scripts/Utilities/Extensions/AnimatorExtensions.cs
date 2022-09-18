@@ -24,6 +24,12 @@ namespace Roguelike.Utilities.Extensions
             animator.SetTrigger(parameter.Id());
         public static void ResetTrigger(this Animator animator, AnimatorParameter parameter) =>
             animator.ResetTrigger(parameter.Id());
+        
+        public static float GetCurrentAnimatorStateLength(this Animator animator, int layerIndex = default)
+        {
+            animator.Update(default);
+            return animator.GetCurrentAnimatorStateInfo(layerIndex).length;
+        }
         #endregion
     }
 }
