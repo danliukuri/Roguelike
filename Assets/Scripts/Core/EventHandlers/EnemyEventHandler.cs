@@ -16,9 +16,9 @@ namespace Roguelike.Core.EventHandlers
         readonly SpriteRotator rotator;
         readonly ISensor[] sensors;
         readonly StaminaManager staminaManager;
+        readonly EnemyMouth enemyMouth;
         TargetMovingTracker targetMovingTracker;
         TurnFinisher turnFinisher;
-        EnemyMouth enemyMouth;
         #endregion
         
         #region Methods
@@ -43,12 +43,8 @@ namespace Roguelike.Core.EventHandlers
         public void OnPlayerActionCompleted(object sender, MovingEventArgs e)
         {
             if (sensors.Any(sensor => sensor.IsInSensitivityRange(e.Destination)))
-            {
-                targetMovingTracker.TargetMovingEventArgs = e;
-                if(!targetMovingTracker.IsTargetDetected)
-                    targetMovingTracker.IsTargetDetected = true;
-            }
-            
+                targetMovingTracker.DetectTarget(e);
+
             if(targetMovingTracker.IsTargetDetected)
                 if (!targetMovingTracker.IsTargetOnPosition(mover.transform.position))
                 {
@@ -57,10 +53,16 @@ namespace Roguelike.Core.EventHandlers
                             staminaManager.TryToRestore();
                 }
                 else
-                    targetMovingTracker.IsTargetDetected = false;
+                    targetMovingTracker.OverlookTarget();
         }
-        public void OnTurnFinished(object sender, MovingEventArgs e) =>
-            mover.TryToMakeClosestMoveToTarget(e.Destination);
+        public void OnTurnFinished(object sender, MovingEventArgs e)
+        {
+            if (!mover.TryToMakeClosestMoveToTarget(e.Destination))
+                targetMovingTracker.TryToOverlookTarget();
+            else
+                targetMovingTracker.StopOverlookingTarget();
+        }
+        
         public void OnTargetDetected(object sender, MovingEventArgs e) => enemyMouth.StartSalivateMore();
         public void OnTargetOverlooked(object sender, MovingEventArgs e) => enemyMouth.FinishSalivateMore();
         #endregion

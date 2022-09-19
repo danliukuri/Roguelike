@@ -23,6 +23,7 @@ namespace Roguelike.Installers.Bootstrap
         #region Fields
         [SerializeField] int numberOfActionsToUseStamina;
         [SerializeField] int numberOfActionsForRestoringStamina;
+        [SerializeField] int requiredNumberOfTriesToOverlookTarget;
         #endregion
         
         #region Methods
@@ -69,6 +70,7 @@ namespace Roguelike.Installers.Bootstrap
             Container
                 .Bind<TargetMovingTracker>()
                 .AsTransient()
+                .WithArguments(requiredNumberOfTriesToOverlookTarget)
                 .WhenInjectedInto<EnemyEventSubscriber>();
         }
         void BindStaminaManager()

@@ -199,6 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberOfActionsToUseStamina: 10
   numberOfActionsForRestoringStamina: 7
+  requiredNumberOfTriesToOverlookTarget: 3
 --- !u!114 &3041856328205720832
 MonoBehaviour:
   m_ObjectHideFlags: 0
