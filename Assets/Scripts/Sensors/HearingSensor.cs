@@ -23,6 +23,8 @@ namespace Roguelike.Sensors
                 List<Vector3> pathToTarget = pathfindingMover.Pathfinder.FindPath(transform.position, targetPosition);
                 int soundDistanceToTarget = pathToTarget.Count - 1;
                 isTargetHeard = soundDistanceToTarget <= sensitivityRange;
+                if(!isTargetHeard)
+                    pathfindingMover.Pathfinder.ResetPath();
             }
             return isTargetHeard;
         }

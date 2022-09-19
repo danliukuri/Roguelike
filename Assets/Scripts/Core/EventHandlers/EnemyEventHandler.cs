@@ -43,8 +43,8 @@ namespace Roguelike.Core.EventHandlers
         public void OnPlayerActionCompleted(object sender, MovingEventArgs e)
         {
             if (sensors.Any(sensor => sensor.IsInSensitivityRange(e.Destination)))
-                targetMovingTracker.DetectTarget(e);
-
+                targetMovingTracker.DetectTarget(e.ShallowCopy());
+            
             if(targetMovingTracker.IsTargetDetected)
                 if (!targetMovingTracker.IsTargetOnPosition(mover.transform.position))
                 {
