@@ -99,10 +99,10 @@ namespace Roguelike.Core.Movers
         }
         MovingInfo[] GetGeneralMovingInfo() => generalMovingInfo ??= new[]
         {
-            new MovingInfo { ElementsByRoom = dungeonInfo.PlayersByRoom, Event = MovingToPlayer,
-                Args = new MovingEventArgs { IsMovePossible = canMoveToPlayers } },
             new MovingInfo { ElementsByRoom = dungeonInfo.EnemiesByRoom, Event = MovingToEnemy,
                 Args = new MovingEventArgs { IsMovePossible = canMoveToEnemies } },
+            new MovingInfo { ElementsByRoom = dungeonInfo.PlayersByRoom, Event = MovingToPlayer,
+                Args = new MovingEventArgs { IsMovePossible = canMoveToPlayers } },
             new MovingInfo { ElementsByRoom = dungeonInfo.KeysByRoom, Event = MovingToKey,
                 Args = new MovingEventArgs { IsMovePossible = canMoveToItems } },
             new MovingInfo { ElementsByRoom = dungeonInfo.DoorsByRoom, Event = MovingToDoor,
