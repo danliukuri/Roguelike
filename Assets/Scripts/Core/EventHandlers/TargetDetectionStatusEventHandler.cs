@@ -8,8 +8,8 @@ namespace Roguelike.Core.EventHandlers
     public class TargetDetectionStatusEventHandler
     {
         #region Fields
-        Animator animator;
-        SpriteRotator rotator;
+        readonly Animator animator;
+        readonly SpriteRotator rotator;
         #endregion
         
         #region Methods
@@ -24,6 +24,13 @@ namespace Roguelike.Core.EventHandlers
         public void OnParentTargetOverlooked(object sender, MovingEventArgs e) =>
             animator.SetBool(AnimatorParameter.IsDetected, false);
         
+        public void OnEnable(bool isParentLeftRotated)
+        {
+            if (isParentLeftRotated)
+                OnParentRotatedLeft();
+            else
+                OnParentRotatedRight();
+        }
         public void OnParentRotatedLeft() => rotator.RotateLeft();
         public void OnParentRotatedRight() => rotator.RotateRight();
         #endregion

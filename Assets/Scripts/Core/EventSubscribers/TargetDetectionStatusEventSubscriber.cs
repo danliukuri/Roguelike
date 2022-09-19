@@ -9,6 +9,7 @@ namespace Roguelike.Core.EventSubscribers
     public class TargetDetectionStatusEventSubscriber : MonoBehaviour
     {
         #region Fields
+        Transform parent;
         SpriteRotator parentRotator;
         TargetMovingTracker parentTargetMovingTracker;
         TargetDetectionStatusEventHandler eventHandler;
@@ -20,9 +21,11 @@ namespace Roguelike.Core.EventSubscribers
         
         void OnEnable()
         {
-            Transform parent = transform.parent;
-            SubscribeOnParentTargetDetectedAndOverlookedEvents(parent);
-            SubscribeOnParentRotatorEvents(parent);
+            parent = transform.parent;
+            SubscribeOnParentTargetDetectedAndOverlookedEvents();
+            SubscribeOnParentRotatorEvents();
+            if (parentRotator != default)
+                eventHandler.OnEnable(parentRotator.IsLeftRotated());
         }
         void OnDisable()
         {
@@ -30,7 +33,7 @@ namespace Roguelike.Core.EventSubscribers
             UnsubscribeFromParentRotatorEvents();
         }
         
-        void SubscribeOnParentTargetDetectedAndOverlookedEvents(Transform parent)
+        void SubscribeOnParentTargetDetectedAndOverlookedEvents()
         {
             if (parentTargetMovingTracker == default)
                 if (parent.TryGetComponent(out EnemyEventSubscriber enemyEventSubscriber))
@@ -41,7 +44,7 @@ namespace Roguelike.Core.EventSubscribers
                 parentTargetMovingTracker.TargetOverlooked += eventHandler.OnParentTargetOverlooked;
             }
         }
-        void SubscribeOnParentRotatorEvents(Transform parent)
+        void SubscribeOnParentRotatorEvents()
         {
             if (parentRotator != default || parent.TryGetComponent(out parentRotator))
             {
