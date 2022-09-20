@@ -26,21 +26,18 @@ namespace Roguelike.Core
             this.salivaFactory = salivaFactory;
             this.bigSalivaFactory = bigSalivaFactory;
         }
-        
         void Awake() => rotator = GetComponent<SpriteRotator>();
         void OnEnable() => InvokeRepeating(nameof(Salivate), Random.value, salivateRepeatRate);
-        void OnDisable() => CancelInvoke(nameof(Salivate));
+        void OnDisable()
+        {
+            FinishSalivate();
+            FinishSalivateMore();
+        }
         
-        public void StartSalivateMore()
-        {
-            CancelInvoke(nameof(Salivate));
-            InvokeRepeating(nameof(SalivateMore), Random.value, salivateMoreRepeatRate);
-        }
-        public void FinishSalivateMore()
-        {
-            CancelInvoke(nameof(SalivateMore));
-            InvokeRepeating(nameof(Salivate), Random.value, salivateRepeatRate);
-        }
+        public void StartSalivate() => InvokeRepeating(nameof(Salivate), Random.value, salivateRepeatRate);
+        public void StartSalivateMore() => InvokeRepeating(nameof(SalivateMore), Random.value, salivateMoreRepeatRate);
+        public void FinishSalivate() => CancelInvoke(nameof(Salivate));
+        public void FinishSalivateMore() => CancelInvoke(nameof(SalivateMore));
         
         public void Salivate() => Salivate(salivaFactory.GetGameObject());
         public void SalivateMore() => Salivate(bigSalivaFactory.GetGameObject());

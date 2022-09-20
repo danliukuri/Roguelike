@@ -63,8 +63,16 @@ namespace Roguelike.Core.EventHandlers
                 targetMovingTracker.StopOverlookingTarget();
         }
         
-        public void OnTargetDetected(object sender, MovingEventArgs e) => enemyMouth.StartSalivateMore();
-        public void OnTargetOverlooked(object sender, MovingEventArgs e) => enemyMouth.FinishSalivateMore();
+        public void OnTargetDetected(object sender, MovingEventArgs e)
+        {
+            enemyMouth.FinishSalivate();
+            enemyMouth.StartSalivateMore();
+        }
+        public void OnTargetOverlooked(object sender, MovingEventArgs e)
+        {
+            enemyMouth.FinishSalivateMore();
+            enemyMouth.StartSalivate();
+        }
         #endregion
     }
 }
