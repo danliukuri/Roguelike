@@ -15,14 +15,21 @@ namespace Roguelike.Installers.Bootstrap
         {
             BindMovementInputService();
         }
-
         void BindMovementInputService()
         {
+#if UNITY_ANDROID || UNITY_IOS
+            Container
+                .BindInterfacesTo<PhoneUserMovementInput>()
+                .FromNew()
+                .AsSingle()
+                .WithArguments(timeToHoldMoveKeyBeforeMoving);
+#elif UNITY_STANDALONE || UNITY_WEBGL
             Container
                 .BindInterfacesTo<StandaloneUserMovementInput>()
                 .FromNew()
                 .AsSingle()
                 .WithArguments(timeToHoldMoveKeyBeforeMoving);
+#endif
         }
         #endregion
     }
