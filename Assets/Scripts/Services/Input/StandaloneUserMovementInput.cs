@@ -11,52 +11,41 @@ namespace Roguelike.Services.Input
         #region Fields
         public event EventHandler<MovingEventArgs> Moving;
 
-        const string horizontalAxisName = "Horizontal";
-        const string verticalAxisName = "Vertical";
-        const int defaultAxisValue = 0;
+        const string HorizontalAxisName = "Horizontal",  VerticalAxisName = "Vertical";
+        const int DefaultAxisValue = default;
 
         float timeToHoldMoveKeyBeforeMoving;
-        float timeHeldMoveKey;
+        float moveKeyHoldTime;
         #endregion
 
         #region Methods
         [Inject]
-        public void Construct(float timeToHoldMoveKeyBeforeMoving)
-        {
+        public void Construct(float timeToHoldMoveKeyBeforeMoving) =>
             this.timeToHoldMoveKeyBeforeMoving = timeToHoldMoveKeyBeforeMoving;
-        }
 
-        public void Tick()
-        {
-            TrackMovementEvents();
-        }
-
+        public void Tick() => TrackMovementEvents();
         void TrackMovementEvents()
         {
-            timeHeldMoveKey += Time.deltaTime;
-            if (timeHeldMoveKey > timeToHoldMoveKeyBeforeMoving)
+            moveKeyHoldTime += Time.deltaTime;
+            if (moveKeyHoldTime > timeToHoldMoveKeyBeforeMoving)
             {
-                bool isHorizontalAxisButtonHeldDown = UnityEngine.Input.GetButton(horizontalAxisName);
-                bool isVerticalAxisButtonHeldDown = UnityEngine.Input.GetButton(verticalAxisName);
+                bool isHorizontalAxisButtonHeldDown = UnityEngine.Input.GetButton(HorizontalAxisName);
+                bool isVerticalAxisButtonHeldDown = UnityEngine.Input.GetButton(VerticalAxisName);
 
                 if (isHorizontalAxisButtonHeldDown && !isVerticalAxisButtonHeldDown)
-                {
-                    timeHeldMoveKey = 0f;
-                    InvokeMovementEvent(UnityEngine.Input.GetAxis(horizontalAxisName), Vector3.right, Vector3.left);
-                }
+                    InvokeMovementEvent(UnityEngine.Input.GetAxis(HorizontalAxisName), Vector3.right, Vector3.left);
                 else if (isVerticalAxisButtonHeldDown && !isHorizontalAxisButtonHeldDown)
-                {
-                    timeHeldMoveKey = 0f;
-                    InvokeMovementEvent(UnityEngine.Input.GetAxis(verticalAxisName), Vector3.up, Vector3.down);
-                }
+                    InvokeMovementEvent(UnityEngine.Input.GetAxis(VerticalAxisName), Vector3.up, Vector3.down);
             }
         }
         void InvokeMovementEvent(float axisValue, Vector3 positiveDirection, Vector3 negativeDirection)
         {
-            if (axisValue > defaultAxisValue)
+            if (axisValue > DefaultAxisValue)
                 Moving?.Invoke(this, new MovingEventArgs { Destination = positiveDirection });
-            else if (axisValue < defaultAxisValue)
+            else if (axisValue < DefaultAxisValue)
                 Moving?.Invoke(this, new MovingEventArgs { Destination = negativeDirection });
+            
+            moveKeyHoldTime = default;
         }
         #endregion
     }
