@@ -4,6 +4,7 @@ using System.Linq;
 using Roguelike.Utilities;
 using Roguelike.Utilities.Extensions;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Roguelike.Core.Entities
 {
@@ -32,7 +33,11 @@ namespace Roguelike.Core.Entities
         [SerializeField] Transform[] walls;
         [SerializeField] Transform[] players, enemies, items, doors, exits;
         [SerializeField] DirectionsArray<Transform[]> passages;
+        [Header("Passage opening settings:")]
+        [SerializeField, Min(default)] int minPassageWidth = DefaultMinPassageWidth;
+        [SerializeField] float chanceToOpenPassage = RandomExtensions.EqualProbability;
         
+        const int DefaultMinPassageWidth = 1;
         List<Transform> allWalls;
         Vector2 upperSizeBounds, lowerSizeBounds;
         #endregion
@@ -73,16 +78,24 @@ namespace Roguelike.Core.Entities
             passages.West = passages.West.Reverse().ToArray();
             passages.East = passages.East.Reverse().ToArray();
         }
-        void OpenRandomPassage(Transform[][] passagesMarkers)
+        void OpenPassage(IReadOnlyList<Transform> passagesMarkers, int passageIndex, int passageWidth)
         {
-            int wallNumber = passagesMarkers.First().RandomIndex();
-            List<Transform> wallsToOpen = new List<Transform>();
+            List<int> passagesToOpenIndexes = new List<int>();
+            (int Left, int Right) passageNeighborsIndexes = (passageIndex - 1, passageIndex + 1);
             
-            for (int i = 0; i < passagesMarkers.Length; i++)
-                wallsToOpen.Add(passagesMarkers[i][wallNumber]);
+            while (passagesToOpenIndexes.Count + 1 < passageWidth)
+            {
+                if (passageNeighborsIndexes.Left >= 0)
+                    passagesToOpenIndexes.Add(passageNeighborsIndexes.Left--);
+                else if(passageNeighborsIndexes.Right < passagesMarkers.Count)
+                    passagesToOpenIndexes.Add(passageNeighborsIndexes.Right++);
+            }
             
-            foreach (Transform wallMarker in wallsToOpen)
-                wallMarker.gameObject.SetActive(false);
+            if(passageWidth > 0)
+                passagesMarkers[passageIndex].gameObject.SetActive(false);
+            foreach (int passageMarkerIndex in passagesToOpenIndexes)
+                if(RandomExtensions.BoolValue(chanceToOpenPassage))
+                    passagesMarkers[passageMarkerIndex].gameObject.SetActive(false);
         }
         public bool TryToCreatePassageTo(Room room)
         {
@@ -96,7 +109,11 @@ namespace Roguelike.Core.Entities
                 {
                     Transform[] neighborPassage =
                         room.passages[passages.OppositeDirectionIndexTo(passageDirectionIndex)];
-                    OpenRandomPassage(new [] { passage, neighborPassage });
+                    
+                    int randomPassageIndex = passage.RandomIndex();
+                    OpenPassage(passage, randomPassageIndex, Random.Range(minPassageWidth, passage.Length));
+                    OpenPassage(neighborPassage, randomPassageIndex, Random.Range(minPassageWidth, passage.Length));
+                    
                     PassageOpened?.Invoke(passageDirectionIndex);
                     isPassageCreated = true;
                 }

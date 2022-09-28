@@ -693,6 +693,8 @@ MonoBehaviour:
     - {fileID: 1864817189531015191}
     - {fileID: 1864817190578643424}
     - {fileID: 1864817190881365741}
+  minPassageWidth: 1
+  chanceToOpenPassage: 0.5
 --- !u!114 &4055027661681006607
 MonoBehaviour:
   m_ObjectHideFlags: 0

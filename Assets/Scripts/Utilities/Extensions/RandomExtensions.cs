@@ -7,14 +7,14 @@ namespace Roguelike.Utilities.Extensions
     public static class RandomExtensions
     {
         #region Fields
-        const float equalProbability = 0.5f;
+        public const float EqualProbability = 0.5f;
         #endregion
         
         #region Methods
-        public static bool BoolValue(float trueValueProbability = equalProbability) =>
+        public static bool BoolValue(float trueValueProbability = EqualProbability) =>
             Random.value < trueValueProbability;
         public static void InvokeRandom(Action firstAction, Action secondAction,
-            float firstActionInvocationProbability = equalProbability)
+            float firstActionInvocationProbability = EqualProbability)
         {
             if(BoolValue(firstActionInvocationProbability)) 
                 firstAction?.Invoke();
@@ -23,7 +23,7 @@ namespace Roguelike.Utilities.Extensions
         }
         
         public static SpriteRotator RandomRotateRightOrLeft(this SpriteRotator rotator,
-            float leftRotationProbability = equalProbability)
+            float leftRotationProbability = EqualProbability)
         {
             InvokeRandom(rotator.RotateLeft, rotator.RotateRight, leftRotationProbability);
             return rotator;
