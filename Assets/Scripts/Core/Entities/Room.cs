@@ -31,11 +31,11 @@ namespace Roguelike.Core.Entities
         [SerializeField] int size;
         [Header("Markers:")]
         [SerializeField] Transform[] walls;
-        [SerializeField] Transform[] players, enemies, items, doors, exits;
+        [SerializeField] Transform[] optionalWalls, players, enemies, items, doors, exits;
         [SerializeField] DirectionsArray<Transform[]> passages;
         [Header("Passage opening settings:")]
         [SerializeField, Min(default)] int minPassageWidth = DefaultMinPassageWidth;
-        [SerializeField] float chanceToOpenPassage = RandomExtensions.EqualProbability;
+        [SerializeField] float probabilityToOpenPassage = RandomExtensions.EqualProbability;
         
         const int DefaultMinPassageWidth = 1;
         List<Transform> allWalls;
@@ -43,10 +43,11 @@ namespace Roguelike.Core.Entities
         #endregion
         
         #region Methods
-        private void Awake() => Initialize();
+        void Awake() => Initialize();
         void Initialize()
         {
             allWalls = new List<Transform>(walls);
+            allWalls.AddRange(optionalWalls);
             foreach (Transform[] passage in passages)
                 allWalls.AddRange(passage);
         }
@@ -94,7 +95,7 @@ namespace Roguelike.Core.Entities
             if(passageWidth > 0)
                 passagesMarkers[passageIndex].gameObject.SetActive(false);
             foreach (int passageMarkerIndex in passagesToOpenIndexes)
-                if(RandomExtensions.BoolValue(chanceToOpenPassage))
+                if(RandomExtensions.BoolValue(probabilityToOpenPassage))
                     passagesMarkers[passageMarkerIndex].gameObject.SetActive(false);
         }
         public bool TryToCreatePassageTo(Room room)
