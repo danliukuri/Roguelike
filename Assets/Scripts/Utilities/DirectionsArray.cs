@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Roguelike.Utilities.Extensions;
 using UnityEngine;
 
 namespace Roguelike.Utilities
 {
     [Serializable]
-    public class DirectionsArray<T> : IEnumerable
+    public class DirectionsArray<T> : IEnumerable<T>
     {
         #region Properties
         public T North { get => this[NorthDirectionIndex]; set => this[NorthDirectionIndex] = value; }
@@ -39,6 +41,7 @@ namespace Roguelike.Utilities
         public int OppositeDirectionIndexTo(int directionIndex) =>
             (directionIndex + NumberOfIterationsToOppositeDirection) % NumberOfDirections;
         
+        IEnumerator<T> IEnumerable<T>.GetEnumerator() => GetDirectionValues().AsEnumerable().GetEnumerator();
         public IEnumerator GetEnumerator() => GetDirectionValues().GetEnumerator();
         public void ChangeOrientationToEast() => GetDirectionValues().ShiftedRight();
         #endregion

@@ -34,7 +34,7 @@ namespace Roguelike
                     RequiredCount = levelSettings.NumberOfKeys },
                 new RoomElementMarkersInfo { GetActualCount = room => room.AllExitMarkers.Length,
                     RequiredCount = exitMarkersRequiredCount, RelatedRoomsMaxCount = exitRoomsMaxCount },
-                new RoomElementMarkersInfo { GetActualCount = room => room.AllWallsMarkers.Count }
+                new RoomElementMarkersInfo { GetActualCount = room => room.AllWallsMarkers.Length }
             };
         }
         #endregion

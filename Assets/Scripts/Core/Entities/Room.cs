@@ -16,7 +16,7 @@ namespace Roguelike.Core.Entities
         
         public int Size => size;
         
-        public List<Transform> AllWallsMarkers => allWalls;
+        public Transform[] AllWallsMarkers { get; private set; }
         public Transform[] AllPlayerMarkers => players;
         public Transform[] AllEnemyMarkers => enemies;
         public Transform[] AllItemMarkers => items;
@@ -38,22 +38,17 @@ namespace Roguelike.Core.Entities
         [SerializeField] float probabilityToOpenPassage = RandomExtensions.EqualProbability;
         
         const int DefaultMinPassageWidth = 1;
-        List<Transform> allWalls;
         Vector2 upperSizeBounds, lowerSizeBounds;
         #endregion
         
         #region Methods
         void Awake() => Initialize();
-        void Initialize()
-        {
-            allWalls = new List<Transform>(walls);
-            allWalls.AddRange(optionalWalls);
-            foreach (Transform[] passage in passages)
-                allWalls.AddRange(passage);
-        }
+        void Initialize() =>
+            AllWallsMarkers = walls.Union(optionalWalls).Union(passages.SelectMany(passages => passages)).ToArray();
+
         public void Reset()
         {
-            IEnumerable<GameObject> inactiveWallMarkers = allWalls
+            IEnumerable<GameObject> inactiveWallMarkers = AllWallsMarkers
                 .Select(wall => wall.gameObject)
                 .Where(wallGameObject => !wallGameObject.activeSelf);
             
