@@ -38,29 +38,52 @@ namespace Roguelike.Core.Entities
         [SerializeField] float probabilityToOpenPassage = RandomExtensions.EqualProbability;
         
         const int DefaultMinPassageWidth = 1;
+        Transform[] allMarkers;
+        Dictionary<Vector3, List<Transform>> allMarkersByPosition;
         Vector2 upperSizeBounds, lowerSizeBounds;
         #endregion
         
         #region Methods
         void Awake() => Initialize();
-        void Initialize() =>
+        void Initialize()
+        {
             AllWallsMarkers = walls.Union(optionalWalls).Union(passages.SelectMany(passages => passages)).ToArray();
-
+            allMarkers = AllWallsMarkers.Union(players).Union(enemies).Union(items).Union(doors).Union(exits).ToArray();
+        }
         public void Reset()
         {
-            IEnumerable<GameObject> inactiveWallMarkers = AllWallsMarkers
-                .Select(wall => wall.gameObject)
-                .Where(wallGameObject => !wallGameObject.activeSelf);
+            IEnumerable<GameObject> inactiveMarkers = allMarkers
+                .Select(marker => marker.gameObject)
+                .Where(markerGameObject => !markerGameObject.activeSelf);
             
-            foreach (GameObject inactiveWallMarker in inactiveWallMarkers)
-                inactiveWallMarker.SetActive(true);
+            foreach (GameObject inactiveMarker in inactiveMarkers)
+                inactiveMarker.SetActive(true);
         }
+        
         public void SetNewPositionAndSizeBounds(Vector3 newPosition)
         {
             Vector3 roomPosition = transform.position = newPosition;
             int halfSize = size / 2;
             upperSizeBounds = new Vector2(roomPosition.x + halfSize, roomPosition.y + halfSize);
             lowerSizeBounds = new Vector2(roomPosition.x - halfSize, roomPosition.y - halfSize);
+            
+            SetAllMarkersByPosition();
+        }
+        void SetAllMarkersByPosition()
+        {
+            allMarkersByPosition = new Dictionary<Vector3, List<Transform>>(size * size);
+            foreach (Transform marker in allMarkers)
+                if (allMarkersByPosition.ContainsKey(marker.position))
+                    allMarkersByPosition[marker.position].Add(marker);
+                else
+                    allMarkersByPosition.Add(marker.position, new List<Transform> { marker });
+        }
+        public void DeactivateEmptyMarkersOnPosition(Vector3 markerPosition)
+        {
+            if (allMarkersByPosition.ContainsKey(markerPosition))
+                foreach (Transform marker in allMarkersByPosition[markerPosition])
+                    if (marker.childCount == default)
+                        marker.gameObject.SetActive(false);
         }
         
         public void RotateToRight()
