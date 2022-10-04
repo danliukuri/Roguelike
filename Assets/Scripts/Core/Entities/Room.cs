@@ -15,6 +15,16 @@ namespace Roguelike.Core.Entities
             { North = Vector3.up, West = Vector3.left, South = Vector3.down, East = Vector3.right };
         
         public int Size => size;
+        public Vector3 Position
+        {
+            get => transform.position;
+            set
+            {
+                transform.position = value;
+                SetSizeBounds();
+                SetAllMarkersByPosition();
+            }
+        }
         
         public Transform[] AllWallsMarkers { get; private set; }
         public Transform[] AllPlayerMarkers => players;
@@ -49,6 +59,7 @@ namespace Roguelike.Core.Entities
         {
             AllWallsMarkers = walls.Union(optionalWalls).Union(passages.SelectMany(passages => passages)).ToArray();
             allMarkers = AllWallsMarkers.Union(players).Union(enemies).Union(items).Union(doors).Union(exits).ToArray();
+            allMarkersByPosition = new Dictionary<Vector3, List<Transform>>(size * size);
         }
         public void Reset()
         {
@@ -60,18 +71,17 @@ namespace Roguelike.Core.Entities
                 inactiveMarker.SetActive(true);
         }
         
-        public void SetNewPositionAndSizeBounds(Vector3 newPosition)
+        void SetSizeBounds()
         {
-            Vector3 roomPosition = transform.position = newPosition;
-            int halfSize = size / 2;
-            upperSizeBounds = new Vector2(roomPosition.x + halfSize, roomPosition.y + halfSize);
-            lowerSizeBounds = new Vector2(roomPosition.x - halfSize, roomPosition.y - halfSize);
-            
-            SetAllMarkersByPosition();
+            float halfSize = size / 2f;
+            upperSizeBounds.Set(Position.x + halfSize, Position.y + halfSize);
+            lowerSizeBounds.Set(Position.x - halfSize, Position.y - halfSize);
         }
         void SetAllMarkersByPosition()
         {
-            allMarkersByPosition = new Dictionary<Vector3, List<Transform>>(size * size);
+            if(allMarkersByPosition.Count > 0)
+                allMarkersByPosition.Clear();
+            
             foreach (Transform marker in allMarkers)
                 if (allMarkersByPosition.ContainsKey(marker.position))
                     allMarkersByPosition[marker.position].Add(marker);

@@ -15,7 +15,7 @@ namespace Roguelike.Placers
         readonly IRoomFactory[] roomsFactories;
         readonly Transform parent;
         #endregion
-
+        
         #region Methods
         public RoomsPlacer(IRoomFactory[] roomsFactories, Transform parent = default)
         {
@@ -28,11 +28,10 @@ namespace Roguelike.Placers
             List<Vector3> roomPositions = new List<Vector3>();
             List<Vector3> freePositions = new List<Vector3> { firstRoomPosition };
             List<Room> rooms = GetRooms(levelSettings);
-            foreach (var room in rooms)
+            foreach (Room room in rooms)
             {
                 room.transform.SetParent(parent, false);
-                Vector3 roomPosition = freePositions.Random();
-                room.SetNewPositionAndSizeBounds(roomPosition);
+                Vector3 roomPosition = room.Position = freePositions.Random();
                 
                 roomPositions.Add(roomPosition);
                 freePositions.Remove(roomPosition);
@@ -46,7 +45,7 @@ namespace Roguelike.Placers
             RoomElementMarkersInfo[] markersInfo = levelSettings.RoomElementMarkersInfo.ShallowCopy().ToArray();
             int maxNumberOfRooms = levelSettings.NumberOfRooms;
             List<Room> rooms = GetRoomsWithRequiredMarkers(markersInfo, maxNumberOfRooms);
-
+            
             IRoomFactory[] availableFactories = roomsFactories
                 .Where(factory => markersInfo
                     .Where(elementsCount => elementsCount.GetActualCount(factory.Sample) > 0)
@@ -60,17 +59,17 @@ namespace Roguelike.Placers
             rooms.Add(lastRoom);
             return rooms;
         }
-        List<Room> GetRoomsWithRequiredMarkers(RoomElementMarkersInfo[] markersInfo, int maxNumberOfRooms)
+        List<Room> GetRoomsWithRequiredMarkers(IReadOnlyList<RoomElementMarkersInfo> markersInfo, int maxNumberOfRooms)
         {
             List<Room> rooms = new List<Room>(maxNumberOfRooms);
-            for (int i = 0; i < markersInfo.Length; i++)
+            for (int i = 0; i < markersInfo.Count; i++)
                 while (markersInfo[i].RequiredCount > 0 &&
                        markersInfo[i].RelatedRoomsMaxCount > 0 && rooms.Count < maxNumberOfRooms)
                 {
                     IRoomFactory factory = roomsFactories
                         .Where(factory => markersInfo[i].GetActualCount(factory.Sample) > 0).ToArray().Random();
-
-                    for (int j = 0; j < markersInfo.Length; j++)
+                    
+                    for (int j = 0; j < markersInfo.Count; j++)
                     {
                         markersInfo[j].RequiredCount -= markersInfo[j].GetActualCount(factory.Sample);
                         markersInfo[j].RelatedRoomsMaxCount--;
