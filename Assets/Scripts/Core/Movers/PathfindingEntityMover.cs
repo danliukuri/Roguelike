@@ -19,7 +19,7 @@ namespace Roguelike.Core.Movers
         [SerializeField] bool canPavePathToItems;
         [SerializeField] bool canPavePathToExits;
         [SerializeField] bool canPavePathToDoors;
-        
+        [SerializeField] int maxPathLength;
         MovingInfo[] generalMovingInfoForPathfinding;
         #endregion
         
@@ -31,7 +31,7 @@ namespace Roguelike.Core.Movers
             generalMovingInfoForPathfinding = default;
             Pathfinder.ResetPath();
         }
-
+        
         public bool TryToMakeClosestMoveToTarget(Vector3 targetPosition)
         {
             bool isMoved = false;
@@ -40,11 +40,11 @@ namespace Roguelike.Core.Movers
             {
                 List<Vector3> pathToTarget = Pathfinder.FindPath(startPosition, targetPosition);
                 Pathfinder.ResetPath();
-                if (pathToTarget != default)
+                if (pathToTarget != default && pathToTarget.Count - 1 <= maxPathLength)
                 {
                     int nextPositionIndex = pathToTarget.Count - 2;
                     Vector3 destination = pathToTarget[nextPositionIndex];
-
+                    
                     Vector3 translation = destination - startPosition;
                     isMoved = TryToMove(translation);
                 }

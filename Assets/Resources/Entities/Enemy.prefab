@@ -117,6 +117,7 @@ MonoBehaviour:
   canPavePathToItems: 0
   canPavePathToExits: 0
   canPavePathToDoors: 0
+  maxPathLength: 10
 --- !u!114 &5443843966657915314
 MonoBehaviour:
   m_ObjectHideFlags: 0
