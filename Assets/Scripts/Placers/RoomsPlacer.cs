@@ -72,7 +72,8 @@ namespace Roguelike.Placers
                     for (int j = 0; j < markersInfo.Count; j++)
                     {
                         markersInfo[j].RequiredCount -= markersInfo[j].GetActualCount(factory.Sample);
-                        markersInfo[j].RelatedRoomsMaxCount--;
+                        if (markersInfo[j].RequiredCount == RoomElementMarkersInfo.MinElementMarkersCount)
+                            markersInfo[j].RelatedRoomsMaxCount--;
                     }
                     rooms.Add(factory.GetRoom());
                 }
