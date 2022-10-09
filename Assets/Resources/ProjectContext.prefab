@@ -43,13 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c662011b333382842a3f6030f8c47889, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomsFactories:
-  - {fileID: 8794798945090367266, guid: 3610028f228d6124c988c966b25ab82e, type: 3}
-  - {fileID: 9045221281702068705, guid: 54b2119f34f75cd49b5d19d399ebedea, type: 3}
-  - {fileID: 8164864650688719557, guid: 35e6a6221600f2e448396f599fea66ea, type: 3}
-  - {fileID: 896382859068493076, guid: dbacf043add7a934ca34ec7745bca6b9, type: 3}
-  - {fileID: 556046707720954112, guid: ea83cba8271d9514f942deb2defecced, type: 3}
-  - {fileID: 5272290228360097534, guid: 09abf784446c2dc49812163f3f8e19bf, type: 3}
+  roomsFactories: []
   wallFactory: {fileID: 7511223073496482629, guid: c99246cd6e5cb694b98e3d5e238a11b0, type: 3}
   playerFactory: {fileID: 2394766789636395569, guid: 386041e80252b1d47b3535c77aa4ec2c, type: 3}
   enemyFactory: {fileID: 6163535039006413694, guid: 0a023332253375d4fa25aefd1c3a6bf4, type: 3}
