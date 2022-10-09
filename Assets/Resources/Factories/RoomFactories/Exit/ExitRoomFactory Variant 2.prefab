@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &921120225390635812
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8857573537542714336, guid: 54b2119f34f75cd49b5d19d399ebedea, type: 3}
+      propertyPath: gameObjectPrefab
+      value: 
+      objectReference: {fileID: 307716508923136632, guid: 81cfeadcec7b92e43a24a65b8f84a2d6, type: 3}
+    - target: {fileID: 9045221281702068704, guid: 54b2119f34f75cd49b5d19d399ebedea, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9045221281702068704, guid: 54b2119f34f75cd49b5d19d399ebedea, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9045221281702068704, guid: 54b2119f34f75cd49b5d19d399ebedea, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9045221281702068704, guid: 54b2119f34f75cd49b5d19d399ebedea, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9045221281702068705, guid: 54b2119f34f75cd49b5d19d399ebedea, type: 3}
+      propertyPath: m_Name
+      value: LastRoomFactory Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 9045221281702068706, guid: 54b2119f34f75cd49b5d19d399ebedea, type: 3}
+      propertyPath: gameObjectPrefab
+      value: 
+      objectReference: {fileID: 1446689210931540114, guid: df21cb300ce8990489f6822e2194d30e, type: 3}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 54b2119f34f75cd49b5d19d399ebedea, type: 3}
