@@ -52,6 +52,11 @@ MonoBehaviour:
   - {fileID: 1616205158808748408, guid: bfc6edef46bcc42499e54021cbd66d4b, type: 3}
   - {fileID: 5836091859737259364, guid: 6adc7ade00d711540bcb912f971b672f, type: 3}
   - {fileID: 1397985751271734718, guid: 183dcddbe6c8afa40a813542357a6e43, type: 3}
+  - {fileID: 556046707720954112, guid: ea83cba8271d9514f942deb2defecced, type: 3}
+  - {fileID: 6559272621597444613, guid: fad988f3bdd67e14ebd5338eac6816f7, type: 3}
+  - {fileID: 833811689206728631, guid: f99e59f985daf924e8a93505c330caf4, type: 3}
+  - {fileID: 7353007889529704240, guid: 1ee8c52483ccbe7468803bb41a8ccd85, type: 3}
+  - {fileID: 8823809731347977855, guid: 2cf04fe483f7839408f728b6824621ba, type: 3}
   wallFactory: {fileID: 7511223073496482629, guid: c99246cd6e5cb694b98e3d5e238a11b0, type: 3}
   playerFactory: {fileID: 2394766789636395569, guid: 386041e80252b1d47b3535c77aa4ec2c, type: 3}
   enemyFactory: {fileID: 6163535039006413694, guid: 0a023332253375d4fa25aefd1c3a6bf4, type: 3}
