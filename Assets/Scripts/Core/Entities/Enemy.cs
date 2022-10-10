@@ -1,5 +1,5 @@
+using Roguelike.Core.Gameplay.Transformation.Moving;
 using Roguelike.Core.Information;
-using Roguelike.Core.Movers;
 using UnityEngine;
 using Zenject;
 
@@ -8,8 +8,8 @@ namespace Roguelike.Core.Entities
     public class Enemy : MonoBehaviour
     {
         #region Fields
-        private EnemiesInfo enemiesInfo;
-        private EntityMover mover;
+        EnemiesInfo enemiesInfo;
+        EntityMover mover;
         #endregion
         
         #region Methods

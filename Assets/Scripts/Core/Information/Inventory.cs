@@ -1,4 +1,5 @@
 using System;
+using Roguelike.Core.Characteristics;
 
 namespace Roguelike.Core.Information
 {
@@ -16,8 +17,11 @@ namespace Roguelike.Core.Information
         }
         #endregion
         
-        #region Fields
+        #region Events
         public event Action<int> NumberOfKeysChanged;
+        #endregion
+        
+        #region Fields
         int numberOfKeys;
         #endregion
         

@@ -1,4 +1,4 @@
-using Roguelike.Loaders;
+using Roguelike.Setup.Loading;
 using UnityEngine;
 
 namespace Roguelike.UI.Information

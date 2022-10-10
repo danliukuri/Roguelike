@@ -1,4 +1,5 @@
 using System;
+using Roguelike.Core.Characteristics;
 using UnityEngine;
 
 namespace Roguelike.Core.Information
@@ -22,9 +23,11 @@ namespace Roguelike.Core.Information
         public RoomElementMarkersInfo[] RoomElementMarkersInfo { get; set; }
         #endregion
         
-        #region Fields
+        #region Events
         public event Action<int> LevelNumberChanged;
+        #endregion
         
+        #region Fields
         [SerializeField] int numberOfRoomsAtFirstLevel;
         [SerializeField] int numberOfKeysAtFirstLevel;
         [SerializeField] int numberOfEnemiesAtFirstLevel;

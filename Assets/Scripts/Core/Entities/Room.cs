@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Roguelike.Utilities;
-using Roguelike.Utilities.Extensions;
+using Roguelike.Core.Characteristics;
+using Roguelike.Utilities.Extensions.Generic;
+using Roguelike.Utilities.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -34,10 +35,12 @@ namespace Roguelike.Core.Entities
         public Transform[] AllDoorMarkers => doors;
         #endregion
         
-        #region Fields
+        #region Events
         public event Action<int> PassageOpened;
         public event Action RotatedToRight;
+        #endregion
         
+        #region Fields
         [SerializeField] int size;
         [Header("Markers:")]
         [SerializeField] Transform[] walls;

@@ -8,8 +8,11 @@ namespace Roguelike.Core.Information
     {
         #region Properties
         public List<Transform>[] ElementsByRoom { get; set; }
-        public EventHandler<MovingEventArgs> Event { get; set; }
         public MovingEventArgs Args { get; set; }
+        #endregion
+        
+        #region Events
+        public EventHandler<MovingEventArgs> Event { get; set; }
         #endregion
     }
 }

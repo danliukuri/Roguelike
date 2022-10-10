@@ -1,3 +1,4 @@
+using Roguelike.Utilities.Extensions.Generic;
 using UnityEngine;
 using Zenject;
 

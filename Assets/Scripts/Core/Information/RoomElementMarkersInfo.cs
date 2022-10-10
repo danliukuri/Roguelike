@@ -1,6 +1,6 @@
 using System;
 using Roguelike.Core.Entities;
-using Roguelike.Utilities;
+using Roguelike.Utilities.Generic.Characteristics;
 
 namespace Roguelike.Core.Information
 {

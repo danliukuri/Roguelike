@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Roguelike.Utilities.Extensions.Generic;
 using Zenject;
 
 namespace Roguelike.Utilities.Extensions.Extenject

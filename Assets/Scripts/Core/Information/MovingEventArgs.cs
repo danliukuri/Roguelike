@@ -1,5 +1,5 @@
 using System;
-using Roguelike.Utilities;
+using Roguelike.Utilities.Generic.Characteristics;
 using UnityEngine;
 
 namespace Roguelike.Core.Information
@@ -14,8 +14,7 @@ namespace Roguelike.Core.Information
         #endregion
         
         #region Methods
-        public MovingEventArgs ShallowCopy() => new MovingEventArgs { Element = Element,
-            ElementRoomIndex = ElementRoomIndex, IsMovePossible = IsMovePossible, Destination = Destination };
+        public MovingEventArgs ShallowCopy() => (MovingEventArgs)MemberwiseClone();
         #endregion
     }
 }
