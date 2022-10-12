@@ -5,6 +5,7 @@ using Roguelike.Core.Information;
 using Roguelike.Core.Setup.Factories;
 using Roguelike.Core.Setup.Placing;
 using Roguelike.Utilities.Extensions.Generic;
+using Roguelike.Utilities.Generic.Information;
 using UnityEngine;
 
 namespace Roguelike.Setup.Placing
@@ -40,43 +41,44 @@ namespace Roguelike.Setup.Placing
             CreatePassagesBetweenRooms(rooms);
             return rooms;
         }
+        
         List<Room> GetRooms(LevelSettings levelSettings)
         {
             RoomElementMarkersInfo[] markersInfo = levelSettings.RoomElementMarkersInfo.ShallowCopy().ToArray();
-            int maxNumberOfRooms = levelSettings.NumberOfRooms;
-            List<Room> rooms = GetRoomsWithRequiredMarkers(markersInfo, maxNumberOfRooms);
+            Dictionary<OrdinalPosition, List<Room>> roomsByPlacingPosition = GetRequiredRooms(markersInfo);
             
             IRoomFactory[] availableFactories = roomsFactories
                 .Where(factory => markersInfo
-                    .Where(elementsCount => elementsCount.GetActualCount(factory.Sample) > 0)
-                    .All(elementsCount => elementsCount.RelatedRoomsMaxCount > 0))
+                    .Where(elementsCount =>
+                        elementsCount.GetActualCount(factory.Sample) > RoomElementMarkersInfo.MinElementMarkersCount)
+                    .All(elementsCount => 
+                        elementsCount.RelatedRoomsMaxCount > RoomElementMarkersInfo.MinRelatedRoomsCount))
                 .ToArray();
             
-            Room lastRoom = rooms.Last();
-            rooms.Remove(lastRoom);
-            while (rooms.Count + 1 < maxNumberOfRooms)
-                rooms.Add(availableFactories.Random().GetRoom());
-            rooms.Add(lastRoom);
-            return rooms;
+            int nonRequiredRoomsCount = levelSettings.NumberOfRooms - markersInfo.Length;
+            List<Room> nonRequiredRooms = new List<Room>(nonRequiredRoomsCount);
+            for (int i = 0; i < nonRequiredRoomsCount; i++)
+                nonRequiredRooms.Add(availableFactories.Random().GetRoom());
+            
+            roomsByPlacingPosition[OrdinalPosition.Any].AddRange(nonRequiredRooms);
+            return roomsByPlacingPosition.Values.SelectMany(rooms => rooms).ToList();
         }
-        List<Room> GetRoomsWithRequiredMarkers(IReadOnlyList<RoomElementMarkersInfo> markersInfo, int maxNumberOfRooms)
+        Dictionary<OrdinalPosition, List<Room>> GetRequiredRooms(IEnumerable<RoomElementMarkersInfo> markersInfo)
         {
-            List<Room> rooms = new List<Room>(maxNumberOfRooms);
-            for (int i = 0; i < markersInfo.Count; i++)
-                while (markersInfo[i].RequiredCount > 0 &&
-                       markersInfo[i].RelatedRoomsMaxCount > 0 && rooms.Count < maxNumberOfRooms)
+            Dictionary<OrdinalPosition, List<Room>> rooms = new Dictionary<OrdinalPosition, List<Room>>();
+            foreach (RoomElementMarkersInfo currentMarkersInfo in markersInfo)
+            {
+                IRoomFactory factory = roomsFactories.Where(factory =>
+                        currentMarkersInfo.GetActualCount(factory.Sample) >= currentMarkersInfo.RequiredCount)
+                    .ToArray().Random();
+                
+                currentMarkersInfo.RequiredCount -= currentMarkersInfo.GetActualCount(factory.Sample);
+                if (currentMarkersInfo.RequiredCount == RoomElementMarkersInfo.MinElementMarkersCount)
                 {
-                    IRoomFactory factory = roomsFactories
-                        .Where(factory => markersInfo[i].GetActualCount(factory.Sample) > 0).ToArray().Random();
-                    
-                    for (int j = 0; j < markersInfo.Count; j++)
-                    {
-                        markersInfo[j].RequiredCount -= markersInfo[j].GetActualCount(factory.Sample);
-                        if (markersInfo[j].RequiredCount == RoomElementMarkersInfo.MinElementMarkersCount)
-                            markersInfo[j].RelatedRoomsMaxCount--;
-                    }
-                    rooms.Add(factory.GetRoom());
+                    rooms.AddEvenIfEmpty(currentMarkersInfo.RelatedRoomsPlacingOrderNumber, factory.GetRoom());
+                    currentMarkersInfo.RelatedRoomsMaxCount--;
                 }
+            }
             return rooms;
         }
         

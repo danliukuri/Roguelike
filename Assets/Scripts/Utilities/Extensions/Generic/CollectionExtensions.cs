@@ -85,6 +85,36 @@ namespace Roguelike.Utilities.Extensions.Generic
             source[firstSourceItemIndex] = lastItem;
             return source;
         }
+        
+        /// <summary>
+        /// Adds the specified key to the dictionary.
+        /// Adds the value to the value list or creates a new list then does.
+        /// </summary>
+        /// <param name="source">A dictionary of items.</param>
+        /// <param name="key">The key of the element to add.</param>
+        /// <param name="value">The value of the element to add into value list.
+        /// The value can be <see langword="null" /> for reference types.</param>
+        /// <typeparam name="TKey"> The type of items of the sequence.</typeparam>
+        /// <typeparam name="TValue">The type of items of the value list.</typeparam>
+        /// <returns>The source dictionary of items with new key and value accordingly.</returns>
+        /// <exception cref="T:System.ArgumentNullException">
+        /// <paramref name="key" /> is <see langword="null" />.
+        /// </exception>
+        /// <exception cref="T:System.ArgumentException">
+        /// An element with the same key already exists in the <see cref="T:System.Collections.Generic.Dictionary`2" />.
+        /// </exception>
+        public static IDictionary<TKey, List<TValue>> AddEvenIfEmpty<TKey, TValue>(
+            this IDictionary<TKey, List<TValue>> source, TKey key, TValue value)
+        {
+            source.CheckForNullException(nameof(source));
+            
+            if (source.ContainsKey(key))
+                source[key].Add(value);
+            else
+                source.Add(key, new List<TValue> { value });
+            
+            return source;
+        }
         #endregion
     }
 }

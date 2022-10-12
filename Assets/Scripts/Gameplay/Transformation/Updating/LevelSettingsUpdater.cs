@@ -1,4 +1,5 @@
 using Roguelike.Core.Information;
+using Roguelike.Utilities.Generic.Information;
 
 namespace Roguelike.Gameplay.Transformation.Updating
 {
@@ -25,13 +26,15 @@ namespace Roguelike.Gameplay.Transformation.Updating
             levelSettings.RoomElementMarkersInfo = new[]
             {
                 new RoomElementMarkersInfo { GetActualCount = room => room.AllPlayerMarkers.Length,
-                    RequiredCount = playerMarkersRequiredCount, RelatedRoomsMaxCount = playerRoomsMaxCount },
+                    RequiredCount = playerMarkersRequiredCount, RelatedRoomsMaxCount = playerRoomsMaxCount,
+                    RelatedRoomsPlacingOrderNumber = OrdinalPosition.First },
                 new RoomElementMarkersInfo { GetActualCount = room => room.AllItemMarkers.Length,
                     RequiredCount = levelSettings.NumberOfKeys},
                 new RoomElementMarkersInfo { GetActualCount = room => room.AllEnemyMarkers.Length,
                     RequiredCount = levelSettings.NumberOfEnemies},
                 new RoomElementMarkersInfo { GetActualCount = room => room.AllExitMarkers.Length,
-                    RequiredCount = exitMarkersRequiredCount, RelatedRoomsMaxCount = exitRoomsMaxCount }
+                    RequiredCount = exitMarkersRequiredCount, RelatedRoomsMaxCount = exitRoomsMaxCount,
+                    RelatedRoomsPlacingOrderNumber = OrdinalPosition.Last }
             };
         }
         #endregion

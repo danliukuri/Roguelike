@@ -1,6 +1,7 @@
 using System;
 using Roguelike.Core.Entities;
 using Roguelike.Utilities.Generic.Characteristics;
+using Roguelike.Utilities.Generic.Information;
 
 namespace Roguelike.Core.Information
 {
@@ -18,6 +19,7 @@ namespace Roguelike.Core.Information
             get => relatedRoomsMaxCount;
             set => relatedRoomsMaxCount = value > MinRelatedRoomsCount ? value : MinRelatedRoomsCount;
         }
+        public OrdinalPosition RelatedRoomsPlacingOrderNumber { get; set; } = OrdinalPosition.Any;
         #endregion
         
         #region Fields
