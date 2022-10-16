@@ -2119,7 +2119,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 0.96
 --- !u!222 &371877961
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3248,8 +3248,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AssetsPPU: 96
-  m_RefResolutionX: 1920
-  m_RefResolutionY: 1080
+  m_RefResolutionX: 544
+  m_RefResolutionY: 544
   m_UpscaleRT: 1
   m_PixelSnapping: 1
   m_CropFrameX: 0
@@ -5281,7 +5281,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 0.96
 --- !u!222 &1285892785
 CanvasRenderer:
   m_ObjectHideFlags: 0
