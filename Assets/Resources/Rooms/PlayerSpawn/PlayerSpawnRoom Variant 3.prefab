@@ -921,7 +921,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4611513419067714587, guid: b8b746bffcd1c234392080e90e72bcf2, type: 3}
       propertyPath: m_Name
-      value: PlayerSpawnRoom Variant 1
+      value: PlayerSpawnRoom Variant 3
       objectReference: {fileID: 0}
     - target: {fileID: 5033971390614902299, guid: b8b746bffcd1c234392080e90e72bcf2, type: 3}
       propertyPath: m_LocalPosition.x
